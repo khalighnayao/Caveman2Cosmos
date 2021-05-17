@@ -25,18 +25,24 @@
     <Filter Include="Header Files\InfoClasses">
       <UniqueIdentifier>{176d085c-21c8-4b21-bae7-70b8815878b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\SupportModules">
+    <Filter Include="Header Files\AIModules">
+      <UniqueIdentifier>{ef8aee7b-1fc1-45c2-83a6-40d5de25929f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AIModules">
       <UniqueIdentifier>{f78cd592-6e51-4d6d-b7c2-9ec217001b35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SupportModules">
-      <UniqueIdentifier>{ef8aee7b-1fc1-45c2-83a6-40d5de25929f}</UniqueIdentifier>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{4a8fe8df-f2d5-4a67-a178-8158b3f2447c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Python">
+      <UniqueIdentifier>{18ff550b-e734-4394-8c33-0b06ce431af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{85d68fae-e7e5-41c3-8cc3-5f330c1c63b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_precompile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BetterBTSAI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BoolExpr.cpp">
@@ -90,9 +96,6 @@
     <ClCompile Include="CvDLLEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CvDLLPython.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CvDllPythonEvents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -100,9 +103,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CvDLLWidgetData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wchar_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CvEventReporter.cpp">
@@ -247,9 +247,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CvUnit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CvUnitAI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CvUnitFilters.cpp">
@@ -459,13 +456,7 @@
     <ClCompile Include="Win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CvPython.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="StackWalker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SCvDebug.cpp">
@@ -489,11 +480,32 @@
     <ClCompile Include="CvBuildingInfo.cpp">
       <Filter>Source Files\InfoClasses</Filter>
     </ClCompile>
+    <ClCompile Include="WorkerAI.cpp">
+      <Filter>Source Files\AIModules</Filter>
+    </ClCompile>
+    <ClCompile Include="BetterBTSAI.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CvDLLPython.cpp">
+      <Filter>Source Files\Python</Filter>
+    </ClCompile>
+    <ClCompile Include="CvPython.cpp">
+      <Filter>Source Files\Python</Filter>
+    </ClCompile>
+    <ClCompile Include="CvUnitAI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logging.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="wchar_utils.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CvStackAI.cpp">
+      <Filter>Source Files\AIModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BetterBTSAI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CvMapExternal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -955,6 +967,15 @@
     </ClInclude>
     <ClInclude Include="CvBuildingInfo.h">
       <Filter>Header Files\InfoClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkerAI.h">
+      <Filter>Header Files\AIModules</Filter>
+    </ClInclude>
+    <ClInclude Include="BetterBTSAI.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CvStackAI.h">
+      <Filter>Header Files\AIModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
