@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Assert|Win32">
@@ -194,11 +194,13 @@
     <ClCompile Include="CvAllocator.h" />
     <ClCompile Include="CvPlotPaging.cpp" />
     <ClCompile Include="CvPython.cpp" />
+    <ClCompile Include="CvStackAI.cpp" />
     <ClCompile Include="CyPlayerInterface3.cpp" />
     <ClCompile Include="CvImprovementInfo.cpp" />
     <ClCompile Include="logging.cpp" />
     <ClCompile Include="Win32.cpp" />
     <ClCompile Include="StackWalker.cpp" />
+    <ClCompile Include="WorkerAI.cpp" />
     <ClCompile Include="_precompile.cpp" />
     <ClCompile Include="BetterBTSAI.cpp" />
     <ClCompile Include="BoolExpr.cpp" />
@@ -348,6 +350,7 @@
     <ClInclude Include="copy_iterator.h" />
     <ClInclude Include="CvPlotPaging.h" />
     <ClInclude Include="CvPython.h" />
+    <ClInclude Include="CvStackAI.h" />
     <ClInclude Include="EnumFlags.h" />
     <ClInclude Include="flatten_range.h" />
     <ClInclude Include="GlobalDefines.h" />
@@ -498,6 +501,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Win32.h" />
+    <ClInclude Include="WorkerAI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

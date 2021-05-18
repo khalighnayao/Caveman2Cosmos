@@ -22338,7 +22338,7 @@ bool CvUnitAI::AI_fortTerritory(bool bCanal, bool bAirbase)
 	{
 		CvPlot* pLoopPlot = itr.plot();
 
-		if (/*AI_plotValid(pLoopPlot) &&*/ pLoopPlot->area() == area()
+		if (pLoopPlot->area() == area()
 		&& (pLoopPlot->getOwner() == ePlayer || pLoopPlot->getOwner() == NO_PLAYER && pLoopPlot->isRevealed(getTeam(), false))
 		&& (pLoopPlot->getImprovementType() == NO_IMPROVEMENT || !pLoopPlot->isCityRadius()))
 		{
