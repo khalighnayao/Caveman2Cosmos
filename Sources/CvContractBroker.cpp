@@ -2,6 +2,7 @@
 
 #include "CvGameCoreDLL.h"
 #include "CvCity.h"
+#include "CvGameAI.h"
 #include "CvGlobals.h"
 #include "CvMap.h"
 #include "CvPathGenerator.h"
@@ -338,7 +339,7 @@ void CvContractBroker::finalizeTenderContracts()
 								tenderAllocations[iTenderAllocationKey] = 0;
 							}
 
-							FASSERT_NOT_NEGATIVE(iTendersAlreadyInProcess)
+							FASSERT_NOT_NEGATIVE(iTendersAlreadyInProcess);
 
 							if ( iTendersAlreadyInProcess <= 0 )
 							{

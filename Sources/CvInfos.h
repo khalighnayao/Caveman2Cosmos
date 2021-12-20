@@ -1063,6 +1063,10 @@ public:
 	bool isQualifiedUnitCombatType(int i) const;
 	void setQualifiedUnitCombatTypes();
 
+	int getDisqualifiedUnitCombatType(int i) const;
+	int getNumDisqualifiedUnitCombatTypes() const;
+	void setDisqualifiedUnitCombatTypes();
+
 	bool hasNegativeEffects() const;
 
 protected:
@@ -1405,6 +1409,7 @@ protected:
 
 	//Pediahelp
 	std::vector<int> m_aiQualifiedUnitCombatTypes;
+	std::vector<int> m_disqualifiedUnitCombatTypes;
 
 };
 
@@ -2106,9 +2111,8 @@ public:
 	int getSMVolumetricRankTotal() const;
 
 	void setSM();
-	int getQualifiedPromotionType(int i) const;
-	int getNumQualifiedPromotionTypes() const;
 	bool isQualifiedPromotionType(int i) const;
+	bool setQualifiedPromotionType(const int iPromo, std::vector<int>& checklist);
 	void setQualifiedPromotionTypes();
 	void setCanAnimalIgnores();
 
@@ -8373,7 +8377,6 @@ public:
 	// bool vectors without delayed resolution
 	int getUnitCombatPrereqType(int i) const;
 	int getNumUnitCombatPrereqTypes() const;
-	bool isUnitCombatPrereqType(int i) const;
 
 	int getNotOnUnitCombatType(int i) const;
 	int getNumNotOnUnitCombatTypes() const;
@@ -9193,13 +9196,17 @@ public:
 	void copyNonDefaults(const CvInvisibleInfo* pClassInfo);
 	void getCheckSum(uint32_t& iSum) const;
 
-	int getChar() const;
 	void setChar(int i);
-	int getFontButtonIndex() const;
+	int getChar() const { return m_iChar; }
 
-protected:
+	int getFontButtonIndex() const { return m_iFontButtonIndex; }
+
+	bool isIntrinsic() const { return m_bIntrinsic; }
+
+private:
 	int m_iChar;
 	int m_iFontButtonIndex;
+	bool m_bIntrinsic;
 };
 
 class CvUnitAIInfo : public CvInfoBase { };

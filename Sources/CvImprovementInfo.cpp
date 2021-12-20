@@ -446,8 +446,8 @@ int CvImprovementInfo::getImprovementBonusDepletionRand(int i) const
 
 //int CvImprovementInfo::getTraitYieldChanges(int i, int j) const
 //{
-//	FASSERT_BOUNDS(0, GC.getNumTraitInfos(), i)
-//	FASSERT_BOUNDS(0, NUM_YIELD_TYPES, j)
+//	FASSERT_BOUNDS(0, GC.getNumTraitInfos(), i);
+//	FASSERT_BOUNDS(0, NUM_YIELD_TYPES, j);
 //	return (m_ppiTraitYieldChanges && m_ppiTraitYieldChanges[i]) ? m_ppiTraitYieldChanges[i][j] : 0;
 //}
 
@@ -493,7 +493,7 @@ int CvImprovementInfo::getNumAlternativeImprovementUpgradeTypes() const
 
 bool CvImprovementInfo::isAlternativeImprovementUpgradeType(int i) const
 {
-	return algo::contains(m_aiAlternativeImprovementUpgradeTypes, i);
+	return algo::any_of_equal(m_aiAlternativeImprovementUpgradeTypes, i);
 }
 
 int CvImprovementInfo::getFeatureChangeType(int i) const
@@ -508,7 +508,7 @@ int CvImprovementInfo::getNumFeatureChangeTypes() const
 
 bool CvImprovementInfo::isFeatureChangeType(int i) const
 {
-	return algo::contains(m_aiFeatureChangeTypes, i);
+	return algo::any_of_equal(m_aiFeatureChangeTypes, i);
 }
 
 //Post Load functions
