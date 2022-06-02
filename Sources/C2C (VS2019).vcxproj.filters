@@ -288,6 +288,9 @@
     <ClCompile Include="CvUnitList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CvUnitSelectionCriteria.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="CvUnitSort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -533,6 +536,12 @@
     </ClCompile>
     <ClCompile Include="CvSettlerAI.cpp">
       <Filter>Source Files\AI_Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CvWorkerService.cpp">
+      <Filter>Source Files\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="CvBonusInfo.cpp">
+      <Filter>Source Files\InfoClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -998,6 +1007,9 @@
     <ClInclude Include="idinfo_iterator_base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enum_iterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GlobalDefines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1030,6 +1042,15 @@
     </ClInclude>
     <ClInclude Include="GroupingParams.h">
       <Filter>Header Files\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="CvUnitSelectionCriteria.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CvWorkerService.h">
+      <Filter>Header Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="CvBonusInfo.h">
+      <Filter>Header Files\InfoClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_EPIC</SubCombatType>
 				<SubCombatType>UNITCOMBAT_GROUP_SQUAD</SubCombatType>
@@ -78,6 +79,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_MEDIOCRE</SubCombatType>
@@ -144,6 +146,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_MEDIOCRE</SubCombatType>
@@ -217,6 +220,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_MEDIOCRE</SubCombatType>
@@ -292,6 +296,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_POOR</SubCombatType>
@@ -367,6 +372,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_PILOTING</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_POOR</SubCombatType>
@@ -1792,6 +1798,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_SPY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -1858,6 +1865,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_SPY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_EXCEPTIONAL</SubCombatType>
@@ -1928,6 +1936,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_SPY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2010,6 +2019,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_SPY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2109,6 +2119,7 @@
 			<Type>UNIT_NANITE_SPY</Type>
 			<Combat>UNITCOMBAT_SPY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_NANITE</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SWARM</SubCombatType>
@@ -2267,6 +2278,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2280,6 +2292,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_1</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2317,6 +2335,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2330,6 +2349,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_2</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2367,6 +2392,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2380,6 +2406,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_3</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2417,6 +2449,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2430,6 +2463,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_4</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2467,6 +2506,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2480,6 +2520,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_5</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2517,6 +2563,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2530,6 +2577,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_6</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2567,6 +2620,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2580,6 +2634,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_7</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2617,6 +2677,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2630,6 +2691,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_ADVENTURE</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2667,6 +2734,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2680,6 +2748,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_BULLSEYE</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2717,6 +2791,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2730,6 +2805,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_BURGERWORLD</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2767,6 +2848,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2780,6 +2862,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_EMPCLOTH</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2817,6 +2905,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2830,6 +2919,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_EWTRADE</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2867,6 +2962,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2880,6 +2976,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_FASHION</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2917,6 +3019,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2930,6 +3033,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_MALLWART</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -2967,6 +3076,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -2980,6 +3090,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_MAPSTER</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3017,6 +3133,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3030,6 +3147,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_MCDOWELLS</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3067,6 +3190,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3080,6 +3204,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_MILEHIGH</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3117,6 +3247,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3130,6 +3261,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_MOBBY</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3167,6 +3304,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3180,6 +3318,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_MOONBEAN_EXECUTIVE</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3217,6 +3361,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3230,6 +3375,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_RED</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3267,6 +3418,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3280,6 +3432,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_SAFARI</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3317,6 +3475,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3330,6 +3489,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_ULTSOLDIER</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3367,6 +3532,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_EXECUTIVE</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3380,6 +3546,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EXECUTIVE_WONKA</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_CORPORATIONS_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_ECONOMY</Advisor>
@@ -3417,6 +3589,7 @@
 			<Capture>UNIT_JEWISH_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3430,6 +3603,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_JEWISH_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_JEWISH_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3466,6 +3645,7 @@
 			<Capture>UNIT_CHRISTIAN_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3479,6 +3659,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_CHRISTIAN_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_CHRISTIAN_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3515,6 +3701,7 @@
 			<Capture>UNIT_ISLAMIC_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3528,6 +3715,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_ISLAMIC_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_ISLAMIC_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3564,6 +3757,7 @@
 			<Capture>UNIT_HINDU_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3577,6 +3771,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_HINDU_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_HINDU_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3613,6 +3813,7 @@
 			<Capture>UNIT_BUDDHIST_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3626,6 +3827,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_BUDDHIST_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_BUDDHIST_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3662,6 +3869,7 @@
 			<Capture>UNIT_CONFUCIAN_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3675,6 +3883,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_CONFUCIAN_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_CONFUCIAN_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3711,6 +3925,7 @@
 			<Capture>UNIT_TAOIST_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3724,6 +3939,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_TAOIST_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_RELIGION_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3760,6 +3981,7 @@
 			<Capture>UNIT_HELLENIC_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3773,6 +3995,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_HELLENIC_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_HELLENIC_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3809,6 +4037,7 @@
 			<Capture>UNIT_ZOROASTRIAN_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3822,6 +4051,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_ZOROASTRIAN_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_RELIGION_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3873,6 +4108,7 @@
 			<Capture>UNIT_EGYPT_MYTH_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3886,6 +4122,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_EGYPT_MYTH_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_RELIGION_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3922,6 +4164,7 @@
 			<Capture>UNIT_NAGUALISM_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3935,6 +4178,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_NAGUALISM_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_RELIGION_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -3971,6 +4220,7 @@
 			<Capture>UNIT_ANDEAN_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -3984,6 +4234,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_ANDEAN_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_ANDEAN_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4020,6 +4276,7 @@
 			<Capture>UNIT_DRUID_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4033,6 +4290,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_DRUID_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_DRUID_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4069,6 +4332,7 @@
 			<Capture>UNIT_TENGRI_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4082,6 +4346,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_TENGRI_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_TENGRI_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4118,6 +4388,7 @@
 			<Capture>UNIT_VOODOO_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4131,6 +4402,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_VOODOO_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_VOODOO_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4168,6 +4445,7 @@
 			<Capture>UNIT_YORUBA_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4181,6 +4459,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_YORUBA_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_TECH_YORUBA_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4217,6 +4501,7 @@
 			<Capture>UNIT_NGAI_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4230,6 +4515,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_NGAI_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_NGAI_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4266,6 +4557,7 @@
 			<Capture>UNIT_RODNOVERY_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4279,6 +4571,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_RODNOVERY_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_TECH_RODNOVERA_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4315,6 +4613,7 @@
 			<Capture>UNIT_SCIENTOLOGY_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4328,6 +4627,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_SCIENTOLOGY_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_TECH_SCIENTOLOGY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4364,6 +4669,7 @@
 			<Capture>UNIT_SHAMAN_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4377,6 +4683,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_SHAMAN_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_SHAMAN_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4413,6 +4725,7 @@
 			<Capture>UNIT_SHINTO_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4426,6 +4739,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_SHINTO_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_SHINTO_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4462,6 +4781,7 @@
 			<Capture>UNIT_SIKH_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4475,6 +4795,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_SIKH_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_SIKH_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4510,6 +4836,7 @@
 			<Capture>UNIT_JAINISM_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4523,6 +4850,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_JAINISM_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_TECH_JAINISM_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4559,6 +4892,7 @@
 			<Capture>UNIT_MESO_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4572,6 +4906,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_MESO_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_MESO_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4608,6 +4948,7 @@
 			<Capture>UNIT_MORMON_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4621,6 +4962,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_MORMON_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_TECH_MORMON_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4658,6 +5005,7 @@
 			<Capture>UNIT_ASATRU_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4671,6 +5019,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_ASATRU_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_ASATRU_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4707,6 +5061,7 @@
 			<Capture>UNIT_BAHAI_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4720,6 +5075,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_BAHAI_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_TECH_BAHAI_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4753,6 +5114,7 @@
 			<Capture>UNIT_CANAANITE_MISSIONARY</Capture>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4766,6 +5128,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_CANAANITE_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_CANAANITE_MISSIONARY_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -4812,6 +5180,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -4825,6 +5194,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_MISSIONARY</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_CAODAI_MISSIONARY</Description>
 			<Civilopedia>TXT_KEY_CONCEPT_RELIGION_PEDIA</Civilopedia>
 			<Advisor>ADVISOR_RELIGION</Advisor>
@@ -5091,6 +5466,7 @@
 			<Combat>UNITCOMBAT_MISSIONARY</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_LAW_ENFORCEMENT</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -5111,10 +5487,20 @@
 			<bInquisitor>1</bInquisitor>
 			<UnitAIs>
 				<UnitAI>
+					<UnitAIType>UNITAI_MERCHANT</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+				<UnitAI>
 					<UnitAIType>UNITAI_MISSIONARY</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<bStateReligion>1</bStateReligion>
 			<PrereqGameOption>GAMEOPTION_INQUISITIONS</PrereqGameOption>
 			<PrereqOrCivics>
@@ -8176,6 +8562,10 @@
 			</UnitUpgrades>
 			<UnitAIs>
 				<UnitAI>
+					<UnitAIType>UNITAI_CITY_DEFENSE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+				<UnitAI>
 					<UnitAIType>UNITAI_ATTACK_CITY</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
@@ -8377,6 +8767,10 @@
 			<DefaultUnitAI>UNITAI_COUNTER</DefaultUnitAI>
 			<UnitAIs>
 				<UnitAI>
+					<UnitAIType>UNITAI_COUNTER</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+				<UnitAI>
 					<UnitAIType>UNITAI_RESERVE</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
@@ -8507,6 +8901,10 @@
 				<UnitType>UNIT_MUSKETMAN</UnitType>
 			</UnitUpgrades>
 			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_ATTACK_CITY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
 				<UnitAI>
 					<UnitAIType>UNITAI_ATTACK</UnitAIType>
 					<bUnitAI>1</bUnitAI>
@@ -21183,6 +21581,10 @@
 			</UnitUpgrades>
 			<UnitAIs>
 				<UnitAI>
+					<UnitAIType>UNITAI_ATTACK_CITY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+				<UnitAI>
 					<UnitAIType>UNITAI_ATTACK</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
@@ -21288,6 +21690,10 @@
 				<UnitType>UNIT_ANCIENT_HAND_CANNON</UnitType>
 			</UnitUpgrades>
 			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_ATTACK_CITY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
 				<UnitAI>
 					<UnitAIType>UNITAI_ATTACK</UnitAIType>
 					<bUnitAI>1</bUnitAI>
@@ -27974,6 +28380,7 @@
 				<SubCombatType>UNITCOMBAT_GROUP_SOLO</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SIZE_MEDIUM</SubCombatType>
 				<SubCombatType>UNITCOMBAT_HEALS_AS_PEOPLE</SubCombatType>
+				<SubCombatType>UNITCOMBAT_EXILE</SubCombatType>
 			</SubCombatTypes>
 			<Domain>DOMAIN_LAND</Domain>
 			<MapCategoryTypes>
@@ -28027,20 +28434,17 @@
 			</InvisibilityIntensityTypes>
 			<bNoCapture>1</bNoCapture>
 			<bMilitaryProduction>1</bMilitaryProduction>
+			<bHiddenNationality>1</bHiddenNationality>
 			<bPillage>1</bPillage>
 			<bDestroy>1</bDestroy>
 			<bStealPlans>1</bStealPlans>
 			<bCounterSpy>1</bCounterSpy>
 			<bNoDefensiveBonus>1</bNoDefensiveBonus>
 			<bIgnoreTerrainCost>1</bIgnoreTerrainCost>
-			<bExcile>1</bExcile>
+			<bBlendIntoCity>1</bBlendIntoCity>
 			<iXPValueAttack>8</iXPValueAttack>
 			<iXPValueDefense>4</iXPValueDefense>
-			<bHiddenNationality>1</bHiddenNationality>
 			<bAlwaysHostile>1</bAlwaysHostile>
-			<bIgnoreZoneofControl>1</bIgnoreZoneofControl>
-			<bBlendIntoCity>1</bBlendIntoCity>
-			<bBarbCoExist>1</bBarbCoExist>
 			<UnitCombatTargets>
 				<UnitCombatTarget>
 					<UnitCombatTargetType>UNITCOMBAT_TRADE</UnitCombatTargetType>
@@ -28055,7 +28459,6 @@
 			<iBaseUpkeep>1</iBaseUpkeep>
 			<iMoves>1</iMoves>
 			<iCombat>2</iCombat>
-			<iChanceFirstStrikes>1</iChanceFirstStrikes>
 			<iWithdrawalProb>5</iWithdrawalProb>
 			<iEarlyWithdraw>50</iEarlyWithdraw>
 			<iUnnerve>2</iUnnerve>
@@ -28821,7 +29224,6 @@
 			<iTradeMultiplier>1</iTradeMultiplier>
 			<iInsidiousness>25</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>1</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -29038,7 +29440,6 @@
 			<iTradeMultiplier>1</iTradeMultiplier>
 			<iInsidiousness>30</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>1</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -29256,7 +29657,6 @@
 			<iTradeMultiplier>1</iTradeMultiplier>
 			<iInsidiousness>40</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>1</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -29461,7 +29861,6 @@
 			<iTradeMultiplier>1</iTradeMultiplier>
 			<iInsidiousness>50</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>1</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -29675,7 +30074,6 @@
 			<iTradeMultiplier>1</iTradeMultiplier>
 			<iInsidiousness>60</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_PEOPLE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_PEOPLE</SMSpecialCargo>
 			<SMNotSpecialCargo>SPECIALUNIT_VTOL</SMNotSpecialCargo>
 			<DomainCargo>DOMAIN_LAND</DomainCargo>
 			<iCargo>2</iCargo>
@@ -29877,7 +30275,6 @@
 			<iTradeMultiplier>2</iTradeMultiplier>
 			<iInsidiousness>75</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_PEOPLE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_PEOPLE</SMSpecialCargo>
 			<SMNotSpecialCargo>SPECIALUNIT_VTOL</SMNotSpecialCargo>
 			<DomainCargo>DOMAIN_LAND</DomainCargo>
 			<iCargo>2</iCargo>
@@ -30082,7 +30479,6 @@
 			<iTradeMultiplier>2</iTradeMultiplier>
 			<iInsidiousness>100</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_PEOPLE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_PEOPLE</SMSpecialCargo>
 			<SMNotSpecialCargo>SPECIALUNIT_VTOL</SMNotSpecialCargo>
 			<DomainCargo>DOMAIN_LAND</DomainCargo>
 			<iCargo>1</iCargo>
@@ -30285,7 +30681,6 @@
 			<iTradeMultiplier>1</iTradeMultiplier>
 			<iInsidiousness>75</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_PEOPLE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_PEOPLE</SMSpecialCargo>
 			<SMNotSpecialCargo>SPECIALUNIT_VTOL</SMNotSpecialCargo>
 			<DomainCargo>DOMAIN_LAND</DomainCargo>
 			<iCargo>1</iCargo>
@@ -30834,7 +31229,6 @@
 			<iLunge>10</iLunge>
 			<iCaptureProbabilityModifier>5</iCaptureProbabilityModifier>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>1</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -31000,7 +31394,6 @@
 			<iConscription>6</iConscription>
 			<iCaptureProbabilityModifier>15</iCaptureProbabilityModifier>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>1</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -31170,7 +31563,6 @@
 			<iLunge>10</iLunge>
 			<iCaptureProbabilityModifier>5</iCaptureProbabilityModifier>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>2</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -31362,7 +31754,6 @@
 			<iLunge>15</iLunge>
 			<iCaptureProbabilityModifier>10</iCaptureProbabilityModifier>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>2</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -31564,7 +31955,6 @@
 			<iCaptureProbabilityModifier>15</iCaptureProbabilityModifier>
 			<iInsidiousness>30</iInsidiousness>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>2</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -32624,7 +33014,6 @@
 			<iEnclose>16</iEnclose>
 			<iLunge>16</iLunge>
 			<SpecialCargo>SPECIALUNIT_CAPTIVE</SpecialCargo>
-			<SMSpecialCargo>SPECIALUNIT_CAPTIVE</SMSpecialCargo>
 			<iCargo>1</iCargo>
 			<FreePromotions>
 				<FreePromotion>
@@ -33204,6 +33593,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_ADMINISTRATOR</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -33231,6 +33621,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<PrereqTech>TECH_CORPORATION</PrereqTech>
 			<Flavors>
 				<Flavor>
@@ -33328,6 +33724,7 @@
 			<iMaxPlayerInstances>5</iMaxPlayerInstances>
 			<Combat>UNITCOMBAT_ADMINISTRATOR</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -33356,6 +33753,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<Buildings>
 				<BuildingType>BUILDING_CARPOOL</BuildingType>
 				<BuildingType>BUILDING_SMOKE_DETECTOR</BuildingType>
@@ -33823,6 +34226,7 @@
 			<Combat>UNITCOMBAT_TRADE</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_WHEELED</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPEED_SLOW</SubCombatType>
@@ -35103,7 +35507,6 @@
 			<iAdvancedStartCost>-1</iAdvancedStartCost>
 			<iBaseUpkeep>1</iBaseUpkeep>
 			<iMoves>3</iMoves>
-			<iNukeRange>-1</iNukeRange>
 			<iAsset>1</iAsset>
 			<UnitMeshGroups>
 				<iGroupSize>1</iGroupSize>
@@ -35165,7 +35568,6 @@
 			<iAdvancedStartCost>-1</iAdvancedStartCost>
 			<iBaseUpkeep>1</iBaseUpkeep>
 			<iMoves>3</iMoves>
-			<iNukeRange>-1</iNukeRange>
 			<iAsset>1</iAsset>
 			<UnitMeshGroups>
 				<iGroupSize>1</iGroupSize>
@@ -35223,7 +35625,6 @@
 			<iAdvancedStartCost>-1</iAdvancedStartCost>
 			<iBaseUpkeep>1</iBaseUpkeep>
 			<iMoves>4</iMoves>
-			<iNukeRange>-1</iNukeRange>
 			<iAsset>1</iAsset>
 			<UnitMeshGroups>
 				<iGroupSize>1</iGroupSize>
@@ -35295,7 +35696,6 @@
 			<iAdvancedStartCost>100</iAdvancedStartCost>
 			<iBaseUpkeep>16</iBaseUpkeep>
 			<iMoves>3</iMoves>
-			<iNukeRange>-1</iNukeRange>
 			<iCombat>90</iCombat>
 			<iCombatLimit>100</iCombatLimit>
 			<iXPValueAttack>4</iXPValueAttack>
@@ -35414,7 +35814,6 @@
 			<iAdvancedStartCost>100</iAdvancedStartCost>
 			<iBaseUpkeep>16</iBaseUpkeep>
 			<iMoves>3</iMoves>
-			<iNukeRange>-1</iNukeRange>
 			<iCombat>120</iCombat>
 			<iCombatLimit>100</iCombatLimit>
 			<iXPValueAttack>4</iXPValueAttack>
@@ -35529,7 +35928,6 @@
 			<iAdvancedStartCost>100</iAdvancedStartCost>
 			<iBaseUpkeep>16</iBaseUpkeep>
 			<iMoves>4</iMoves>
-			<iNukeRange>-1</iNukeRange>
 			<iCombat>160</iCombat>
 			<iCombatLimit>100</iCombatLimit>
 			<iXPValueAttack>4</iXPValueAttack>
@@ -35733,6 +36131,7 @@
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_MISSIONARY</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -36201,6 +36600,7 @@
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_ENTERTAINER</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -36466,6 +36866,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -36679,6 +37080,7 @@
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_TRADE</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -36703,6 +37105,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<GreatPeoples>
 				<GreatPeople>
 					<GreatPeopleType>SPECIALIST_GREAT_MERCHANT</GreatPeopleType>
@@ -36910,6 +37318,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -37493,6 +37902,10 @@
 			<bGoldenAge>1</bGoldenAge>
 			<UnitAIs>
 				<UnitAI>
+					<UnitAIType>UNITAI_GREAT_ADMIRAL</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+				<UnitAI>
 					<UnitAIType>UNITAI_GENERAL</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
@@ -37815,6 +38228,7 @@
 			<Special>SPECIALUNIT_PEOPLE</Special>
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -37840,6 +38254,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<GreatPeoples>
 				<GreatPeople>
 					<GreatPeopleType>SPECIALIST_GREAT_SPY</GreatPeopleType>
@@ -37858,7 +38278,6 @@
 				</Flavor>
 			</Flavors>
 			<iCost>-1</iCost>
-			<iBaseUpkeep>100</iBaseUpkeep>
 			<iMoves>2</iMoves>
 			<iEspionagePoints>3000</iEspionagePoints>
 			<iAsset>1</iAsset>
@@ -41833,6 +42252,7 @@
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_HEALTH_CARE</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -41939,6 +42359,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_POOR</SubCombatType>
@@ -41951,6 +42372,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_CITY_SPECIAL</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_CITY_SPECIAL</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_IMMIGRANT</Description>
 			<Civilopedia>TXT_KEY_UNIT_IMMIGRANT_PEDIA</Civilopedia>
 			<Help>TXT_KEY_UNIT_IMMIGRANT_HELP</Help>
@@ -42887,6 +43314,10 @@
 			<bIgnoreBuildingDefense>1</bIgnoreBuildingDefense>
 			<UnitAIs>
 				<UnitAI>
+					<UnitAIType>UNITAI_SPY</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+				<UnitAI>
 					<UnitAIType>UNITAI_CITY_DEFENSE</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
@@ -42899,6 +43330,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<GreatPeoples>
 				<GreatPeople>
 					<GreatPeopleType>SPECIALIST_GREAT_STATESMAN</GreatPeopleType>
@@ -42978,6 +43415,7 @@
 			<Combat>UNITCOMBAT_PRODIGY</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_LAW_ENFORCEMENT</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -43003,6 +43441,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<GreatPeoples>
 				<GreatPeople>
 					<GreatPeopleType>SPECIALIST_GREAT_SLEUTH</GreatPeopleType>
@@ -43088,6 +43532,7 @@
 			<Capture>UNIT_STORY_TELLER</Capture>
 			<Combat>UNITCOMBAT_ENTERTAINER</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -43191,6 +43636,7 @@
 			<Capture>UNIT_BARD</Capture>
 			<Combat>UNITCOMBAT_ENTERTAINER</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -43299,6 +43745,7 @@
 			<Capture>UNIT_ENTERTAINER</Capture>
 			<Combat>UNITCOMBAT_ENTERTAINER</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -43408,6 +43855,7 @@
 			<Capture>UNIT_CELEBRITY</Capture>
 			<Combat>UNITCOMBAT_ENTERTAINER</Combat>
 			<SubCombatTypes>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
@@ -43554,6 +44002,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<ObsoleteTech>TECH_MOTORIZED_TRANSPORTATION</ObsoleteTech>
 			<PrereqTech>TECH_BARTER</PrereqTech>
 			<Flavors>
@@ -43636,6 +44090,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<ObsoleteTech>TECH_MOTORIZED_TRANSPORTATION</ObsoleteTech>
 			<PrereqAndBuildings>
 				<BuildingType>BUILDING_CARAVAN_POST</BuildingType>
@@ -43722,11 +44182,13 @@
 					<UnitAIType>UNITAI_ENGINEER</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
+			</UnitAIs>
+			<NotUnitAIs>
 				<UnitAI>
 					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
-			</UnitAIs>
+			</NotUnitAIs>
 			<PrereqOrBuildings>
 				<BuildingType>BUILDING_CASTLE</BuildingType>
 				<BuildingType>BUILDING_STAR_FORT</BuildingType>
@@ -43795,11 +44257,13 @@
 					<UnitAIType>UNITAI_ENGINEER</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
+			</UnitAIs>
+			<NotUnitAIs>
 				<UnitAI>
 					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
-			</UnitAIs>
+			</NotUnitAIs>
 			<PrereqTech>TECH_MOTORIZED_TRANSPORTATION</PrereqTech>
 			<Flavors>
 				<Flavor>
@@ -43877,6 +44341,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<ObsoleteTech>TECH_ENGINEERING</ObsoleteTech>
 			<PrereqTech>TECH_BARTER</PrereqTech>
 			<Flavors>
@@ -43978,6 +44448,12 @@
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
 			</UnitAIs>
+			<NotUnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</NotUnitAIs>
 			<ObsoleteTech>TECH_ENGINEERING</ObsoleteTech>
 			<PrereqAndBuildings>
 				<BuildingType>BUILDING_CARAVAN_POST</BuildingType>
@@ -44085,11 +44561,13 @@
 					<UnitAIType>UNITAI_ENGINEER</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
+			</UnitAIs>
+			<NotUnitAIs>
 				<UnitAI>
 					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
-			</UnitAIs>
+			</NotUnitAIs>
 			<ObsoleteTech>TECH_MOTORIZED_TRANSPORTATION</ObsoleteTech>
 			<PrereqOrBuildings>
 				<BuildingType>BUILDING_VIKING_TRADING_POST</BuildingType>
@@ -44180,11 +44658,13 @@
 					<UnitAIType>UNITAI_ENGINEER</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
+			</UnitAIs>
+			<NotUnitAIs>
 				<UnitAI>
 					<UnitAIType>UNITAI_EXPLORE</UnitAIType>
 					<bUnitAI>1</bUnitAI>
 				</UnitAI>
-			</UnitAIs>
+			</NotUnitAIs>
 			<PrereqTech>TECH_MOTORIZED_TRANSPORTATION</PrereqTech>
 			<Flavors>
 				<Flavor>
@@ -44970,7 +45450,13 @@
 			<MapCategoryTypes>
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
-			<DefaultUnitAI>UNITAI_WORKER</DefaultUnitAI>
+			<DefaultUnitAI>UNITAI_SUBDUED_ANIMAL</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_SUBDUED_ANIMAL</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_CAPTIVE_MILITARY</Description>
 			<Civilopedia>TXT_KEY_UNIT_CAPTIVE_MILITARY_PEDIA</Civilopedia>
 			<Help>TXT_KEY_UNIT_CAPTIVE_MILITARY_HELP</Help>
@@ -45560,7 +46046,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45580,7 +46065,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE_ALTER_I</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45600,7 +46084,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE_ALTER_II</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45620,7 +46103,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE_DRUID</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45643,7 +46125,6 @@
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<Commerces>
 								<iCommerce>0</iCommerce>
 								<iCommerce>0</iCommerce>
@@ -45660,7 +46141,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE_DRUID_ALTER_II</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45680,7 +46160,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE_MESOAMERICAN</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45700,7 +46179,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE_MESOAMERICAN_ALTER_I</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45720,7 +46198,6 @@
 						<Outcome>
 							<OutcomeType>OUTCOME_SACRIFICE_CAPTIVE_MESOAMERICAN_ALTER_II</OutcomeType>
 							<iChance>100</iChance>
-							<PythonCallback>doSacrificeCaptive</PythonCallback>
 							<PlotCondition>
 								<Is>TAG_OWNED</Is>
 							</PlotCondition>
@@ -45760,6 +46237,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_SUBDUED_ANIMAL</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_SUBDUED_ANIMAL</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_CAPTIVE_CIVILIAN</Description>
 			<Civilopedia>TXT_KEY_UNIT_CAPTIVE_CIVILIAN_PEDIA</Civilopedia>
 			<Help>TXT_KEY_UNIT_CAPTIVE_CIVILIAN_HELP</Help>
@@ -45979,6 +46462,7 @@
 			<Combat>UNITCOMBAT_SETTLER</Combat>
 			<SubCombatTypes>
 				<SubCombatType>UNITCOMBAT_CIVILIAN</SubCombatType>
+				<SubCombatType>UNITCOMBAT_PACIFIST</SubCombatType>
 				<SubCombatType>UNITCOMBAT_SPECIES_HUMAN</SubCombatType>
 				<SubCombatType>UNITCOMBAT_MOTILITY_FOOT</SubCombatType>
 				<SubCombatType>UNITCOMBAT_QUALITY_INFERIOR</SubCombatType>
@@ -45991,6 +46475,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_CITY_SPECIAL</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_CITY_SPECIAL</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_CAPTIVE_IMMIGRANT</Description>
 			<Civilopedia>TXT_KEY_UNIT_IMMIGRANT_PEDIA</Civilopedia>
 			<Help>TXT_KEY_UNIT_IMMIGRANT_HELP</Help>
@@ -46055,6 +46545,12 @@
 				<MapCategoryType>MAPCATEGORY_EARTH</MapCategoryType>
 			</MapCategoryTypes>
 			<DefaultUnitAI>UNITAI_WORKER</DefaultUnitAI>
+			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_WORKER</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
+			</UnitAIs>
 			<Description>TXT_KEY_UNIT_FREED_SLAVE</Description>
 			<Civilopedia>TXT_KEY_UNIT_FREED_SLAVE_PEDIA</Civilopedia>
 			<Help>TXT_KEY_UNIT_FREED_SLAVE_HELP</Help>
@@ -46653,6 +47149,10 @@
 				<UnitType>UNIT_MUSKETMAN</UnitType>
 			</UnitUpgrades>
 			<UnitAIs>
+				<UnitAI>
+					<UnitAIType>UNITAI_COUNTER</UnitAIType>
+					<bUnitAI>1</bUnitAI>
+				</UnitAI>
 				<UnitAI>
 					<UnitAIType>UNITAI_ATTACK_CITY</UnitAIType>
 					<bUnitAI>1</bUnitAI>

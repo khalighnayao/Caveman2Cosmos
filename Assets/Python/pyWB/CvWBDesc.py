@@ -369,7 +369,7 @@ class CvTeamDesc:
 				if not bMinorCiv:
 					# write warring teams
 					for i in xrange(GC.getMAX_PC_TEAMS()):
-						if team.isHasMet(i) and team.isAtWar(i):
+						if team.isHasMet(i) and team.isAtWarWith(i):
 							f.write("\tAtWar=%d, (%s)\n" %(i, GC.getTeam(i).getName().encode(fEncode)))
 
 				# write permanent war/peace teams
@@ -1020,7 +1020,7 @@ class CvUnitDesc:
 		if self.level != -1:
 			unit.setLevel(self.level)
 		if self.experience != -1:
-			unit.setExperience(self.experience, -1)
+			unit.setExperience(self.experience)
 		for promo in self.promotionType:
 			iPromo = GC.getInfoTypeForString(promo)
 			if iPromo > -1:

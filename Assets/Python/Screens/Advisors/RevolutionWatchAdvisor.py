@@ -597,7 +597,7 @@ class RevolutionWatchAdvisor:
 						break
 
 			if info.getFreeExperience() > 0 or \
-				info.getFreePromotion() != -1 or \
+				info.getFreePromoTypes() or \
 				info.getGlobalFreeExperience() > 0 or \
 				info.getDomainFreeExperience(DomainTypes.DOMAIN_LAND) > 0 or \
 				info.getDomainFreeExperience(DomainTypes.DOMAIN_SEA) > 0 or \
@@ -1174,7 +1174,7 @@ class RevolutionWatchAdvisor:
 		team = gc.getTeam(gc.getGame().getActiveTeam())
 
 		for iTeamX in range(gc.getMAX_TEAMS()):
-			if team.isAtWar(iTeamX):
+			if team.isAtWarWith(iTeamX):
 				if city.isVisible(iTeamX, False):
 					return self.angryIcon
 		return ""

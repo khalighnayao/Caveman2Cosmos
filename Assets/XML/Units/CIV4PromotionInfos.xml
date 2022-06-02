@@ -1294,7 +1294,6 @@
 			</NotOnUnitCombatTypes>
 			<DomainCargoChange>DOMAIN_LAND</DomainCargoChange>
 			<SpecialCargoChange>SPECIALUNIT_PEOPLE</SpecialCargoChange>
-			<SMSpecialCargoChange>SPECIALUNIT_PEOPLE</SMSpecialCargoChange>
 			<iCargoChange>1</iCargoChange>
 			<iSMCargoChange>3</iSMCargoChange>
 			<iCombatPercent>-5</iCombatPercent>
@@ -1382,7 +1381,6 @@
 			</NotOnUnitCombatTypes>
 			<DomainCargoChange>DOMAIN_AIR</DomainCargoChange>
 			<SpecialCargoChange>SPECIALUNIT_MISSILE</SpecialCargoChange>
-			<SMSpecialCargoChange>SPECIALUNIT_MISSILE</SMSpecialCargoChange>
 			<iCargoChange>1</iCargoChange>
 			<iSMCargoChange>3</iSMCargoChange>
 			<iCombatPercent>-5</iCombatPercent>
@@ -1466,7 +1464,6 @@
 			</NotOnUnitCombatTypes>
 			<DomainCargoChange>DOMAIN_AIR</DomainCargoChange>
 			<SpecialCargoChange>SPECIALUNIT_SEAPLANE</SpecialCargoChange>
-			<SMSpecialCargoChange>SPECIALUNIT_SEAPLANE</SMSpecialCargoChange>
 			<SMNotSpecialCargoChange>SPECIALUNIT_MISSILE</SMNotSpecialCargoChange>
 			<iCargoChange>1</iCargoChange>
 			<iSMCargoChange>30</iSMCargoChange>
@@ -2090,6 +2087,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_ANIMAL</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>,Art/Interface/Buttons/Promotions/jetplane.dds,Art/RoM_Promotions_atlas.dds,8,2</Button>
 			<iCaptureProbabilityModifierChange>5</iCaptureProbabilityModifierChange>
 			<iCaptureResistanceModifierChange>5</iCaptureResistanceModifierChange>
@@ -2291,6 +2291,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>,Art/Interface/Buttons/Promotions/Mobility1.dds,Art/Interface/Buttons/Promotions_Atlas.dds,5,4</Button>
 		</PromotionInfo>
 		<PromotionInfo>
@@ -3444,6 +3447,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>,Art/Interface/Buttons/Promotions/March.dds,Art/Interface/Buttons/Promotions_Atlas.dds,2,4</Button>
 			<iCaptureResistanceModifierChange>5</iCaptureResistanceModifierChange>
 		</PromotionInfo>
@@ -4031,6 +4037,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>,Art/Interface/Buttons/Promotions/Amphibious.dds,Art/Interface/Buttons/Promotions_Atlas.dds,3,1</Button>
 		</PromotionInfo>
 		<PromotionInfo>
@@ -4773,6 +4782,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<NotOnDomainTypes>
 				<DomainType>DOMAIN_AIR</DomainType>
 				<DomainType>DOMAIN_SEA</DomainType>
@@ -5198,35 +5210,15 @@
 			<iDefenseCombatModifierChange>-25</iDefenseCombatModifierChange>
 			<UnitCombats>
 				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_MELEE</UnitCombatType>
+					<UnitCombatType>UNITCOMBAT_COMBATANT</UnitCombatType>
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_ARCHER</UnitCombatType>
+					<UnitCombatType>UNITCOMBAT_LAW_ENFORCEMENT</UnitCombatType>
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_THROWING</UnitCombatType>
-					<bUnitCombat>1</bUnitCombat>
-				</UnitCombat>
-				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_MOUNTED</UnitCombatType>
-					<bUnitCombat>1</bUnitCombat>
-				</UnitCombat>
-				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_GUN</UnitCombatType>
-					<bUnitCombat>1</bUnitCombat>
-				</UnitCombat>
-				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_HITECH</UnitCombatType>
-					<bUnitCombat>1</bUnitCombat>
-				</UnitCombat>
-				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_WHEELED</UnitCombatType>
-					<bUnitCombat>1</bUnitCombat>
-				</UnitCombat>
-				<UnitCombat>
-					<UnitCombatType>UNITCOMBAT_TRACKED</UnitCombatType>
+					<UnitCombatType>UNITCOMBAT_CRIMINAL</UnitCombatType>
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 				<UnitCombat>
@@ -5262,6 +5254,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>,Art/Interface/Buttons/Promotions/Fanatic.dds,Art/Interface/Buttons/RoM_Promotion_Atlas2.dds,1,5</Button>
 			<iCaptureProbabilityModifierChange>-10</iCaptureProbabilityModifierChange>
 			<iCaptureResistanceModifierChange>15</iCaptureResistanceModifierChange>
@@ -7642,6 +7637,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>Art/Interface/Buttons/Promotions/Weather_Forecasts.dds</Button>
 		</PromotionInfo>
 		<PromotionInfo>
@@ -8369,6 +8367,7 @@
 			</TerrainDefenses>
 			<Button>Art/Interface/Buttons/Promotions/seacreature2.dds</Button>
 		</PromotionInfo>
+		<!--
 		<PromotionInfo>
 			<Type>PROMOTION_LEVIATHAN1</Type>
 			<Description>TXT_KEY_PROMOTION_LEVIATHAN1</Description>
@@ -8417,6 +8416,7 @@
 			</UnitCombatMods>
 			<Button>Art/Interface/Buttons/Promotions/leviathan3.dds</Button>
 		</PromotionInfo>
+		-->
 		<PromotionInfo>
 			<Type>PROMOTION_LORDSHIP</Type>
 			<Description>TXT_KEY_PROMOTION_LORDSHIP</Description>
@@ -9935,6 +9935,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>Art/Interface/Buttons/Promotions/Forestry.dds</Button>
 		</PromotionInfo>
 		<PromotionInfo>
@@ -9988,6 +9991,9 @@
 					<bUnitCombat>1</bUnitCombat>
 				</UnitCombat>
 			</UnitCombats>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<Button>Art/Interface/Buttons/Promotions/Hillsman.dds</Button>
 		</PromotionInfo>
 		<PromotionInfo>
@@ -11681,6 +11687,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_INCAPABLE</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
 			<SubCombatChangeTypes>
@@ -11699,6 +11708,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>1</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_PATHETIC</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11718,6 +11730,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>2</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_INFERIOR</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11737,6 +11752,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>3</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_POOR</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11756,6 +11774,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>4</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_MEDIOCRE</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11775,6 +11796,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>6</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_STANDARD</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11794,6 +11818,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>8</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_SUPERIOR</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11813,6 +11840,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>11</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_EXCEPTIONAL</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11832,6 +11862,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>15</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_ELITE</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11851,6 +11884,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<iLevelPrereq>20</iLevelPrereq>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_EPIC</ReplacesUnitCombat>
 			<bZeroesXP>1</bZeroesXP>
@@ -11870,6 +11906,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_DIVINE</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -11888,6 +11927,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_EPIC</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -11906,6 +11948,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_ELITE</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -11924,6 +11969,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_EXCEPTIONAL</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -11942,6 +11990,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_SUPERIOR</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -11960,6 +12011,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_STANDARD</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -11978,6 +12032,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_MEDIOCRE</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -11996,6 +12053,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_POOR</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -12014,6 +12074,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_INFERIOR</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -12032,6 +12095,9 @@
 			<OnGameOptions>
 				<GameOptionType>GAMEOPTION_SIZE_MATTERS</GameOptionType>
 			</OnGameOptions>
+			<NotOnUnitCombatTypes>
+				<NotOnUnitCombatType>UNITCOMBAT_PACIFIST</NotOnUnitCombatType>
+			</NotOnUnitCombatTypes>
 			<ReplacesUnitCombat>UNITCOMBAT_QUALITY_PATHETIC</ReplacesUnitCombat>
 			<bForOffset>1</bForOffset>
 			<SubCombatChangeTypes>
@@ -16105,7 +16171,6 @@
 			<iLinePriority>1</iLinePriority>
 			<DomainCargoChange>DOMAIN_LAND</DomainCargoChange>
 			<SpecialCargoChange>SPECIALUNIT_CAPTIVE</SpecialCargoChange>
-			<SMSpecialCargoChange>SPECIALUNIT_CAPTIVE</SMSpecialCargoChange>
 			<iCargoChange>3</iCargoChange>
 			<iSMCargoChange>27</iSMCargoChange>
 			<Button>art/Buttons/Promotions/BountyHunter1Promotion.dds</Button>
@@ -17501,6 +17566,41 @@
 			</OnGameOptions>
 			<iStealthCombatModifierChange>25</iStealthCombatModifierChange>
 			<Button>,Art/Buttons/Promotions/Crackdown5Promotion.dds</Button>
+		</PromotionInfo>
+		<PromotionInfo>
+			<Type>PROMOTION_STATUS_TRESPASS_ON</Type>
+			<Description>TXT_KEY_STATUS_TRESPASS_ON</Description>
+			<Help>TXT_KEY_PROMOTION_DEPLETE_MP_HELP</Help>
+			<Sound>AS2D_IF_LEVELUP</Sound>
+			<PromotionLine>PROMOTIONLINE_TRESPASS</PromotionLine>
+			<bStatus>1</bStatus>
+			<iLinePriority>2</iLinePriority>
+			<iAssassinChange>-1</iAssassinChange>
+			<iDefenseOnlyChange>1</iDefenseOnlyChange>
+			<iExcileChange>-1</iExcileChange>
+			<iStealthDefenseChange>-1</iStealthDefenseChange>
+			<iBarbCoExistChange>-1</iBarbCoExistChange>
+			<iBlendIntoCityChange>-1</iBlendIntoCityChange>
+			<iChanceFirstStrikesChange>-1</iChanceFirstStrikesChange>
+			<Button>Art/Interface/buttons/Promotions/StatusTrespass.dds</Button>
+		</PromotionInfo>
+		<PromotionInfo>
+			<Type>PROMOTION_STATUS_TRESPASS_OFF</Type>
+			<Description>TXT_KEY_STATUS_TRESPASS_OFF</Description>
+			<Sound>AS2D_IF_LEVELUP</Sound>
+			<PromotionPrereq>PROMOTION_STATUS_TRESPASS_ON</PromotionPrereq>
+			<PromotionLine>PROMOTIONLINE_TRESPASS</PromotionLine>
+			<UnitCombats>
+				<UnitCombat>
+					<UnitCombatType>UNITCOMBAT_CRIMINAL</UnitCombatType>
+					<bUnitCombat>1</bUnitCombat>
+				</UnitCombat>
+			</UnitCombats>
+			<bStatus>1</bStatus>
+			<bQuick>1</bQuick>
+			<bRemoveAfterSet>1</bRemoveAfterSet>
+			<iLinePriority>1</iLinePriority>
+			<Button>Art/Interface/buttons/Promotions/StatusTrespassOff.dds</Button>
 		</PromotionInfo>
 		<PromotionInfo>
 			<Type>PROMOTION_CORRUPTION1</Type>
@@ -19991,6 +20091,19 @@
 			<Button>Art/Interface/Buttons/Promotions/Windhorse2.dds</Button>
 			<iCaptureProbabilityModifierChange>5</iCaptureProbabilityModifierChange>
 			<iCaptureResistanceModifierChange>10</iCaptureResistanceModifierChange>
+		</PromotionInfo>
+		<PromotionInfo>
+			<Type>PROMOTION_GREAT_HUNTER</Type>
+			<Description>TXT_KEY_PROMOTION_GREAT_HUNTER</Description>
+			<Sound>AS2D_IF_LEVELUP</Sound>
+			<iFirstStrikesChange>1</iFirstStrikesChange>
+			<UnitCombatMods>
+				<UnitCombatMod>
+					<UnitCombatType>UNITCOMBAT_ANIMAL</UnitCombatType>
+					<iUnitCombatMod>50</iUnitCombatMod>
+				</UnitCombatMod>
+			</UnitCombatMods>
+			<Button>Art/Interface/Buttons/Promotions/Great_Hunter.dds</Button>
 		</PromotionInfo>
 		<!--ONLY BUILDUPS (AND LATER STATUSES) PAST THIS POINT!-->
 		<PromotionInfo>
@@ -24105,22 +24218,22 @@
 				</UnitCombat>
 			</UnitCombats>
 			<iStrengthChange>1</iStrengthChange>
-		<PropertyManipulators>
-			<PropertySource>
-				<PropertySourceType>PROPERTYSOURCE_CONSTANT</PropertySourceType>
-				<PropertyType>PROPERTY_CRIME</PropertyType>
-				<GameObjectType>GAMEOBJECT_CITY</GameObjectType>
-				<RelationType>RELATION_SAME_PLOT</RelationType>
-				<iAmountPerTurn>-3</iAmountPerTurn>
-			</PropertySource>
-			<PropertySource>
-				<PropertySourceType>PROPERTYSOURCE_CONSTANT</PropertySourceType>
-				<PropertyType>PROPERTY_CRIME</PropertyType>
-				<GameObjectType>GAMEOBJECT_PLOT</GameObjectType>
-				<RelationType>RELATION_SAME_PLOT</RelationType>
-				<iAmountPerTurn>-2</iAmountPerTurn>
-			</PropertySource>
-		</PropertyManipulators>
+			<PropertyManipulators>
+				<PropertySource>
+					<PropertySourceType>PROPERTYSOURCE_CONSTANT</PropertySourceType>
+					<PropertyType>PROPERTY_CRIME</PropertyType>
+					<GameObjectType>GAMEOBJECT_CITY</GameObjectType>
+					<RelationType>RELATION_SAME_PLOT</RelationType>
+					<iAmountPerTurn>-3</iAmountPerTurn>
+				</PropertySource>
+				<PropertySource>
+					<PropertySourceType>PROPERTYSOURCE_CONSTANT</PropertySourceType>
+					<PropertyType>PROPERTY_CRIME</PropertyType>
+					<GameObjectType>GAMEOBJECT_PLOT</GameObjectType>
+					<RelationType>RELATION_SAME_PLOT</RelationType>
+					<iAmountPerTurn>-2</iAmountPerTurn>
+				</PropertySource>
+			</PropertyManipulators>
 			<Button>Art/Buttons/Promotions/InfluenceOfMarsPromotion.dds</Button>
 		</PromotionInfo>
 		<PromotionInfo>

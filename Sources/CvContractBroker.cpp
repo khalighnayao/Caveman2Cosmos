@@ -2,8 +2,10 @@
 
 #include "CvGameCoreDLL.h"
 #include "CvCity.h"
+#include "CvContractBroker.h"
 #include "CvGameAI.h"
 #include "CvGlobals.h"
+#include "CvInfos.h"
 #include "CvMap.h"
 #include "CvPathGenerator.h"
 #include "CvPlayerAI.h"
@@ -199,10 +201,7 @@ void	CvContractBroker::advertiseWork(int iPriority, unitCapabilities eUnitFlags,
 		}
 	}
 
-	{
-
-		m_workRequests.insert(insertAt, newRequest);
-	}
+	m_workRequests.insert(insertAt, newRequest);
 }
 
 //	Advertise a tender to build units

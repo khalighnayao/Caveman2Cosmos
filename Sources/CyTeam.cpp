@@ -103,6 +103,11 @@ int CyTeam::getAtWarCount(bool bIgnoreMinors) const
 	return m_pTeam->getAtWarCount(bIgnoreMinors);
 }
 
+bool CyTeam::isAtWar(bool bCountMinors) const
+{
+	return m_pTeam->isAtWar(bCountMinors);
+}
+
 int CyTeam::getHasMetCivCount(bool bIgnoreMinors) const
 {
 	return m_pTeam->getHasMetCivCount(bIgnoreMinors);
@@ -166,11 +171,6 @@ bool CyTeam::hasHeadquarters(int /*CorporationTypes*/ eCorporation) const
 bool CyTeam::isHuman() const
 {
 	return m_pTeam->isHuman();
-}
-
-bool CyTeam::isBarbarian() const
-{
-	return m_pTeam->isBarbarian();
 }
 
 bool CyTeam::isNPC() const
@@ -552,7 +552,7 @@ bool CyTeam::isHasMet(int /*TeamTypes*/ eIndex) const
 	return m_pTeam->isHasMet((TeamTypes)eIndex);
 }
 
-bool CyTeam::isAtWar(int /*TeamTypes*/ iIndex) const
+bool CyTeam::isAtWarWith(int /*TeamTypes*/ iIndex) const
 {
 	return iIndex != NO_TEAM ? m_pTeam->isAtWar((TeamTypes)iIndex) : false;
 }

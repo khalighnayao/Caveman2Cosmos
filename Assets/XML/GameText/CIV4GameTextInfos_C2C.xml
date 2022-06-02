@@ -76,6 +76,7 @@
 	<TEXT>
 		<Tag>TXT_KEY_BUILDINGHELP_GIVEN_FREE</Tag>
 		<English>[ICON_BULLET]Building Given for Free By[SPACE]</English>
+		<German>[ICON_BULLET]kostenloses Gebäude[SPACE]</German>
 	</TEXT>
 	<TEXT>
 		<Tag>TXT_KEY_BUILDINGHELP_LIKELY_TO_GENERATE</Tag>
@@ -166,7 +167,7 @@
 		<Tag>TXT_KEY_BUILDINGHELP_WITH_BONUS</Tag>
 		<English>[SPACE]with [LINK=%s1_BonusType]%s2_Bonus[\LINK]</English>
 		<French>[SPACE]avec : [LINK=%s1_BonusType]%s2_Bonus[\LINK]</French>
-		<German>[SPACE]mit [LINK=%s1_BonusType]%s2_Bonus[\LINK]</German>
+		<German>[SPACE]durch [LINK=%s1_BonusType]%s2_Bonus[\LINK]</German>
 		<Italian>[SPACE]con [LINK=%s1_BonusType]%s2_Bonus[\LINK]</Italian>
 		<Spanish>[SPACE]con [LINK=%s1_BonusType]%s2_Bonus[\LINK]</Spanish>
 		<Russian>[SPACE]с [LINK=%s1_BonusType]%s2_Bonus[\LINK]</Russian>
@@ -547,7 +548,7 @@
 		<Polish>Opcje DCM:</Polish>
 	</TEXT>
 	<TEXT>
-		<Tag>TXT_KEY_OPTIONS_GAME</Tag>
+		<Tag>TXT_KEY_OPTIONS_GAME_REV</Tag>
 		<English>Game Options:</English>
 		<French>Options du Jeu:</French>
 		<Spanish>Opciones de juego:</Spanish>
@@ -773,6 +774,7 @@
 		<Tag>TXT_KEY_REQUIRES_TECH</Tag>
 		<English>[COLOR_WARNING_TEXT]Requires [COLOR_TECH_TEXT][LINK=%s1_TechType]%s2_TechName[\LINK][COLOR_REVERT][COLOR_REVERT]</English>
 		<French>[COLOR_WARNING_TEXT]Requiert [COLOR_TECH_TEXT][LINK=%s1_TechType]%s2_TechName[\LINK][COLOR_REVERT][COLOR_REVERT]</French>
+		<German>[ICON_BULLET][COLOR_WARNING_TEXT]erforderlich: [COLOR_TECH_TEXT][LINK=%s1_TechType]%s2_TechName[\LINK][COLOR_REVERT][COLOR_REVERT]</German>		
 		<Russian>[COLOR_WARNING_TEXT]Требует [COLOR_TECH_TEXT][LINK=%s1_TechType]%s2_TechName[\LINK][COLOR_REVERT][COLOR_REVERT]</Russian>
 	</TEXT>
 	<TEXT>

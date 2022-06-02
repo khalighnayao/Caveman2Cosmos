@@ -18,7 +18,9 @@
 
 #pragma warning( disable: 4251 )		// needs to have dll-interface to be used by clients of class
 
-class CvInfoBase;
+#include "CvInfos.h"
+#include "NiPoint.h"
+
 class CvXMLLoadUtility;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -28,7 +30,9 @@ class CvXMLLoadUtility;
 //  DESC:
 //
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CvWaterPlaneInfo : public CvInfoBase
+class CvWaterPlaneInfo
+	: public CvInfoBase
+	, private bst::noncopyable
 {
 public:
 
@@ -48,7 +52,6 @@ public:
 	DllExport const char* getTransitionTexture() const;
 
 	bool read(CvXMLLoadUtility*);
-	void copyNonDefaults(CvWaterPlaneInfo* pClassInfo);
 
 protected:
 
@@ -73,7 +76,9 @@ protected:
 //  DESC:
 //
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CvTerrainPlaneInfo : public CvInfoBase
+class CvTerrainPlaneInfo
+	: public CvInfoBase
+	, private bst::noncopyable
 {
 public:
 
@@ -94,7 +99,7 @@ public:
 	DllExport const char* getBaseTexture() const;
 
 	bool read(CvXMLLoadUtility*);
-	void copyNonDefaults(CvTerrainPlaneInfo* pClassInfo);
+	void copyNonDefaults(const CvTerrainPlaneInfo* pClassInfo);
 
 protected:
 
@@ -121,7 +126,9 @@ protected:
 //  DESC:
 //
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CvCameraOverlayInfo : public CvInfoBase
+class CvCameraOverlayInfo
+	: public CvInfoBase
+	, private bst::noncopyable
 {
 public:
 
@@ -133,7 +140,7 @@ public:
 	DllExport const char* getBaseTexture() const;
 
 	bool read(CvXMLLoadUtility*);
-	void copyNonDefaults(CvCameraOverlayInfo* pClassInfo);
+	void copyNonDefaults(const CvCameraOverlayInfo* pClassInfo);
 
 protected:
 

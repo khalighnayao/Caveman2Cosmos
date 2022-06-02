@@ -118,7 +118,7 @@ public:
 
 	void AI_doCentralizedProduction();
 
-	void AI_conquerCity(CvCity* pCity);
+	void AI_conquerCity(PlayerTypes eOldOwner, CvCity* pCity, bool bConquest, bool bTrade);
 
 	bool AI_acceptUnit(const CvUnit* pUnit) const;
 
@@ -481,7 +481,9 @@ public:
 
 	int AI_workerTradeVal(const CvUnit* pUnit) const;
 	int AI_militaryUnitTradeVal(const CvUnit* pUnit) const;
-	int AI_corporationTradeVal(CorporationTypes eCorporation, PlayerTypes ePlayer) const;
+private:
+	int AI_corporationTradeVal(CorporationTypes eCorporation) const;
+public:
 	int AI_pledgeVoteTradeVal(const VoteTriggeredData* kData, PlayerVoteTypes ePlayerVote, PlayerTypes ePlayer) const;
 	int AI_secretaryGeneralTradeVal(VoteSourceTypes eVoteSource, PlayerTypes ePlayer) const;
 
@@ -608,7 +610,7 @@ protected:
 	void AI_doSplit();
 	void AI_doCheckFinancialTrouble();
 
-	bool AI_disbandUnit(int iExpThreshold, bool bObsolete);
+	bool AI_disbandUnit(int iExpThreshold);
 
 	int AI_getStrategyHash() const;
 	void AI_calculateAverages() const;

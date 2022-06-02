@@ -263,7 +263,7 @@ def doWeddingFeud2(argsList):
 def getHelpWeddingFeud2(argsList):
 	data = argsList[1]
 	religion = GC.getReligionInfo(data.eReligion)
-	return TRNSLTR.getText("TXT_KEY_EVENT_WEDDING_FEUD_2_HELP", (GC.getTEMP_HAPPY(), 30, religion.getChar()))
+	return TRNSLTR.getText("TXT_KEY_EVENT_WEDDING_FEUD_2_HELP", (GC.getDefineINT("TEMP_HAPPY"), 30, religion.getChar()))
 
 def canDoWeddingFeud3(argsList):
 	data = argsList[1]
@@ -374,7 +374,7 @@ def canTriggerBabyBoom(argsList):
   player = GC.getPlayer(data.ePlayer)
   team = GC.getTeam(player.getTeam())
 
-  if team.getAtWarCount(True) > 0:
+  if team.isAtWar(False):
     return False
 
   for iLoopTeam in xrange(GC.getMAX_PC_TEAMS()):
@@ -496,7 +496,7 @@ def canTriggerBrothersInNeed(argsList):
 
   for iTeam in xrange(GC.getMAX_PC_TEAMS()):
     if iTeam != player.getTeam() and iTeam != otherPlayer.getTeam() and GC.getTeam(iTeam).isAlive():
-      if GC.getTeam(iTeam).isAtWar(otherPlayer.getTeam()) and not GC.getTeam(iTeam).isAtWar(player.getTeam()):
+      if GC.getTeam(iTeam).isAtWarWith(otherPlayer.getTeam()) and not GC.getTeam(iTeam).isAtWarWith(player.getTeam()):
         return True
 
   return False
@@ -844,36 +844,26 @@ def getHelpGreatDepression(argsList):
 ######## CHAMPION ###########
 
 def canTriggerChampion(argsList):
-	data = argsList[0]
-	if GC.getTeam(GC.getPlayer(data.ePlayer).getTeam()).getAtWarCount(True) > 0:
-		return False
-	return True
+	return not GC.getTeam(GC.getPlayer(argsList[0].ePlayer).getTeam()).isAtWar(False)
 
 def canTriggerChampionUnit(argsList):
-  eTrigger = argsList[0]
-  ePlayer = argsList[1]
-  iUnit = argsList[2]
+	unit = GC.getPlayer(argsList[1]).getUnit(argsList[2])
 
-  unit = GC.getPlayer(ePlayer).getUnit(iUnit)
+	if not unit or not unit.canFight():
+		return False
 
-  if unit is None:
-    return False
+	if unit.getDamage() > 0 or unit.getLevel() < 5:
+		return False
 
-  if unit.getDamage() > 0:
-    return False
+	if unit.isHasPromotion(GC.getInfoTypeForString("PROMOTION_LEADERSHIP")):
+		return False
 
-  if unit.getExperience() < 5:
-    return False
+	return True
 
-  if unit.isHasPromotion(GC.getInfoTypeForString("PROMOTION_LEADERSHIP")):
-    return False
-
-  return True
 
 def applyChampion(argsList):
 	data = argsList[1]
-	unit = GC.getPlayer(data.ePlayer).getUnit(data.iUnitId)
-	unit.setHasPromotion(GC.getInfoTypeForString("PROMOTION_LEADERSHIP"), True)
+	GC.getPlayer(data.ePlayer).getUnit(data.iUnitId).setHasPromotion(GC.getInfoTypeForString("PROMOTION_LEADERSHIP"), True)
 
 def getHelpChampion(argsList):
 	data = argsList[1]
@@ -1107,7 +1097,8 @@ def canTriggerIndependentFilms(argsList):
 
 	iBonus = GC.getInfoTypeForString("BONUS_HIT_MOVIES")
 	for i in xrange(GC.getNumBuildingInfos()):
-		if GC.getBuildingInfo(i).getFreeBonus() == iBonus and player.hasBuilding(i) > 0:
+		building = GC.getBuildingInfo(i)
+		if iBonus in building.getFreeBonuses() and player.hasBuilding(i):
 			return False
 	return True
 
@@ -2284,7 +2275,7 @@ def expireCrusade1(argsList):
 	if player.getStateReligion() != data.eReligion:
 		return True
 
-	if not GC.getTeam(player.getTeam()).isAtWar(GC.getPlayer(data.eOtherPlayer).getTeam()):
+	if not GC.getTeam(player.getTeam()).isAtWarWith(GC.getPlayer(data.eOtherPlayer).getTeam()):
 		return True
 
 	return False
@@ -2435,98 +2426,6 @@ def canTriggerExperiencedCaptain(argsList):
 
   return True
 
-######## PARTISANS ###########
-
-def getNumPartisanUnits(plot, iPlayer):
-  for i in xrange(GC.getNumCultureLevelInfos()):
-    iI = GC.getNumCultureLevelInfos() - i - 1
-    if plot.getCulture(iPlayer) >= GC.getCultureLevelInfo(iI).getSpeedThreshold(GAME.getGameSpeedType()):
-      return iI
-  return 0
-
-def getHelpPartisans1(argsList):
-  data = argsList[1]
-  player = GC.getPlayer(data.ePlayer)
-  capital = player.getCapitalCity()
-  plot = GC.getMap().plot(data.iPlotX, data.iPlotY)
-
-  if None != capital:
-    iNumUnits = getNumPartisanUnits(plot, data.ePlayer)
-    szUnit = GC.getUnitInfo(capital.getConscriptUnit()).getTextKey()
-
-    szHelp = TRNSLTR.getText("TXT_KEY_EVENT_PARTISANS_HELP_1", (iNumUnits, szUnit))
-
-  return szHelp
-
-def canApplyPartisans1(argsList):
-  data = argsList[1]
-  player = GC.getPlayer(data.ePlayer)
-  plot = GC.getMap().plot(data.iPlotX, data.iPlotY)
-
-  if getNumPartisanUnits(plot, data.ePlayer) <= 0:
-    return False
-
-  for i in xrange(3):
-    for j in xrange(3):
-      loopPlot = GC.getMap().plot(data.iPlotX + i - 1, data.iPlotY + j - 1)
-      if None != loopPlot and not loopPlot.isNone():
-        if not (loopPlot.isVisibleEnemyUnit(data.ePlayer) or loopPlot.isWater() or loopPlot.isImpassable() or loopPlot.isCity()):
-          return True
-  return False
-
-
-def applyPartisans1(argsList):
-  data = argsList[1]
-  player = GC.getPlayer(data.ePlayer)
-  capital = player.getCapitalCity()
-  plot = GC.getMap().plot(data.iPlotX, data.iPlotY)
-
-  if None != capital:
-    iNumUnits = getNumPartisanUnits(plot, data.ePlayer)
-
-    listPlots = []
-    for i in xrange(3):
-      for j in xrange(3):
-        loopPlot = GC.getMap().plot(data.iPlotX + i - 1, data.iPlotY + j - 1)
-        if None != loopPlot and not loopPlot.isNone() and (i != 1 or j != 1):
-          if not (loopPlot.isVisibleEnemyUnit(data.ePlayer) or loopPlot.isWater() or loopPlot.isImpassable()):
-            listPlots.append(loopPlot)
-
-    if len(listPlots) > 0:
-      for i in xrange(iNumUnits):
-        iPlot = GAME.getSorenRandNum(len(listPlots), "Partisan event placement")
-        player.initUnit(capital.getConscriptUnit(), listPlots[iPlot].getX(), listPlots[iPlot].getY(), UnitAITypes.UNITAI_ATTACK, DirectionTypes.DIRECTION_SOUTH)
-
-def getHelpPartisans2(argsList):
-  data = argsList[1]
-  player = GC.getPlayer(data.ePlayer)
-  capital = player.getCapitalCity()
-  plot = GC.getMap().plot(data.iPlotX, data.iPlotY)
-
-  if None != capital:
-    iNumUnits = max(1, getNumPartisanUnits(plot, data.ePlayer) / 2)
-    szUnit = GC.getUnitInfo(capital.getConscriptUnit()).getTextKey()
-
-    szHelp = TRNSLTR.getText("TXT_KEY_EVENT_PARTISANS_HELP_2", (iNumUnits, szUnit, capital.getNameKey()))
-
-  return szHelp
-
-def canApplyPartisans2(argsList):
-	data = argsList[1]
-	plot = GC.getMap().plot(data.iPlotX, data.iPlotY)
-	return max(1, getNumPartisanUnits(plot, data.ePlayer) / 2) > 0
-
-def applyPartisans2(argsList):
-  data = argsList[1]
-  player = GC.getPlayer(data.ePlayer)
-  capital = player.getCapitalCity()
-  plot = GC.getMap().plot(data.iPlotX, data.iPlotY)
-
-  if None != capital:
-    iNumUnits = max(1, getNumPartisanUnits(plot, data.ePlayer) / 2)
-    for i in xrange(iNumUnits):
-      player.initUnit(capital.getConscriptUnit(), capital.getX(), capital.getY(), UnitAITypes.UNITAI_ATTACK, DirectionTypes.DIRECTION_SOUTH)
-
 ######## GREED ###########
 
 def canTriggerGreed(argsList):
@@ -2540,36 +2439,36 @@ def canTriggerGreed(argsList):
 		return False
 
 	bonuses = []
-	iCount = 0
 	iOil = GC.getInfoTypeForString("BONUS_OIL")
 	if not CyPlayer.getNumAvailableBonuses(iOil):
 		bonuses.append(iOil)
-		iCount += 1
+
 	iIron = GC.getInfoTypeForString("BONUS_IRON_ORE")
 	if not CyPlayer.getNumAvailableBonuses(iIron):
 		bonuses.append(iIron)
-		iCount += 1
+
 	iHorse = GC.getInfoTypeForString("BONUS_HORSE")
 	if not CyPlayer.getNumAvailableBonuses(iHorse):
 		bonuses.append(iHorse)
-		iCount += 1
+
 	iCopper = GC.getInfoTypeForString("BONUS_COPPER_ORE")
 	if not CyPlayer.getNumAvailableBonuses(iCopper):
 		bonuses.append(iCopper)
-		iCount += 1
+
 	iSulphur = GC.getInfoTypeForString("BONUS_SULPHUR")
 	if not CyPlayer.getNumAvailableBonuses(iSulphur):
 		bonuses.append(iSulphur)
-		iCount += 1
+
 	iElephant = GC.getInfoTypeForString("BONUS_ELEPHANTS")
 	if not CyPlayer.getNumAvailableBonuses(iElephant):
 		bonuses.append(iElephant)
-		iCount += 1
 
-	if not iCount:
+	if not bonuses:
 		return False
 
-	shuffledRange = CvUtil.shuffle(iCount, GAME.getMapRand())
+	iSize = len(bonuses)
+	shuffledRange = [0]*iSize
+	shuffleList(iSize, GAME.getMapRand(), shuffledRange)
 	MAP = GC.getMap()
 	iNumPlots = MAP.numPlots()
 	listPlots = []
@@ -3586,40 +3485,34 @@ def getHelpCarnation2(argsList):
 #####  SYNTHETIC_FUELS  #####
 
 def canTriggerSyntheticFuels(argsList):
-  data = argsList[0]
-  pPlayer = GC.getPlayer(data.ePlayer)
+	data = argsList[0]
+	pPlayer = GC.getPlayer(data.ePlayer)
 
-  iEthanol = GC.getInfoTypeForString("BUILDING_CORPORATION_3_HQ")
-  if pPlayer.getBuildingCountWithUpgrades(iEthanol) > 0:
-    return False
-  bOil = GC.getInfoTypeForString("BONUS_OIL")
-  if pPlayer.hasBonus(bOil) > 0:
-    return False
-  bCoal = GC.getInfoTypeForString("BONUS_COAL")
-  if pPlayer.hasBonus(bCoal) < 1:
-    return False
-  for i in xrange(GC.getNumBuildingInfos()):
-    if GC.getBuildingInfo(i).getFreeBonus() == bOil and pPlayer.hasBuilding(i):
-      return False
-  return True
+	if (
+		not pPlayer.hasBonus(GC.getInfoTypeForString("BONUS_COAL"))
+	or pPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_CORPORATION_3_HQ")) > 0
+	):
+		return False
+
+	eOil = GC.getInfoTypeForString("BONUS_OIL")
+	if pPlayer.hasBonus(eOil):
+		return False
+	for i in xrange(GC.getNumBuildingInfos()):
+		building = GC.getBuildingInfo(i)
+		if eOil in building.getFreeBonuses() and pPlayer.hasBuilding(i):
+			return False
+	return True
 
 def canTriggerCitySyntheticFuels(argsList):
-	iCity = argsList[2]
-	pPlayer = GC.getPlayer(argsList[1])
-	pCity = pPlayer.getCity(iCity)
-	return not pCity.isGovernmentCenter()
+	return not GC.getPlayer(argsList[1]).getCity(argsList[2]).isGovernmentCenter()
 
 def getHelpSyntheticFuels1(argsList):
 	data = argsList[1]
-	pCity = GC.getPlayer(data.ePlayer).getCity(data.iCityId)
-	oBonus = GC.getInfoTypeForString("BONUS_OIL")
-	return TRNSLTR.getText("TXT_KEY_EVENT_SYNTHETIC_FUELS_HELP_1", ( 1, GC.getBonusInfo(oBonus).getChar(), pCity.getNameKey()))
+	return TRNSLTR.getText("TXT_KEY_EVENT_SYNTHETIC_FUELS_HELP_1", ( 1, GC.getBonusInfo(GC.getInfoTypeForString("BONUS_OIL")).getChar(), GC.getPlayer(data.ePlayer).getCity(data.iCityId).getNameKey()))
 
 def getHelpSyntheticFuels2(argsList):
 	data = argsList[1]
-	pCity = GC.getPlayer(data.ePlayer).getCity(data.iCityId)
-	oBonus = GC.getInfoTypeForString("BONUS_OIL")
-	return TRNSLTR.getText("TXT_KEY_EVENT_SYNTHETIC_FUELS_HELP_2", ( 1, GC.getBonusInfo(oBonus).getChar(), pCity.getNameKey()))
+	return TRNSLTR.getText("TXT_KEY_EVENT_SYNTHETIC_FUELS_HELP_2", ( 1, GC.getBonusInfo(GC.getInfoTypeForString("BONUS_OIL")).getChar(), GC.getPlayer(data.ePlayer).getCity(data.iCityId).getNameKey()))
 
 def getHelpSyntheticFuels3(argsList):
 	return TRNSLTR.getText("TXT_KEY_EVENT_SYNTHETIC_FUELS_HELP_3", (1, ))
@@ -6238,7 +6131,7 @@ def doVolcanoAdjustFertility(argsList):
   iY = pPlot.getY()
 
   for i in xrange(8):
-    tPlot = CvUtil.plotDirection(iX, iY, DirectionTypes(i))
+    tPlot = plotDirection(iX, iY, DirectionTypes(i))
     if not tPlot.isNone():
       if not tPlot.isCity():
         GAME.setPlotExtraYield(tPlot.getX(), tPlot.getY(), YieldTypes.YIELD_FOOD, extraFood)
@@ -6299,7 +6192,7 @@ def doVolcanoNeighbouringPlots(pPlot):
 
 	# Sets up lists for plots that are adjacent to the volcano
 	for i in xrange(8):
-		plot = CvUtil.plotDirection(iX, iY, DirectionTypes(i))
+		plot = plotDirection(iX, iY, DirectionTypes(i))
 		if not plot.isNone():
 			listVolcanoPlots.append(plot)
 			listVolcanoPlotsX.append(plot.getX())
@@ -6309,10 +6202,10 @@ def doVolcanoNeighbouringPlots(pPlot):
 	targetplot = listVolcanoPlots[GAME.getSorenRandNum(len(listVolcanoPlots), "Volcano direction")]
 	listAffectedPlots.append(targetplot)
 
-	listAdjacentPlots.append(CvUtil.plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_NORTH))
-	listAdjacentPlots.append(CvUtil.plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_SOUTH))
-	listAdjacentPlots.append(CvUtil.plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_EAST))
-	listAdjacentPlots.append(CvUtil.plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_WEST))
+	listAdjacentPlots.append(plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_NORTH))
+	listAdjacentPlots.append(plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_SOUTH))
+	listAdjacentPlots.append(plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_EAST))
+	listAdjacentPlots.append(plotDirection(targetplot.getX(), targetplot.getY(), DirectionTypes.DIRECTION_WEST))
 
 	# If plot is in the ring around the volcano, add to the list of affected plots
 	for plot in listAdjacentPlots:
@@ -6363,52 +6256,46 @@ def doVolcanoNeighbouringPlots(pPlot):
 
 
 def doVolcanoPlot(pPlot):
-  if pPlot.isNone():
-     return
+	if pPlot.isNone():
+		return
 
-  # List of features that are volcanoes
-  listVolcanoes = [GC.getInfoTypeForString('FEATURE_PLATY_FUJI'),
-                  GC.getInfoTypeForString('FEATURE_PLATY_SOPKA'),
-                  GC.getInfoTypeForString('FEATURE_PLATY_KRAKATOA'),
-                  GC.getInfoTypeForString('FEATURE_PLATY_KILIMANJARO'),
-                  GC.getInfoTypeForString('FEATURE_VOLCANO_ACTIVE'),
-                  GC.getInfoTypeForString('FEATURE_VOLCANO_DORMANT')]
-  ft_volcano_dormant = GC.getInfoTypeForString('FEATURE_VOLCANO_DORMANT')
-  ft_volcano_active = GC.getInfoTypeForString('FEATURE_VOLCANO_ACTIVE')
+	# List of features that are volcanoes
+	listVolcanoes = [
+		GC.getInfoTypeForString('FEATURE_PLATY_FUJI'),
+		GC.getInfoTypeForString('FEATURE_PLATY_SOPKA'),
+		GC.getInfoTypeForString('FEATURE_PLATY_KRAKATOA'),
+		GC.getInfoTypeForString('FEATURE_PLATY_KILIMANJARO'),
+		GC.getInfoTypeForString('FEATURE_VOLCANO_ACTIVE'),
+		GC.getInfoTypeForString('FEATURE_VOLCANO_DORMANT')
+	]
+	ft_volcano_dormant = GC.getInfoTypeForString('FEATURE_VOLCANO_DORMANT')
+	ft_volcano_active = GC.getInfoTypeForString('FEATURE_VOLCANO_ACTIVE')
 
-  # if terrain is a hill or peak, level it by changing it to rocky flatland.
-  if pPlot.isHills() or pPlot.isPeak():
-    pPlot.setPlotType(PlotTypes.PLOT_LAND, True, True)
-    pPlot.setTerrainType(GC.getInfoTypeForString('TERRAIN_ROCKY'), True, True)
+	# if terrain is a hill or peak, level it by changing it to rocky flatland.
+	if pPlot.isHills() or pPlot.isPeak():
+		pPlot.setPlotType(PlotTypes.PLOT_LAND, True, True)
+		pPlot.setTerrainType(GC.getInfoTypeForString('TERRAIN_ROCKY'), True, True)
 
-  iFeature = pPlot.getFeatureType()
-  pPlot.setImprovementType(-1)
-  pPlot.setBonusType(-1)
+	iFeature = pPlot.getFeatureType()
+	pPlot.setImprovementType(-1)
+	pPlot.setBonusType(-1)
 
-  # if the terrain is not an active volcano make it so
-  if iFeature == ft_volcano_dormant:
-    pPlot.setFeatureType(ft_volcano_active, 0)
-  elif not(iFeature in listVolcanoes):
-    pPlot.setFeatureType(ft_volcano_active, 0)
+	# if the terrain is not an active volcano make it so
+	if iFeature == ft_volcano_dormant or iFeature not in listVolcanoes:
+		pPlot.setFeatureType(ft_volcano_active, 0)
 
-  # Wound any units on the same plot as the volcano
-  iNumberOfUnits = pPlot.getNumUnits()
-  if iNumberOfUnits > 0:
-    for i in xrange(0, iNumberOfUnits):
-      pPlotUnit = pPlot.getUnit(i)
-      if pPlotUnit.getDamage() < 90: pPlotUnit.setDamage(90, False)
-      else: pPlotUnit.setDamage(99, False)
+	# Wound any units on the same plot as the volcano
+	for pPlotUnit in pPlot.units():
+		if pPlotUnit.getDamage() < 90: pPlotUnit.setDamage(90, False)
+		else: pPlotUnit.setDamage(99, False)
 
-      # move them to safety
-      iX = pPlot.getX()
-      iY = pPlot.getY()
-      for i in xrange(8):
-        sPlot = CvUtil.plotDirection(iX, iY, DirectionTypes(i))
-        if not sPlot.isNone():
-          if pPlotUnit.canMoveInto(sPlot, False, False, True):
-            pPlotUnit.setXY(sPlot.getX(), sPlot.getY(), False, True, True)
+		# move them to safety
+		for sPlot in pPlot.adjacent():
+			if pPlotUnit.canEnterPlot(sPlot, False, False, True):
+				pPlotUnit.setXY(sPlot.getX(), sPlot.getY(), False, True, True)
 
-  if pPlot.isWater(): pPlot.setPlotType(PlotTypes.PLOT_LAND, True, True)
+	if pPlot.isWater():
+		pPlot.setPlotType(PlotTypes.PLOT_LAND, True, True)
 
 def doVolcanoReport(argsList):
   pPlot = argsList[0]
@@ -7221,5 +7108,7 @@ def applyCivilWar(argsList):
 
 ################ BEST HUNTERS ################
 def canDoBestHunters1(argsList):
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_WITHOUT_WARNING): return True
-	return False
+	return GAME.isOption(GameOptionTypes.GAMEOPTION_WITHOUT_WARNING)
+
+def canDoBestHunters2(argsList):
+	return GAME.isOption(GameOptionTypes.GAMEOPTION_HIDE_AND_SEEK) and GAME.isOption(GameOptionTypes.GAMEOPTION_SIZE_MATTERS)

@@ -1,11 +1,20 @@
 #include "CvGameCoreDLL.h"
 #include "CvCity.h"
-#include "CvDllPythonEvents.h"
+#include "CvGameAI.h"
 #include "CvGlobals.h"
+#include "CvInfos.h"
+#include "CvInitCore.h"
+#include "CvPlayerAI.h"
 #include "CvPlot.h"
 #include "CvPython.h"
 #include "CvSelectionGroup.h"
+#include "CvTeamAI.h"
 #include "CvUnit.h"
+#include "CvDLLEngineIFaceBase.h"
+#include "CvDLLInterfaceIFaceBase.h"
+#include "CvDllPythonEvents.h"
+#include "CvDLLUtilityIFaceBase.h"
+#include "NiPoint.h"
 
 
 namespace logging {
@@ -657,26 +666,30 @@ void CvDllPythonEvents::reportCityRazed( CvCity *pCity, PlayerTypes ePlayer )
 	postEvent(eventData, "cityRazed");
 }
 
-void CvDllPythonEvents::reportCityAcquired(PlayerTypes eOldOwner, PlayerTypes ePlayer, CvCity* pOldCity, bool bConquest, bool bTrade)
+void CvDllPythonEvents::reportCityAcquired(PlayerTypes eOldOwner, PlayerTypes ePlayer, CvCity* city, bool bConquest, bool bTrade, bool bAutoRaze)
 {
 	EventArgs eventData;
 	eventData
 		.arg("event", "cityAcquired")
 		.arg("eOldOwner", eOldOwner)
 		.arg("ePlayer", ePlayer)
-		.arg("pOldCity", pOldCity)
+		.arg("city", city)
 		.arg("bConquest", bConquest)
-		.arg("bTrade", bTrade);
+		.arg("bTrade", bTrade)
+		.arg("bAutoRaze", bAutoRaze);
 	postEvent(eventData, "cityAcquired");
 }
 
-void CvDllPythonEvents::reportCityAcquiredAndKept(PlayerTypes ePlayer, CvCity* pOldCity)
+void CvDllPythonEvents::reportCityAcquiredAndKept(PlayerTypes eOldOwner, PlayerTypes ePlayer, CvCity* city, bool bConquest, bool bTrade)
 {
 	EventArgs eventData;
 	eventData
 		.arg("event", "cityAcquiredAndKept")
+		.arg("eOldOwner", eOldOwner)
 		.arg("ePlayer", ePlayer)
-		.arg("pOldCity", pOldCity);
+		.arg("city", city)
+		.arg("bConquest", bConquest)
+		.arg("bTrade", bTrade);
 	postEvent(eventData, "cityAcquiredAndKept");
 }
 
@@ -806,18 +819,6 @@ void CvDllPythonEvents::reportSelectionGroupPushMission(const CvSelectionGroup* 
 		.arg("aiUnitIds", aiUnitIds.size())
 		.arg("aiUnitIds", aiUnitIds);
 	postEvent(eventData, "selectionGroupPushMission");
-}
-
-void CvDllPythonEvents::reportUnitMove(CvPlot* pPlot, CvUnit* pUnit, CvPlot* pOldPlot)
-{
-	EventArgs eventData;
-	eventData
-		.no_json()
-		.arg("event", "unitMove")
-		.arg("pPlot", pPlot)
-		.arg("pUnit", pUnit)
-		.arg("pOldPlot", pOldPlot);
-	postEvent(eventData, "unitMove");
 }
 
 void CvDllPythonEvents::reportUnitCreated(CvUnit* pUnit)
