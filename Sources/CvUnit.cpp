@@ -1484,57 +1484,66 @@ void CvUnit::killUnconditional(bool bDelay, PlayerTypes ePlayer, bool bMessaged)
 		{
 			foreach_(CvUnit* unitX, pPlot->units())
 			{
-				if (unitX->getTransportUnit() == this && !unitX->isDelayedDeath())
+				if (unitX == this || unitX->getTransportUnit() != this)
 				{
-					if (pPlot->isValidDomainForLocation(*unitX))
-					{
-						unitX->setCapturingPlayer(NO_PLAYER);
-						unitX->setCapturingUnit(this);
-					}
+					continue;
+				}
+				if (unitX->isDelayedDeath())
+				{
+					// Should mean that we are on the second kill pass of transporting unit (this),
+					// i.e. this cargo unit (unitX) already failed to survive on the first kill pass where bDelay=True.
+					FAssertMsg(!bDelay, "bDelay should in theory always be false here... I think");
+					unitX->kill(bDelay, NO_PLAYER, true);
+					continue;
+				}
+
+				/* Toffer ToDo - revise
+				if (getCaptureUnitType() != NO_UNIT && getCapturingPlayer() != NO_PLAYER
+				&& unitX->getCaptureUnitType() != NO_UNIT && !GET_PLAYER(getCapturingPlayer()).isNPC()
+				&& GC.getGame().getSorenRandNum(2, "50% prefer safe capture over deadly escape.") == 0)
+				{
+					unitX->setCapturingPlayer(getCapturingPlayer());
+					unitX->setCapturingUnit(getCapturingUnit());
+					unitX->kill(bDelay, ePlayer, bMessaged);
+					continue;
+				}
+				*/
+				if (GC.getGame().getSorenRandNum(pPlot->isWater() ? 5 : 2, "Unit Survives Drowning") == 0)
+				{
 					bool bSurvived = false;
+					std::vector<const CvPlot*> validPlots;
 
-					if (GC.getDefineINT("WAR_PRIZES") && GC.getGame().getSorenRandNum(10, "Unit Survives Drowning") == 0)
+					foreach_(const CvPlot* pAdjacentPlot, plot()->adjacent())
 					{
-						std::vector<CvPlot*> validPlots;
-
-						foreach_(CvPlot* pAdjacentPlot, plot()->adjacent())
+						if (unitX->canMoveThrough(pAdjacentPlot, false))
 						{
-							if (unitX->canMoveThrough(pAdjacentPlot, false))
-							{
-								validPlots.push_back(pAdjacentPlot);
-								bSurvived = true;
-							}
-						}
-						if (bSurvived)
-						{
-							CvPlot* rescuePlot = validPlots[GC.getGame().getSorenRandNum(validPlots.size(), "Event pick plot")];
-
-							FAssertMsg(rescuePlot != NULL, "rescuePlot is expected to be a valid plot!");
-							unitX->setXY(rescuePlot->getX(), rescuePlot->getY());
-							unitX->setDamage(GC.getGame().getSorenRandNum(unitX->getHP(), "Survival Damage"), NO_PLAYER);
-							AddDLLMessage(
-								unitX->getOwner(), false, GC.getEVENT_MESSAGE_TIME(),
-								gDLL->getText("TXT_KEY_MISC_UNIT_SURVIVED_TRANSPORT_SINKING", unitX->getNameKey(), getNameKey()),
-								NULL, MESSAGE_TYPE_MINOR_EVENT
-							);
+							validPlots.push_back(pAdjacentPlot);
+							bSurvived = true;
 						}
 					}
-					if (!bSurvived)
+					if (bSurvived)
 					{
+						const CvPlot* rescuePlot = validPlots[GC.getGame().getSorenRandNum(validPlots.size(), "Event pick plot")];
+
+						FAssertMsg(rescuePlot != NULL, "rescuePlot is expected to be a valid plot!");
+						unitX->setXY(rescuePlot->getX(), rescuePlot->getY());
+						unitX->setDamage(GC.getGame().getSorenRandNum(std::min(unitX->getMaxHP() * 2/3, unitX->getHP()), "Survival Damage"), NO_PLAYER);
 						AddDLLMessage(
-							eOwner, true, GC.getEVENT_MESSAGE_TIME(),
-							gDLL->getText("TXT_KEY_MISC_UNIT_DROWNED", unitX->getNameKey()),
-							GC.getEraInfo(GC.getGame().getCurrentEra()).getAudioUnitDefeatScript(),
-							MESSAGE_TYPE_INFO, NULL, GC.getCOLOR_RED(), getX(), getY()
+							unitX->getOwner(), false, GC.getEVENT_MESSAGE_TIME(),
+							gDLL->getText("TXT_KEY_MISC_UNIT_SURVIVED_TRANSPORT_SINKING", unitX->getNameKey(), getNameKey()),
+							NULL, MESSAGE_TYPE_MINOR_EVENT
 						);
-						bMessaged = true;
-						if (bDelay)
-						{
-							unitX->unload();
-						}
-						unitX->kill(bDelay, ePlayer, bMessaged);
+						continue;
 					}
 				}
+				AddDLLMessage(
+					eOwner, true, GC.getEVENT_MESSAGE_TIME(),
+					gDLL->getText("TXT_KEY_MISC_UNIT_DROWNED", unitX->getNameKey()),
+					GC.getEraInfo(GC.getGame().getCurrentEra()).getAudioUnitDefeatScript(),
+					MESSAGE_TYPE_INFO, NULL, GC.getCOLOR_RED(), getX(), getY()
+				);
+				bMessaged = true;
+				unitX->kill(bDelay, ePlayer, bMessaged);
 			}
 		}
 
@@ -1691,8 +1700,8 @@ void CvUnit::killUnconditional(bool bDelay, PlayerTypes ePlayer, bool bMessaged)
 
 		CvEventReporter::getInstance().unitLost(this);
 
-		PlayerTypes eCapturingPlayer = getCapturingPlayer();
-		UnitTypes eCaptureUnitType = getCaptureUnitType();
+		const PlayerTypes eCapturingPlayer = getCapturingPlayer();
+		const UnitTypes eCaptureUnitType = getCaptureUnitType();
 
 		if (eCapturingPlayer != NO_PLAYER && eCaptureUnitType != NO_UNIT && !GET_PLAYER(eCapturingPlayer).isNPC())
 		{
@@ -4364,7 +4373,6 @@ void CvUnit::updateCombat(bool bQuick, CvUnit* pSelectedDefender, bool bSamePlot
 			}
 
 			CvEventReporter::getInstance().combatResult(this, pDefender);
-			//CvUnitInfo* pDefenderUnitInfo = &(pDefender->getUnitInfo());
 			PlayerTypes eDefenderUnitPlayer = pDefender->getOwner();
 			UnitTypes eDefenderUnitType = pDefender->getUnitType();
 
@@ -6489,7 +6497,7 @@ void CvUnit::attack(CvPlot* pPlot, bool bQuick, bool bStealth, bool bNoCache)
 	//TB Combat Mods begin
 	pPlot->doPreAttackTraps(this);
 
-	if (!isDead() && !isDelayedDeath())
+	if (!isDead())
 	{
 		if (!pPlot->hasDefender(false, NO_PLAYER, getOwner(), this, true, false, false, true) && pPlot->hasStealthDefender(this))
 		{
@@ -12012,12 +12020,7 @@ bool CvUnit::upgradeAvailable(UnitTypes eFromUnit, UnitTypes eToUnit) const
 
 bool CvUnit::canUpgrade(UnitTypes eUnit, bool bTestVisible) const
 {
-	if (eUnit == NO_UNIT)
-	{
-		return false;
-	}
-
-	if (!isReadyForUpgrade())
+	if (eUnit == NO_UNIT || !isReadyForUpgrade())
 	{
 		return false;
 	}
@@ -12054,15 +12057,7 @@ bool CvUnit::canUpgrade(UnitTypes eUnit, bool bTestVisible) const
 
 bool CvUnit::isReadyForUpgrade() const
 {
-	if (!canMove())
-	{
-		return false;
-	}
-	if (plot()->getTeam() != getTeam() && !isUpgradeAnywhere() && !GET_PLAYER(getOwner()).isUpgradeAnywhere())
-	{
-		return false;
-	}
-	return true;
+	return canMove() && (plot()->getTeam() == getTeam() || isUpgradeAnywhere() || GET_PLAYER(getOwner()).isUpgradeAnywhere());
 }
 
 // has upgrade is used to determine if an upgrade is possible,
@@ -12354,7 +12349,7 @@ SpecialUnitTypes CvUnit::getSpecialUnitType() const
 
 UnitTypes CvUnit::getCaptureUnitType() const
 {
-	return (UnitTypes) m_pUnitInfo->getUnitCaptureType();
+	return m_pUnitInfo->getUnitCaptureType();
 }
 
 
@@ -12964,7 +12959,7 @@ bool CvUnit::isHurt() const
 
 bool CvUnit::isDead() const
 {
-	return (getDamage() >= getMaxHP());
+	return isDelayedDeath() || (getDamage() >= getMaxHP());
 }
 
 
@@ -14351,7 +14346,7 @@ bool CvUnit::isFortifyable() const
 
 bool CvUnit::isBuildUpable() const
 {
-	if (isDelayedDeath() || isDead())
+	if (isDead())
 	{
 		return false;
 	}
@@ -15221,7 +15216,7 @@ int CvUnit::featureDefenseModifier(FeatureTypes eFeature) const
 int CvUnit::unitAttackModifier(UnitTypes eUnit) const
 {
 	FASSERT_BOUNDS(0, GC.getNumUnitInfos(), eUnit);
-	return m_pUnitInfo->getUnitAttackModifier(eUnit);
+	return m_pUnitInfo->getUnitAttackModifiers().getValue(eUnit);
 }
 
 
@@ -15232,7 +15227,7 @@ int CvUnit::unitDefenseModifier(UnitTypes eUnit) const
 		return 0;
 	}
 	FASSERT_BOUNDS(0, GC.getNumUnitInfos(), eUnit);
-	return m_pUnitInfo->getUnitDefenseModifier(eUnit);
+	return m_pUnitInfo->getUnitDefenseModifiers().getValue(eUnit);
 }
 
 
@@ -15785,10 +15780,8 @@ void CvUnit::setXY(int iX, int iY, bool bGroup, bool bUpdate, bool bShow, bool b
 				OutputDebugString(CvString::format("%S (%d) CvUnit::setXY (%d,%d)\n", getDescription().c_str(), m_iID, m_iX, m_iY).c_str());
 				foreach_(CvUnit* unitX, pNewPlot->units_safe())
 				{
-					//OutputDebugString(CvString::format("DEAD=%d - DD=%d - CvUnit::setXY...unitX\n", (int)unitX->isDead(), (int)unitX->isDelayedDeath()).c_str());
-					if (unitX->isDead() || unitX->isDelayedDeath())
-						continue; // isDead() happens for cargo on non-debug dll, while isDelayedDeath() happens for cargo on the debug dll.
-					//OutputDebugString(CvString::format("CvUnit::setXY...unitX=%S\n", unitX->getDescription().c_str()).c_str());
+					if (unitX->isDead())
+						continue;
 
 					if ((isEnemy(unitX->getTeam(), pNewPlot) || unitX->isEnemy(getTeam())) && !unitX->canCoexistWithAttacker(*this))
 					{
@@ -19072,7 +19065,7 @@ bool CvUnit::isDelayedDeath() const
 bool CvUnit::doDelayedDeath()
 {
 	// Koshling - added 'isDead' check to clean up units with 100% damage that have somehow been left behind
-	if ((m_bDeathDelay || isDead()) && !isFighting())
+	if (isDead() && !isFighting())
 	{
 		killUnconditional(false, NO_PLAYER, true);
 		return true;
@@ -19433,23 +19426,17 @@ void CvUnit::setTransportUnit(CvUnit* pTransportUnit)
 			m_transportUnit.reset();
 
 			getGroup()->setActivityType(ACTIVITY_AWAKE);
-/************************************************************************************************/
-/* Afforess	                  Start		 09/01/10                                               */
-/*                                                                                              */
-/*  After a Barb Transport is done, set it to attack AI                                         */
-/************************************************************************************************/
+
+			// After a Barb Transport is done, set it to attack AI
 			if (pOldTransportUnit != NULL && !pOldTransportUnit->hasCargo())
 			{
-				if (pOldTransportUnit->getDomainType() == DOMAIN_SEA && pOldTransportUnit->getOwner() == BARBARIAN_PLAYER)
+				if (pOldTransportUnit->getDomainType() == DOMAIN_SEA && pOldTransportUnit->isHominid())
 				{
 					pOldTransportUnit->AI_setUnitAIType(UNITAI_ATTACK_SEA);
 				}
 			}
-/************************************************************************************************/
-/* Afforess	                     END                                                            */
-/************************************************************************************************/
 
-			//	Koshling - have the AI prioritize regrouping with other units when unloaded
+			// Koshling - have the AI prioritize regrouping with other units when unloaded
 			getGroup()->AI_setMissionAI(MISSIONAI_REGROUP, NULL, NULL);
 		}
 
@@ -19971,14 +19958,14 @@ bool CvUnit::canAcquirePromotion(PromotionTypes ePromotion, bool bIgnoreHas, boo
 	//TB Combat Mods Begin
 	if (!bForFree || bForBuildUp)
 	{
-		const PromotionTypes ePromotionPrerequisite = (PromotionTypes)promo.getPrereqPromotion();
+		const PromotionTypes ePromotionPrerequisite = promo.getPrereqPromotion();
 
 		if (ePromotionPrerequisite != NO_PROMOTION && !isHasPromotion(ePromotionPrerequisite))
 		{
 			return false;
 		}
-		const PromotionTypes ePromotionPrerequisite1 = (PromotionTypes)promo.getPrereqOrPromotion1();
-		const PromotionTypes ePromotionPrerequisite2 = (PromotionTypes)promo.getPrereqOrPromotion2();
+		const PromotionTypes ePromotionPrerequisite1 = promo.getPrereqOrPromotion1();
+		const PromotionTypes ePromotionPrerequisite2 = promo.getPrereqOrPromotion2();
 
 		if ((ePromotionPrerequisite1 != NO_PROMOTION || ePromotionPrerequisite2 != NO_PROMOTION)
 		&&  (ePromotionPrerequisite1 == NO_PROMOTION || !isHasPromotion(ePromotionPrerequisite1))
@@ -21934,7 +21921,7 @@ void CvUnit::setHasPromotion(PromotionTypes eIndex, bool bNewValue, bool bFree, 
 
 			// When promotions are being removed as part of killing a unit we dont want to add any more or invoke obsoletion checks,
 			//	which results in lots of extra processing, and can also generate retrain messages for the dying units!
-			if (!isDead() && !isDelayedDeath() && !bDying)
+			if (!isDead() && !bDying)
 			{
 				checkPromotionObsoletion();
 				checkFreetoCombatClass();
@@ -24792,7 +24779,7 @@ void CvUnit::flankingStrikeCombat(const CvPlot* pPlot, int iAttackerStrength, in
 		if (pLoopUnit != pSkipUnit && !pLoopUnit->isDead() && isEnemy(pLoopUnit->getTeam(), pPlot, pLoopUnit)
 		&& !pLoopUnit->isInvisible(getTeam(), false) && pLoopUnit->canDefend())
 		{
-			int iFlankingStrength = m_pUnitInfo->getFlankingStrikeUnit(pLoopUnit->getUnitType());
+			int iFlankingStrength = m_pUnitInfo->getFlankingStrikeUnits().getValue(pLoopUnit->getUnitType());
 
 			for (int iI = 0; iI < GC.getNumUnitCombatInfos(); iI++)
 			{
@@ -25946,6 +25933,8 @@ bool CvUnit::isAlwaysHostile(const CvPlot* pPlot) const
 
 bool CvUnit::verifyStackValid()
 {
+	if (isDead()) return true;
+
 	const CvPlot* pPlot = plot();
 	if (canCoexistAlwaysOnPlot(*pPlot))
 	{
@@ -32470,9 +32459,9 @@ bool CvUnit::canKeepPromotion(PromotionTypes ePromotion, bool bAssertFree, bool 
 		if (!bAfflict)
 #endif
 		{
-			const PromotionTypes ePromotionPrerequisite = (PromotionTypes)promo.getPrereqPromotion();
-			const PromotionTypes ePromotionPrerequisite1 = (PromotionTypes)promo.getPrereqOrPromotion1();
-			const PromotionTypes ePromotionPrerequisite2 = (PromotionTypes)promo.getPrereqOrPromotion2();
+			const PromotionTypes ePromotionPrerequisite = promo.getPrereqPromotion();
+			const PromotionTypes ePromotionPrerequisite1 = promo.getPrereqOrPromotion1();
+			const PromotionTypes ePromotionPrerequisite2 = promo.getPrereqOrPromotion2();
 
 			if (ePromotionPrerequisite != NO_PROMOTION && !isHasPromotion(ePromotionPrerequisite)
 			|| (ePromotionPrerequisite1 != NO_PROMOTION || ePromotionPrerequisite2 != NO_PROMOTION)
@@ -32751,7 +32740,7 @@ bool CvUnit::canSwitchEquipment(PromotionTypes eEquipment) const
 	}
 
 	{
-		const PromotionTypes ePromotionPrerequisite = (PromotionTypes)equipment.getPrereqPromotion();
+		const PromotionTypes ePromotionPrerequisite = equipment.getPrereqPromotion();
 
 		if (ePromotionPrerequisite != NO_PROMOTION && !isHasPromotion(ePromotionPrerequisite))
 		{
@@ -32759,8 +32748,8 @@ bool CvUnit::canSwitchEquipment(PromotionTypes eEquipment) const
 		}
 	}
 	{
-		const PromotionTypes ePromotionPrerequisite1 = (PromotionTypes)equipment.getPrereqOrPromotion1();
-		const PromotionTypes ePromotionPrerequisite2 = (PromotionTypes)equipment.getPrereqOrPromotion2();
+		const PromotionTypes ePromotionPrerequisite1 = equipment.getPrereqOrPromotion1();
+		const PromotionTypes ePromotionPrerequisite2 = equipment.getPrereqOrPromotion2();
 
 		if ((ePromotionPrerequisite1 != NO_PROMOTION || ePromotionPrerequisite2 != NO_PROMOTION)
 		&&  (ePromotionPrerequisite1 == NO_PROMOTION || !isHasPromotion(ePromotionPrerequisite1))
@@ -35111,7 +35100,6 @@ bool CvUnit::canMerge(bool bAutocheck) const
 		|| isFighting()
 		|| isCargo()
 		|| hasCargo()
-		|| isDelayedDeath()
 		|| isSpy()
 		|| hasMoved()
 		|| groupRank() >= eraGroupMergeLimit()
@@ -35145,7 +35133,6 @@ bool CvUnit::canMerge(bool bAutocheck) const
 			&& !pLoopUnit->isFighting()
 			&& !pLoopUnit->isCargo()
 			&& !pLoopUnit->hasCargo()
-			&& !pLoopUnit->isDelayedDeath()
 			&& !pLoopUnit->isSpy()
 			&& !pLoopUnit->hasMoved()
 			&& pLoopUnit->baseWorkRate() < 1
@@ -35196,7 +35183,7 @@ bool CvUnit::canSplit() const
 		return false;
 	}
 
-	if (isHurt() || isDead() || isFighting() || isCargo() || hasCargo() || isDelayedDeath() || isSpy() || hasMoved() || isInhibitSplit() )
+	if (isHurt() || isDead() || isFighting() || isCargo() || hasCargo() || isSpy() || hasMoved() || isInhibitSplit() )
 	{
 		return false;
 	}
@@ -35277,7 +35264,6 @@ void CvUnit::doMerge()
 				&& !pLoopUnit->isFighting()
 				&& !pLoopUnit->isCargo()
 				&& !pLoopUnit->hasCargo()
-				&& !pLoopUnit->isDelayedDeath()
 				&& !pLoopUnit->isSpy()
 				&& !pLoopUnit->hasMoved()
 				)
@@ -35938,44 +35924,27 @@ void CvUnit::setExtraBombardRate(int iChange)
 // The call that plugs into the rest of the code (final value) - this can be plugged into the existing final - or even be renamed to the existing final (though experience has shown me this causes me tremendous confusion!)
 int CvUnit::getBombardRate() const
 {
-	if (!GC.getGame().isOption(GAMEOPTION_SIZE_MATTERS)
-	// if the current final result of the SMM multiplicative mechanism is nothing but an empty shell
-	// then this is the first time it's being run so we take from the base value to start.
-	// Either that or the base is 0 anyhow.
-	|| getSMBombardRate() == 0)
+	if (GC.getGame().isOption(GAMEOPTION_SIZE_MATTERS))
 	{
-		return std::max(0, getSMBombardRateTotalBase());
+		return m_iSMBombardRate;
 	}
-	return std::max(0, getSMBombardRate());
+	return getBombardRateBase();
 }
 
 // The total before the Size Matters multiplicative method adjusts for the final value.
-int CvUnit::getSMBombardRateTotalBase() const
+int CvUnit::getBombardRateBase() const
 {
-	// If there is a flat base not defined on the unit itself then it needs to plug in here.
-	// The following lines can vary depending on if you want an approaching 0 return, diminishing return, max or whatever
-	// size matters most won't need a diminishing return and in fact would be harmed by it as it needs true values to work with
-	// In THIS case, units can easily have NO bombard rate (there's a check above to make sure it's not less than 0 as that would be an odd situation.)
-	// If this value starts going less than 0 then perhaps a min needs to be established.
-	return m_pUnitInfo->getBombardRate() + getExtraBombardRate();
-}
-
-int CvUnit::getSMBombardRate() const//The final result of the Multiplicative adjustment
-{
-	return m_iSMBombardRate;//A separate (likely new) data storage to track the multiplicated value.
+	return std::max(0, m_pUnitInfo->getBombardRate() + getExtraBombardRate());
 }
 
 ////The active call to establish the current proper adjusted value.
 ////This is the core multiplicative method being utilized.
 void CvUnit::setSMBombardRate()
 {
-	m_iSMBombardRate = applySMRank(getSMBombardRateTotalBase(),
-		getSizeMattersOffsetValue(),
-		GC.getSIZE_MATTERS_MOST_MULTIPLIER());
+	m_iSMBombardRate = applySMRank(getBombardRateBase(), getSizeMattersOffsetValue(), GC.getSIZE_MATTERS_MOST_MULTIPLIER());
 
 	// optional but most of these should be above or equal to 0.
 	FASSERT_NOT_NEGATIVE(m_iSMBombardRate);
-	m_iSMBombardRate = std::max(0, m_iSMBombardRate);
 }
 
 
@@ -38089,7 +38058,7 @@ bool CvUnit::canArrest() const
 			return false;
 		}
 		const CvPlot* pPlot = plot();
-		if (canMove() && canAttack() && !isDead() && !isFighting() && !isCargo() && !isDelayedDeath() && getGroup()->getNumUnits() == 1)
+		if (canMove() && canAttack() && !isDead() && !isFighting() && !isCargo() && getGroup()->getNumUnits() == 1)
 		{
 			if (pPlot != NULL)
 			{
@@ -38131,7 +38100,7 @@ void CvUnit::doArrest()
 				{
 					if (GET_PLAYER(pLoopUnit->getOwner()).getArrestingUnit() != pLoopUnit->getID())
 					{
-						if (!pLoopUnit->isInvisible(GET_PLAYER(getOwner()).getTeam(), false) && !pLoopUnit->isDead() && !pLoopUnit->isFighting() && !pLoopUnit->isDelayedDeath() && !pLoopUnit->isSpy())
+						if (!pLoopUnit->isInvisible(GET_PLAYER(getOwner()).getTeam(), false) && !pLoopUnit->isDead() && !pLoopUnit->isFighting() && !pLoopUnit->isSpy())
 						{
 							const int iOdds = getCombatOdds(this, pLoopUnit);
 							if (iOdds > 50 && iOdds > iBestOdds)
