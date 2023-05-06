@@ -4,7 +4,6 @@ import WBPlayerScreen
 import WBTeamScreen
 import WBProjectScreen
 import WBCityEditScreen
-import WBUnitScreen
 import WBInfoScreen
 import WBCityDataScreen
 import WBBuildingScreen
@@ -348,7 +347,7 @@ class WBPlayerUnits:
 		if pCity.isProduction():
 			sText += u"\n%s:" %(CyTranslator().getText("[ICON_PRODUCTION]", ()))
 			if not pCity.isProductionProcess():
-				sText += u" %d/%d" %(pCity.getProduction(), pCity.getProductionNeeded())
+				sText += u" %d/%d" %(pCity.getProductionProgress(), pCity.getProductionNeeded())
 				iProduction = pCity.getCurrentProductionDifference(False, True)
 				if iProduction != 0:
 					sText += u" %+d" %(iProduction)
@@ -455,7 +454,7 @@ class WBPlayerUnits:
 			elif iIndex == 11:
 				WBInfoScreen.WBInfoScreen(self.WB).interfaceScreen(iPlayer)
 			elif iIndex == 5:
-				WBUnitScreen.WBUnitScreen(self.WB).interfaceScreen(pUnitOwner.getUnit(iUnitID))
+				self.WB.goToSubScreen("UnitScreen", [pUnitOwner.getUnit(iUnitID)])
 			elif iIndex == 6:
 				WBPromotionScreen.WBPromotionScreen(self.WB).interfaceScreen(pUnitOwner.getUnit(iUnitID))
 			elif iIndex == 7:
@@ -512,7 +511,7 @@ class WBPlayerUnits:
 			WBCityEditScreen.WBCityEditScreen(self.WB).interfaceScreen(pCityOwner.getCity(iCityID))
 
 		elif sName == "GoToUnit":
-			WBUnitScreen.WBUnitScreen(self.WB).interfaceScreen(pUnitOwner.getUnit(iUnitID))
+			self.WB.goToSubScreen("UnitScreen", [pUnitOwner.getUnit(iUnitID)])
 
 		elif sName == "WBCityList":
 			if inputClass.getData1() == 7872:

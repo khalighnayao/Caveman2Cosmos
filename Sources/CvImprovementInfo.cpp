@@ -1,3 +1,6 @@
+
+#include "FProfiler.h"
+
 #include "CvArtFileMgr.h"
 #include "CvDefines.h"
 #include "CvImprovementInfo.h"
@@ -491,6 +494,21 @@ bool CvImprovementInfo::isFeatureChangeType(int i) const
 	return algo::any_of_equal(m_aiFeatureChangeTypes, i);
 }
 
+int CvImprovementInfo::getCategory(int i) const
+{
+	return (m_aiCategories[i]);
+}
+
+int CvImprovementInfo::getNumCategories() const
+{
+	return (int)(m_aiCategories.size());
+}
+
+bool CvImprovementInfo::isCategory(int i) const
+{
+	return algo::any_of_equal(m_aiCategories, i);
+}
+
 //Post Load functions
 //void CvImprovementInfo::setHighestCost()
 //{
@@ -525,6 +543,7 @@ void CvImprovementInfo::getDataMembers(CvInfoUtil& util)
 
 void CvImprovementInfo::getCheckSum(uint32_t& iSum) const
 {
+	PROFILE_EXTRA_FUNC();
 	CvInfoUtil(this).checkSum(iSum);
 
 	CheckSum(iSum, m_iAdvancedStartCost);
@@ -626,10 +645,12 @@ void CvImprovementInfo::getCheckSum(uint32_t& iSum) const
 	CheckSum(iSum, m_bGlobal);
 	CheckSumC(iSum, m_aiAlternativeImprovementUpgradeTypes);
 	CheckSumC(iSum, m_aiFeatureChangeTypes);
+	CheckSumC(iSum, m_aiCategories);
 }
 
 bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)
 {
+	PROFILE_EXTRA_FUNC();
 	CvString szTextVal;
 	if (!CvInfoBase::read(pXML))
 	{
@@ -897,12 +918,14 @@ bool CvImprovementInfo::read(CvXMLLoadUtility* pXML)
 	pXML->GetOptionalTypeEnumWithDelayedResolution(m_iBonusChange, L"BonusChange");
 	pXML->SetOptionalVectorWithDelayedResolution(m_aiAlternativeImprovementUpgradeTypes, L"AlternativeImprovementUpgradeTypes");
 	pXML->SetOptionalVector(&m_aiFeatureChangeTypes, L"FeatureChangeTypes");
+	pXML->SetOptionalVector(&m_aiCategories, L"Categories");
 
 	return true;
 }
 
 void CvImprovementInfo::copyNonDefaults(const CvImprovementInfo* pClassInfo)
 {
+	PROFILE_EXTRA_FUNC();
 	const bool bDefault = false;
 	const int iDefault = 0;
 	const int iTextDefault = -1;  //all integers which are TEXT_KEYS in the xml are -1 by default
@@ -1130,14 +1153,16 @@ void CvImprovementInfo::copyNonDefaults(const CvImprovementInfo* pClassInfo)
 	GC.copyNonDefaultDelayedResolution((int*)&m_iBonusChange, (int*)&pClassInfo->m_iBonusChange);
 
 	CvXMLLoadUtility::CopyNonDefaultsFromVector(m_aiFeatureChangeTypes, pClassInfo->m_aiFeatureChangeTypes);
+	CvXMLLoadUtility::CopyNonDefaultsFromVector(m_aiCategories, pClassInfo->m_aiCategories);
 	CvXMLLoadUtility::CopyNonDefaultsFromVector(m_aeMapCategoryTypes, pClassInfo->getMapCategories());
 }
 
-void CvImprovementInfo::doPostLoadCaching(uint32_t eThis)
+void CvImprovementInfo::doPostLoadCaching(uint32_t iThis)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0, num = GC.getNumBuildInfos(); i < num; i++)
 	{
-		if (GC.getBuildInfo((BuildTypes)i).getImprovement() == eThis)
+		if (GC.getBuildInfo((BuildTypes)i).getImprovement() == iThis)
 		{
 			m_improvementBuildTypes.push_back((BuildTypes)i);
 		}

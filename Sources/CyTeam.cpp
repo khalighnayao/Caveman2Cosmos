@@ -1,3 +1,6 @@
+
+#include "FProfiler.h"
+
 #include "CvGameCoreDLL.h"
 #include "CvPlayerAI.h"
 #include "CvTeam.h"
@@ -190,19 +193,13 @@ bool CyTeam::isMinorCiv() const
 
 void CyTeam::setIsMinorCiv(bool bNewValue, bool bDoBarbCivCheck)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int iI = 0; iI < MAX_PC_PLAYERS; iI++)
 	{
-		if (GET_PLAYER((PlayerTypes)iI).getTeam() == m_pTeam->getID())
+		if (GET_PLAYER((PlayerTypes)iI).getTeam() == m_pTeam->getID() && GET_PLAYER((PlayerTypes)iI).getCivilizationType() < 0)
 		{
-			if (GET_PLAYER((PlayerTypes)iI).getCivilizationType() < 0)
-			{
-				FErrorMsg("GET_PLAYER((PlayerTypes)iI) of m_pTeam should have a civilizationType");
-#ifdef _DEBUG
-				throw new std::exception();
-#endif
-			}
+			FErrorMsg("GET_PLAYER((PlayerTypes)iI) of m_pTeam should have a civilizationType");
 		}
-
 	}
 	m_pTeam->setIsMinorCiv(bNewValue, bDoBarbCivCheck);
 }
@@ -637,11 +634,6 @@ int CyTeam::getUnitCount(int /*UnitTypes*/ eIndex) const
 	return m_pTeam->getUnitCount((UnitTypes)eIndex);
 }
 
-bool CyTeam::isUnitMaxedOut(int /*UnitTypes*/ eIndex, int iExtra) const
-{
-	return m_pTeam->isUnitMaxedOut((UnitTypes)eIndex, iExtra);
-}
-
 int CyTeam::getBuildingCount(int /*BuildingTypes*/ eIndex) const
 {
 	return m_pTeam->getBuildingCount((BuildingTypes)eIndex);
@@ -702,6 +694,15 @@ void CyTeam::setHasTech(int /*TechTypes*/ eIndex, bool bNewValue, int /*PlayerTy
 bool CyTeam::isNoTradeTech(int /*TechTypes*/ iIndex) const
 {
 	return m_pTeam->isNoTradeTech((TechTypes)iIndex);
+}
+
+int CyTeam::getNumAdjacentResearch() const
+{
+	return m_pTeam->getAdjacentResearch().size();
+}
+int CyTeam::getAdjacentResearch(int i) const
+{
+	return m_pTeam->getAdjacentResearch()[i];
 }
 
 int CyTeam::getImprovementYieldChange(int /*ImprovementTypes*/ eIndex1, int /*YieldTypes*/ eIndex2) const

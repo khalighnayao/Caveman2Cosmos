@@ -1,5 +1,8 @@
 // unitAI.cpp
 
+
+#include "FProfiler.h"
+
 #include "CvGameCoreDLL.h"
 #include "CvCity.h"
 #include "CvContractBroker.h"
@@ -92,6 +95,7 @@ void CvContractBroker::lookingForWork(const CvUnit* pUnit, int iMinPriority)
 //	Unit fulfilled its work and is no longer advertising as available
 void CvContractBroker::removeUnit(const CvUnit* pUnit)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int iI = 0; iI < (int)m_advertisingUnits.size(); iI++)
 	{
 		if ( m_advertisingUnits[iI].iUnitId == pUnit->getID() )
@@ -131,12 +135,17 @@ void CvContractBroker::advertiseWork(int iPriority, unitCapabilities eUnitFlags,
 			if (itr == m_contractedUnits.end())
 			{
 				m_contractedUnits[pLoopSelectionGroup->getID()] = true;
-				if (gUnitLogLevel >= 3) logBBAI("      Unit %S (%d) at (%d,%d) already responding to contract at (%d,%d)",
-												 pLoopSelectionGroup->getHeadUnit()->getDescription().GetCString(),
-												 pLoopSelectionGroup->getHeadUnit()->getID(),
-												 pLoopSelectionGroup->getX(),
-												 pLoopSelectionGroup->getY(),
-												 iAtX, iAtY);
+				if (gUnitLogLevel > 2)
+				{
+					logBBAI(
+						"      Unit %S (%d) at (%d,%d) already responding to contract at (%d,%d)",
+						pLoopSelectionGroup->getHeadUnit()->getDescription().GetCString(),
+						pLoopSelectionGroup->getHeadUnit()->getID(),
+						pLoopSelectionGroup->getX(),
+						pLoopSelectionGroup->getY(),
+						iAtX, iAtY
+					);
+				}
 
 				if (iUnitStrengthTimes100 == -1)
 				{
@@ -218,6 +227,7 @@ void CvContractBroker::advertiseTender(const CvCity* pCity, int iMinPriority)
 //	tenders all occurring at once
 int CvContractBroker::numRequestsOutstanding(UnitAITypes eUnitAI, bool bAtCityOnly, const CvPlot* pPlot) const
 {
+	PROFILE_EXTRA_FUNC();
 	int iCount = 0;
 
 	for(int iI = 0; iI < (int)m_workRequests.size(); iI++)
@@ -292,146 +302,153 @@ void CvContractBroker::finalizeTenderContracts()
 
 			for (unsigned int iJ = 0; iJ < m_advertisingTenders.size(); iJ++)
 			{
-				if ( m_advertisingTenders[iJ].iMinPriority <= m_workRequests[iI].iPriority )
+				if (m_advertisingTenders[iJ].iMinPriority <= m_workRequests[iI].iPriority)
 				{
 					CvCity* pCity = GET_PLAYER(m_eOwner).getCity(m_advertisingTenders[iJ].iCityId);
 
-					if ( pCity != NULL && pDestPlot != NULL )
+					if (pCity != NULL && pDestPlot != NULL
+					&& (pCity->area() == pDestPlot->area() || pDestPlot->getPlotCity() != NULL && pCity->waterArea() == pDestPlot->getPlotCity()->waterArea()))
 					{
-						if ( pCity->area() == pDestPlot->area() || (pDestPlot->getPlotCity() != NULL && pCity->waterArea() == pDestPlot->getPlotCity()->waterArea()) )
+						int	iTendersAlreadyInProcess = pCity->numQueuedUnits(m_workRequests[iI].eAIType, pTargetUnit == NULL ? pDestPlot : NULL);
+						int iTenderAllocationKey = 0;
+
+						CvChecksum xSum;
+
+						xSum.add(pCity->getID());
+
+						if (pTargetUnit != NULL)
 						{
-							int	iTendersAlreadyInProcess = pCity->numQueuedUnits(m_workRequests[iI].eAIType, pDestPlot);
-							int iTenderAllocationKey = 0;
-							//unsigned int iAnyAITenderAllocationKey = 0;
-
-							CvChecksum xSum;
-
-							xSum.add(pCity->getID());
+							// Units move around, so can't use destination plot
+							xSum.add(pTargetUnit->getID());
+						}
+						else
+						{
 							xSum.add(GC.getMap().plotNum(m_workRequests[iI].iAtX, m_workRequests[iI].iAtY));
-							xSum.add((int)m_workRequests[iI].eAIType);
+						}
+						xSum.add((int)m_workRequests[iI].eAIType);
 
-							iTenderAllocationKey = xSum.get();
+						iTenderAllocationKey = xSum.get();
 
-							std::map<int, int>::const_iterator itr = tenderAllocations.find(iTenderAllocationKey);
-							if ( itr != tenderAllocations.end() )
+						std::map<int, int>::const_iterator itr = tenderAllocations.find(iTenderAllocationKey);
+						if ( itr != tenderAllocations.end() )
+						{
+							iTendersAlreadyInProcess -= itr->second;
+						}
+						else
+						{
+							tenderAllocations[iTenderAllocationKey] = 0;
+						}
+
+						FASSERT_NOT_NEGATIVE(iTendersAlreadyInProcess);
+
+						if (iTendersAlreadyInProcess <= 0)
+						{
+							int iValue = 0;
+							UnitTypes eUnit = NO_UNIT;
+							UnitAITypes eAIType = NO_UNITAI;
+
+							if (m_workRequests[iI].eAIType == NO_UNITAI)
 							{
-								iTendersAlreadyInProcess -= itr->second;
+								UnitAITypes* pUnitAIs = NULL;
+								int iNumAIs = -1;
+
+								if ( (m_workRequests[iI].eUnitFlags & DEFENSIVE_UNITCAPABILITIES) != 0 )
+								{
+									static UnitAITypes defensiveAIs[] = { UNITAI_CITY_DEFENSE, UNITAI_ATTACK, UNITAI_CITY_COUNTER, UNITAI_COUNTER };
+									pUnitAIs = defensiveAIs;
+									iNumAIs = sizeof(defensiveAIs)/sizeof(UnitAITypes);
+								}
+								if ( (m_workRequests[iI].eUnitFlags & OFFENSIVE_UNITCAPABILITIES) != 0 )
+								{
+									static UnitAITypes offensiveAIs[] = { UNITAI_ATTACK, UNITAI_ATTACK_CITY, UNITAI_COUNTER };
+									pUnitAIs = offensiveAIs;
+									iNumAIs = sizeof(offensiveAIs)/sizeof(UnitAITypes);
+								}
+								if ( (m_workRequests[iI].eUnitFlags & WORKER_UNITCAPABILITIES) != 0 )
+								{
+									static UnitAITypes workerAIs[] = { UNITAI_WORKER };
+									pUnitAIs = workerAIs;
+									iNumAIs = sizeof(workerAIs)/sizeof(UnitAITypes);
+								}
+								if ( (m_workRequests[iI].eUnitFlags & HEALER_UNITCAPABILITIES) != 0 )
+								{
+									static UnitAITypes workerAIs[] = { UNITAI_HEALER };
+									pUnitAIs = workerAIs;
+									iNumAIs = sizeof(workerAIs)/sizeof(UnitAITypes);
+								}
+								eUnit = pCity->AI_bestUnit(iValue, iNumAIs, pUnitAIs, false, &eAIType, false, true, &m_workRequests[iI].criteria);
 							}
 							else
 							{
-								tenderAllocations[iTenderAllocationKey] = 0;
+								eAIType = m_workRequests[iI].eAIType;
+
+								if (pCity->area() != pDestPlot->area() && !IS_NAVAL_AITYPE(eAIType) && !IS_AIR_AITYPE(eAIType))
+								{
+									continue;
+								}
+								eUnit = pCity->AI_bestUnitAI(eAIType, iValue, false, false, &m_workRequests[iI].criteria);
 							}
-
-							FASSERT_NOT_NEGATIVE(iTendersAlreadyInProcess);
-
-							if (iTendersAlreadyInProcess <= 0)
+							if (eUnit != NO_UNIT)
 							{
-								int iValue = 0;
-								UnitTypes eUnit = NO_UNIT;
-								UnitAITypes eAIType = NO_UNITAI;
+								int iBaseValue = iValue;
 
-								if (m_workRequests[iI].eAIType == NO_UNITAI)
+								// Adjust value for production time and distance
+								const int iTurns =
+								(
+									pCity->isProduction() && pCity->getOrderData(0).eOrderType == ORDER_TRAIN
+									?
+									pCity->getTotalProductionQueueTurnsLeft() + pCity->getProductionTurnsLeft(eUnit, 1)
+									:
+									pCity->getProductionTurnsLeft(eUnit, 1)
+								);
+								iValue *= GC.getGameSpeedInfo(GC.getGame().getGameSpeedType()).getHammerCostPercent();
+								iValue /= iTurns;
+
+								if (CvSelectionGroup::getPathGenerator()->generatePathForHypotheticalUnit(pCity->plot(), pDestPlot, m_eOwner, eUnit, MOVE_NO_ENEMY_TERRITORY, m_workRequests[iI].iMaxPath))
 								{
-									UnitAITypes*	pUnitAIs = NULL;
-									int				iNumAIs = -1;
+									const int iDistance = CvSelectionGroup::getPathGenerator()->getLastPath().length();
+									iValue /= (1 + iDistance);
 
-									if ( (m_workRequests[iI].eUnitFlags & DEFENSIVE_UNITCAPABILITIES) != 0 )
+									if (gCityLogLevel >= 3)
 									{
-										static UnitAITypes defensiveAIs[] = { UNITAI_CITY_DEFENSE, UNITAI_ATTACK, UNITAI_CITY_COUNTER, UNITAI_COUNTER };
-										pUnitAIs = defensiveAIs;
-										iNumAIs = sizeof(defensiveAIs)/sizeof(UnitAITypes);
+										logBBAI(
+											"      City %S could supply unit %S with base value %d, depreciated value (after %d turn production at distance %d) to %d",
+											pCity->getName().GetCString(),
+											GC.getUnitInfo(eUnit).getDescription(),
+											iBaseValue,
+											iTurns,
+											iDistance,
+											iValue
+										);
 									}
-									if ( (m_workRequests[iI].eUnitFlags & OFFENSIVE_UNITCAPABILITIES) != 0 )
-									{
-										static UnitAITypes offensiveAIs[] = { UNITAI_ATTACK, UNITAI_ATTACK_CITY, UNITAI_COUNTER };
-										pUnitAIs = offensiveAIs;
-										iNumAIs = sizeof(offensiveAIs)/sizeof(UnitAITypes);
-									}
-									if ( (m_workRequests[iI].eUnitFlags & WORKER_UNITCAPABILITIES) != 0 )
-									{
-										static UnitAITypes workerAIs[] = { UNITAI_WORKER };
-										pUnitAIs = workerAIs;
-										iNumAIs = sizeof(workerAIs)/sizeof(UnitAITypes);
-									}
-									if ( (m_workRequests[iI].eUnitFlags & HEALER_UNITCAPABILITIES) != 0 )
-									{
-										static UnitAITypes workerAIs[] = { UNITAI_HEALER };
-										pUnitAIs = workerAIs;
-										iNumAIs = sizeof(workerAIs)/sizeof(UnitAITypes);
-									}
-									eUnit = pCity->AI_bestUnit(iValue, iNumAIs, pUnitAIs, false, &eAIType, false, true, &m_workRequests[iI].criteria);
-								}
-								else
-								{
-									eAIType = m_workRequests[iI].eAIType;
 
-									if (pCity->area() != pDestPlot->area() && !IS_NAVAL_AITYPE(eAIType) && !IS_AIR_AITYPE(eAIType))
+									if (iValue > iBestValue)
 									{
-										continue;
+										iBestValue = iValue;
+										iBestCityTenderKey = iTenderAllocationKey;
+										eBestUnit = eUnit;
+										eBestAIType = eAIType;
+										pBestCity = pCity;
 									}
-									eUnit = pCity->AI_bestUnitAI(eAIType, iValue, false, false, &m_workRequests[iI].criteria);
-								}
-								if (eUnit != NO_UNIT)
-								{
-									int iBaseValue = iValue;
-
-									// Adjust value for production time and distance
-									const int iTurns =
-									(
-										pCity->isProduction() && pCity->getOrderData(0).eOrderType == ORDER_TRAIN
-										?
-										pCity->getTotalProductionQueueTurnsLeft() + pCity->getProductionTurnsLeft(eUnit, 1)
-										:
-										pCity->getProductionTurnsLeft(eUnit, 1)
-									);
-									iValue *= GC.getGameSpeedInfo(GC.getGame().getGameSpeedType()).getHammerCostPercent();
-									iValue /= iTurns;
-
-									if (CvSelectionGroup::getPathGenerator()->generatePathForHypotheticalUnit(pCity->plot(), pDestPlot, m_eOwner, eUnit, MOVE_NO_ENEMY_TERRITORY, m_workRequests[iI].iMaxPath))
-									{
-										const int iDistance = CvSelectionGroup::getPathGenerator()->getLastPath().length();
-										iValue /= (1 + iDistance);
-
-										if (gCityLogLevel >= 3)
-										{
-											logBBAI(
-												"      City %S could supply unit %S with base value %d, depreciated value (after %d turn production at distance %d) to %d",
-												pCity->getName().GetCString(),
-												GC.getUnitInfo(eUnit).getDescription(),
-												iBaseValue,
-												iTurns,
-												iDistance,
-												iValue
-											);
-										}
-										if (iValue > iBestValue)
-										{
-											iBestValue = iValue;
-											iBestCityTenderKey = iTenderAllocationKey;
-											eBestUnit = eUnit;
-											eBestAIType = eAIType;
-											pBestCity = pCity;
-										}
-									}
-								}
-								else if (gCityLogLevel >= 3)
-								{
-									logBBAI("      City %S has no suitable units to offer", pCity->getName().GetCString());
 								}
 							}
-							else // Already being built
+							else if (gCityLogLevel >= 3)
 							{
-								m_workRequests[iI].bFulfilled = true;
-								eBestUnit = NO_UNIT;
-
-								tenderAllocations[iTenderAllocationKey] = tenderAllocations[iTenderAllocationKey] + 1;
-
-								if (gCityLogLevel >= 3)
-								{
-									logBBAI("      City %S is already building a unit", pCity->getName().GetCString());
-								}
-								break;
+								logBBAI("      City %S has no suitable units to offer", pCity->getName().GetCString());
 							}
+						}
+						else // Already being built
+						{
+							m_workRequests[iI].bFulfilled = true;
+							eBestUnit = NO_UNIT;
+
+							tenderAllocations[iTenderAllocationKey] += 1;
+
+							if (gCityLogLevel >= 3)
+							{
+								logBBAI("      City %S is already building a unit", pCity->getName().GetCString());
+							}
+							break;
 						}
 					}
 				}
@@ -458,11 +475,11 @@ void CvContractBroker::finalizeTenderContracts()
 					}
 				}
 				m_workRequests[iI].bFulfilled = true;
-				tenderAllocations[iBestCityTenderKey] = tenderAllocations[iBestCityTenderKey] + 1;
+				tenderAllocations[iBestCityTenderKey] += 1;
 
 				// Queue up the build. Add to queue head if the current build is not a unit,
 				//	implies a local build below the priority of work the city tendered for.
-				const bool bAppend = (pBestCity->isProduction() && pBestCity->getOrderData(0).eOrderType == ORDER_TRAIN);
+				const bool bAppend = pBestCity->isProduction() && pBestCity->getOrderData(0).eOrderType == ORDER_TRAIN;
 
 				pBestCity->pushOrder(
 					ORDER_TRAIN,
@@ -767,6 +784,7 @@ UnitValueFlags CvContractBroker::unitCapabilities2UnitValueFlags(unitCapabilitie
 
 void CvContractBroker::postProcessUnitsLookingForWork()
 {
+	PROFILE_EXTRA_FUNC();
 	for (int iI = 0; iI < (int)m_advertisingUnits.size(); iI++)
 	{
 		CvUnit* unitX = findUnit(m_advertisingUnits[iI].iUnitId);

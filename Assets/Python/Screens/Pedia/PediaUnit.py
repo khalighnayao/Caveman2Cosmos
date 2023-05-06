@@ -56,12 +56,6 @@ class PediaUnit:
 		aName = self.main.getNextWidgetName
 
 		eWidGen				= WidgetTypes.WIDGET_GENERAL
-		eWidJuToBonus		= WidgetTypes.WIDGET_PEDIA_JUMP_TO_BONUS
-		eWidJuToBuilding	= WidgetTypes.WIDGET_PEDIA_JUMP_TO_BUILDING
-		eWidJuToTech		= WidgetTypes.WIDGET_PEDIA_JUMP_TO_TECH
-		eWidJuToUnit		= WidgetTypes.WIDGET_PEDIA_JUMP_TO_UNIT
-		eWidJuToPromo		= WidgetTypes.WIDGET_PEDIA_JUMP_TO_PROMOTION
-		eWidJuToCivic		= WidgetTypes.WIDGET_PEDIA_JUMP_TO_CIVIC
 		ePnlBlue50			= PanelStyles.PANEL_STYLE_BLUE50
 		eFontTitle			= FontTypes.TITLE_FONT
 
@@ -115,9 +109,7 @@ class PediaUnit:
 
 		import TextUtil
 
-		if CvTheUnitInfo.getDomainType() == DomainTypes.DOMAIN_AIR:
-			iType = CvTheUnitInfo.getTotalModifiedAirCombatStrength100()
-		else: iType = CvTheUnitInfo.getTotalModifiedCombatStrength100()
+		iType = CvTheUnitInfo.getTotalModifiedCombatStrength100(GC.getGame().isOption(GameOptionTypes.GAMEOPTION_COMBAT_SIZE_MATTERS))
 
 		if iType > 0:
 			szText = TextUtil.floatToString(iType / 100.0) + " " + unichr(8855)

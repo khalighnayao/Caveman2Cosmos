@@ -3,11 +3,11 @@
 #ifndef CvInfoUtil_h__
 #define CvInfoUtil_h__
 
-#include "CvInfoClassTraits.h"
+#include "FProfiler.h"
+
 #include "CvGameCoreDLL.h"
-#include "CvBuildingInfo.h"
 #include "CvGlobals.h"
-#include "CvPython.h"
+#include "CvInfoClassTraits.h"
 #include "CvXMLLoadUtility.h"
 #include "CheckSum.h"
 #include "IDValueMap.h"
@@ -27,36 +27,42 @@ struct CvInfoUtil
 
 	~CvInfoUtil()
 	{
+		PROFILE_EXTRA_FUNC();
 		foreach_(const WrappedVar* wrapper, m_wrappedVars)
 			delete wrapper;
 	}
 
 	void initDataMembers()
 	{
+		PROFILE_EXTRA_FUNC();
 		foreach_(WrappedVar* wrapper, m_wrappedVars)
 			wrapper->initVar();
 	}
 
 	void uninitDataMembers()
 	{
+		PROFILE_EXTRA_FUNC();
 		foreach_(WrappedVar* wrapper, m_wrappedVars)
 			wrapper->uninitVar();
 	}
 
 	void checkSum(uint32_t& iSum) const
 	{
+		PROFILE_EXTRA_FUNC();
 		foreach_(const WrappedVar* wrapper, m_wrappedVars)
 			wrapper->checkSum(iSum);
 	}
 
 	void readXml(CvXMLLoadUtility* pXML)
 	{
+		PROFILE_EXTRA_FUNC();
 		foreach_(WrappedVar* wrapper, m_wrappedVars)
 			wrapper->readXml(pXML);
 	}
 
 	void copyNonDefaults(const CvInfoUtil otherUtil)
 	{
+		PROFILE_EXTRA_FUNC();
 		for (uint32_t i = 0, num = m_wrappedVars.size(); i < num; i++)
 			m_wrappedVars[i]->copyNonDefaults(otherUtil.m_wrappedVars[i]);
 	}
@@ -87,8 +93,6 @@ struct CvInfoUtil
 		virtual void checkSum(uint32_t&) const = 0;
 		virtual void readXml(CvXMLLoadUtility*) = 0;
 		virtual void copyNonDefaults(const WrappedVar*)	= 0;
-
-		virtual void sendVarToPython(const char*) const {}
 
 		void* m_ptr;
 		const std::wstring m_tag;
@@ -128,13 +132,6 @@ struct CvInfoUtil
 		{
 			if (ref() == m_default)
 				ref() = static_cast<const IntWrapper*>(source)->ref();
-		}
-
-		void sendVarToPython(const char* file) const
-		{
-			Cy::call(file, "handleInteger", Cy::Args()
-				<< ref()
-			);
 		}
 
 		T& ref() const { return *static_cast<T*>(m_ptr); }
@@ -188,13 +185,6 @@ struct CvInfoUtil
 		{
 			if (ref() == -1)
 				ref() = static_cast<const EnumWrapper*>(source)->ref();
-		}
-
-		void sendVarToPython(const char* file) const
-		{
-			Cy::call(file, "handleEnum", Cy::Args()
-				<< static_cast<int>(ref())
-			);
 		}
 
 		Enum_t& ref() const { return *static_cast<Enum_t*>(m_ptr); }
@@ -307,13 +297,6 @@ struct CvInfoUtil
 				if (element > -1 && algo::none_of_equal(ref(), element))
 					ref().push_back(element);
 			algo::sort(ref());
-		}
-
-		void sendVarToPython(const char* /*file*/) const
-		{
-			//Cy::call(file, "handleVector", Cy::Args()
-			//	<< ref()
-			//);
 		}
 
 		std::vector<T>& ref() const { return *static_cast<std::vector<T>*>(m_ptr); }
@@ -453,24 +436,7 @@ struct CvInfoUtil
 		return *this;
 	}
 
-	///==================
-	/// Python interface
-	///==================
-
-	static void publishPythonInterface()
-	{
-		python::class_<CvInfoUtil, boost::noncopyable>("CvInfoUtil", python::init<CvBuildingInfo*>())
-			.def("sendDataMembersToPython", &CvInfoUtil::sendDataMembersToPython)
-		;
-	}
-
 private:
-	void sendDataMembersToPython(const std::string file) const
-	{
-		foreach_(const WrappedVar* wrapper, m_wrappedVars)
-			wrapper->sendVarToPython(file.c_str());
-	}
-
 	///========================================================
 	/// Wrapped pointers to the data members of an info object
 	///========================================================

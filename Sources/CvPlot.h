@@ -184,6 +184,8 @@ public:
 	void doBonusDepletion();
 
 	void updateCulture(bool bBumpUnits, bool bUpdatePlotGroups);
+	void checkCityRevolt();
+	void checkFortRevolt();
 
 	void updateFog();
 	void updateVisibility();
@@ -240,11 +242,13 @@ public:
 	int getNearestLandArea() const;
 	CvPlot* getNearestLandPlot() const;
 
+	int getElevationLevel(const bool bExtra = false) const;
+	int getTerrainElevation() const;
 	int seeFromLevel(TeamTypes eTeam) const;
 	int seeThroughLevel() const;
 	void changeAdjacentSight(TeamTypes eTeam, int iRange, bool bIncrement, CvUnit* pUnit, bool bUpdatePlotGroups);
-	bool canSeePlot(const CvPlot* plot, TeamTypes eTeam, int iRange, DirectionTypes eFacingDirection) const;
-	bool canSeeDisplacementPlot(TeamTypes eTeam, int dx, int dy, int originalDX, int originalDY, bool firstPlot, bool outerRing) const;
+	bool canSeePlot(const CvPlot* plot, TeamTypes eTeam) const;
+	bool canSeeDisplacementPlot(TeamTypes eTeam, int dx, int dy, int dx0, int dy0, int& iTopElevation, int& iTopElevationDistance, bool bEndPoint = false) const;
 	void updateSight(bool bIncrement, bool bUpdatePlotGroups);
 	void updateSeeFromSight(bool bIncrement, bool bUpdatePlotGroups);
 
@@ -284,8 +288,8 @@ public:
 	void changeDefenseDamage(int iChange);
 
 	// Super Forts *culture*
-	void changeCultureRangeFortsWithinRange(PlayerTypes ePlayer, int iChange, int iRange, bool bUpdate);
-	void doImprovementCulture();
+	void pushCultureFromImprovement(PlayerTypes ePlayer, int iChange, int iRange, bool bUpdate);
+	void doImprovementCulture(PlayerTypes ePlayer, const CvImprovementInfo& imp);
 
 	// Super Forts *canal* *choke*
 	int countRegionPlots(const CvPlot* pInvalidPlot = NULL) const;
@@ -310,8 +314,6 @@ public:
 	bool isAdjacentOwned() const;
 	bool isAdjacentPlayer(PlayerTypes ePlayer, bool bLandOnly = false) const;
 	bool isAdjacentTeam(TeamTypes eTeam, bool bLandOnly = false) const;
-	bool isWithinCultureRange(PlayerTypes ePlayer, int* iFoundRange = NULL) const;
-	int getNumCultureRangeCities(PlayerTypes ePlayer) const;
 
 	bool isHasPathToEnemyCity( TeamTypes eAttackerTeam, bool bIgnoreBarb = true ) const;
 	bool isHasPathToPlayerCity( TeamTypes eMoveTeam, PlayerTypes eOtherPlayer = NO_PLAYER ) const;
@@ -328,11 +330,7 @@ public:
 
 	CvCity* getAdjacentCity(PlayerTypes ePlayer = NO_PLAYER) const;
 	bool changeBuildProgress(BuildTypes eBuild, int iChange, PlayerTypes ePlayer = NO_PLAYER);
-	void changeCultureRangeCities(PlayerTypes eOwnerIndex, int iRangeIndex, int iChange, bool bUpdatePlotGroups, bool bUpdateCulture = true);
 	bool isHasValidBonus() const;
-	int getOccupationCultureRangeCities(PlayerTypes eOwnerIndex) const;
-	bool isWithinOccupationRange(PlayerTypes eOwnerIndex) const;
-	void changeOccupationCultureRangeCities(PlayerTypes eOwnerIndex,int iChange);
 	PlayerTypes getClaimingOwner() const;
 	void setClaimingOwner(PlayerTypes eNewValue);
 
@@ -376,11 +374,16 @@ public:
 	int getVisibleEnemyStrength(PlayerTypes ePlayer, int iRange = 0) const;
 	int getVisibleNonAllyStrength(PlayerTypes ePlayer) const;
 
+	int getCultureRateThisTurn(const PlayerTypes ePlayer) const;
+	int getCultureRateLastTurn(const PlayerTypes ePlayer) const;
+
+	void setInCultureRangeOfCityByPlayer(const PlayerTypes ePlayer);
+	bool isInCultureRangeOfCityByPlayer(const PlayerTypes ePlayer) const;
+
 protected:
 	CvGameObjectPlot m_GameObject;
 
 	char /*PlayerTypes*/ m_eClaimingOwner;
-	char* m_aiOccupationCultureRangeCities;
 	void doTerritoryClaiming();
 	CvWString m_szLandmarkMessage;
 	CvWString m_szLandmarkName;
@@ -388,9 +391,14 @@ protected:
 	bool m_bCounted;
 	static stdext::hash_map<int,int>* m_resultHashMap;
 
+	std::vector<std::pair<PlayerTypes, int> > m_cultureRatesThisTurn;
+	std::vector<std::pair<PlayerTypes, int> > m_cultureRatesLastTurn;
+	std::vector<PlayerTypes> m_influencedByCityByPlayerLastTurn;
+	std::vector<PlayerTypes> m_influencedByCityByPlayer;
+
 public:
-	PlayerTypes calculateCulturalOwner() const;
-	PlayerTypes getPlayerWithTerritorySurroundingThisPlotCardinally() const;
+	PlayerTypes calculateCulturalOwner(bool bCountLastTurn = true) const;
+	//PlayerTypes getPlayerWithTerritorySurroundingThisPlotCardinally() const;
 
 	void plotAction(PlotUnitFunc func, int iData1 = -1, int iData2 = -1, PlayerTypes eOwner = NO_PLAYER, TeamTypes eTeam = NO_TEAM);
 	int plotCount(ConstPlotUnitFunc funcA, int iData1A = -1, int iData2A = -1, const CvUnit* pUnit = NULL, PlayerTypes eOwner = NO_PLAYER, TeamTypes eTeam = NO_TEAM, ConstPlotUnitFunc funcB = NULL, int iData1B = -1, int iData2B = -1, int iRange = 0) const;
@@ -401,7 +409,6 @@ public:
 	bool isOwned() const;
 	bool isNPC() const;
 	bool isHominid() const;
-	bool isRevealedBarbarian() const;
 
 	DllExport bool isActiveVisible(bool bDebug) const;
 
@@ -442,6 +449,8 @@ public:
 	DllExport bool isFighting() const;
 	DllExport bool isVisibleEnemyUnit(PlayerTypes ePlayer) const;
 	DllExport int getNumVisibleUnits(PlayerTypes ePlayer) const;
+
+	bool isBattle() const;
 
 	bool isVisibleEnemyUnit(const CvUnit* pUnit) const;
 	bool isVisibleOtherUnit(PlayerTypes ePlayer) const;
@@ -610,10 +619,6 @@ public:
 	void setImprovementUpgradeProgress(int iNewValue);
 	void changeImprovementUpgradeProgress(int iChange);
 
-	bool isForceUnowned() const;
-	void setForceUnownedTimer(int iNewValue);
-	void changeForceUnownedTimer(int iChange);
-
 	int getCityRadiusCount() const;
 	int isCityRadius() const;
 	void changeCityRadiusCount(int iChange);
@@ -727,11 +732,10 @@ public:
 	int getCulture(PlayerTypes eIndex) const;
 	int countTotalCulture() const;
 	int countFriendlyCulture(TeamTypes eTeam) const;
-	TeamTypes findHighestCultureTeam() const;
-	PlayerTypes findHighestCulturePlayer() const;
-	int calculateCulturePercent(PlayerTypes eIndex) const;
+	PlayerTypes findHighestCulturePlayer(const bool bCountLegacyCulture = true, const bool bCountLastTurn = true) const;
+	int calculateCulturePercent(PlayerTypes eIndex, int iExtraDigits = 0) const;
 	int calculateTeamCulturePercent(TeamTypes eIndex) const;
-	void setCulture(PlayerTypes eIndex, int iNewValue, bool bUpdate, bool bUpdatePlotGroups);
+	void setCulture(PlayerTypes eIndex, int iNewValue, bool bUpdate, bool bUpdatePlotGroups, const bool bDecay = false);
 	void changeCulture(PlayerTypes eIndex, int iChange, bool bUpdate);
 	int countNumAirUnits(TeamTypes eTeam) const;
 	int countNumAirUnitCargoVolume(TeamTypes eTeam) const;
@@ -825,11 +829,8 @@ public:
 
 	DllExport CvUnit* getCenterUnit() const;
 	DllExport CvUnit* getDebugCenterUnit() const;
-	void setCenterUnit(CvUnit* pNewValue);
 
-	int getCultureRangeCities(PlayerTypes eOwnerIndex, int iRangeIndex) const;
-	bool isCultureRangeCity(PlayerTypes eOwnerIndex, int iRangeIndex) const;
-	//void changeCultureRangeCities(PlayerTypes eOwnerIndex, int iRangeIndex, int iChange, bool bUpdatePlotGroups);
+	CvUnit* getCenterUnit(const bool bForced) const;
 
 	int getInvisibleVisibilityCount(TeamTypes eTeam, InvisibleTypes eInvisible) const;
 	bool isSpotterInSight(TeamTypes eTeam, InvisibleTypes eInvisible) const;
@@ -918,7 +919,6 @@ protected:
 	short m_iFeatureVariety;
 	short m_iOwnershipDuration;
 	short m_iUpgradeProgress;
-	short m_iForceUnownedTimer;
 	short m_iCityRadiusCount;
 	int m_iRiverID;
 	short m_iMinOriginalStartDist;
@@ -1017,10 +1017,9 @@ protected:
 
 	CvPlotBuilder* m_pPlotBuilder; // builds bonuses and improvements
 
-	char** m_apaiCultureRangeCities;
 	short** m_apaiInvisibleVisibilityCount;
 
-/* Koshling - need to cache presence of mountain leaders in mountain plots so that CanMoveThrough calculations don't get bogged down searching unit stacks.
+	/* Koshling - need to cache presence of mountain leaders in mountain plots so that CanMoveThrough calculations don't get bogged down searching unit stacks.
 	This is a count of mountain leader units in the plot for each team.
 	The array is only created if the plot is a mountain plot and at least one team has a mountain leader present.
 	The array is cleared when the last leader leaves, so the memory overhead is low */
@@ -1049,6 +1048,8 @@ public:
 	void revealBestStealthDefender(const CvUnit* pAttacker);
 	void doPreAttackTraps(CvUnit* pAttacker);
 
+	void countCommander(bool bNewVal, const CvUnit* pUnit);
+	bool inCommandField(const PlayerTypes ePlayer) const;
 
 #ifdef CAN_BUILD_VALUE_CACHING
 public:
@@ -1066,6 +1067,9 @@ private:
 	int	m_zobristContribution;
 	int m_movementCharacteristicsHash;
 	bool m_bPlotGroupsDirty;
+
+	std::map<uint8_t, uint16_t> m_commanderCount; // PlayerType : CommanderCount
+	void changeCommanderCount(const PlayerTypes ePlayer, const bool bAdd);
 
 	static bool bDeferPlotGroupRecalculation;
 

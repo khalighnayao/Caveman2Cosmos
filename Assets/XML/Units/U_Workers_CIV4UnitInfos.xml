@@ -365,7 +365,7 @@
 			<iCost>120</iCost>
 			<iBaseUpkeep>3</iBaseUpkeep>
 			<iMoves>2</iMoves>
-			<iWorkRate>240</iWorkRate>
+			<iWorkRate>225</iWorkRate>
 			<iAsset>1</iAsset>
 			<UnitMeshGroups>
 				<iGroupSize>2</iGroupSize>
@@ -521,14 +521,14 @@
 				<BuildType>BUILD_SUBURBS</BuildType>
 			</Builds>
 			<PrereqAndBuildings>
-				<BuildingType>BUILDING_BUFFALO_TRAINER</BuildingType>
+				<BuildingType>BUILDING_ANIMAL_TRAINER_BUFFALO</BuildingType>
 			</PrereqAndBuildings>
 			<PrereqTech>TECH_PLOUGH</PrereqTech>
 			<ObsoleteTech>TECH_LOGISTICS</ObsoleteTech>
-			<iCost>150</iCost>
+			<iCost>135</iCost>
 			<iBaseUpkeep>3</iBaseUpkeep>
 			<iMoves>2</iMoves>
-			<iWorkRate>250</iWorkRate>
+			<iWorkRate>240</iWorkRate>
 			<iAsset>1</iAsset>
 			<UnitMeshGroups>
 				<iGroupSize>2</iGroupSize>
@@ -550,10 +550,6 @@
 			<FreePromotions>
 				<FreePromotion>
 					<PromotionType>PROMOTION_FIELD_WORKER1</PromotionType>
-					<bFreePromotion>1</bFreePromotion>
-				</FreePromotion>
-				<FreePromotion>
-					<PromotionType>PROMOTION_FOREST_WORKER1</PromotionType>
 					<bFreePromotion>1</bFreePromotion>
 				</FreePromotion>
 			</FreePromotions>
@@ -694,8 +690,8 @@
 				<BuildType>BUILD_SUBURBS</BuildType>
 			</Builds>
 			<PrereqOrBuildings>
-				<BuildingType>BUILDING_MULE_TRAINER</BuildingType>
-				<BuildingType>BUILDING_HORSE_TRAINER</BuildingType>
+				<BuildingType>BUILDING_ANIMAL_TRAINER_DONKEY</BuildingType>
+				<BuildingType>BUILDING_ANIMAL_TRAINER_HORSE</BuildingType>
 			</PrereqOrBuildings>
 			<PrereqTech>TECH_PLOUGH</PrereqTech>
 			<ObsoleteTech>TECH_LOGISTICS</ObsoleteTech>
@@ -727,7 +723,7 @@
 			<FormationType>FORMATION_TYPE_DEFAULT</FormationType>
 			<FreePromotions>
 				<FreePromotion>
-					<PromotionType>PROMOTION_HILL_WORKER1</PromotionType>
+					<PromotionType>PROMOTION_FIELD_WORKER1</PromotionType>
 					<bFreePromotion>1</bFreePromotion>
 				</FreePromotion>
 				<FreePromotion>
@@ -872,15 +868,25 @@
 				<BuildType>BUILD_SUBURBS</BuildType>
 			</Builds>
 			<PrereqAndBuildings>
-				<BuildingType>BUILDING_ELEPHANT_TRAINER</BuildingType>
+				<BuildingType>BUILDING_ANIMAL_TRAINER_ELEPHANT</BuildingType>
 			</PrereqAndBuildings>
 			<PrereqTech>TECH_PLOUGH</PrereqTech>
 			<ObsoleteTech>TECH_LOGISTICS</ObsoleteTech>
-			<iCost>150</iCost>
+			<iCost>165</iCost>
 			<iBaseUpkeep>3</iBaseUpkeep>
 			<iMoves>2</iMoves>
-			<iWorkRate>250</iWorkRate>
+			<iWorkRate>260</iWorkRate>
 			<iAsset>1</iAsset>
+			<FreePromotions>
+				<FreePromotion>
+					<PromotionType>PROMOTION_FIELD_WORKER1</PromotionType>
+					<bFreePromotion>1</bFreePromotion>
+				</FreePromotion>
+				<FreePromotion>
+					<PromotionType>PROMOTION_FOREST_WORKER1</PromotionType>
+					<bFreePromotion>1</bFreePromotion>
+				</FreePromotion>
+			</FreePromotions>
 			<UnitMeshGroups>
 				<iGroupSize>2</iGroupSize>
 				<fMaxSpeed>1.75</fMaxSpeed>
@@ -1035,7 +1041,7 @@
 				<BuildType>BUILD_SUBURBS</BuildType>
 			</Builds>
 			<PrereqAndBuildings>
-				<BuildingType>BUILDING_LLAMA_TRAINER</BuildingType>
+				<BuildingType>BUILDING_ANIMAL_TRAINER_LLAMA</BuildingType>
 			</PrereqAndBuildings>
 			<PrereqTech>TECH_PLOUGH</PrereqTech>
 			<ObsoleteTech>TECH_LOGISTICS</ObsoleteTech>
@@ -1208,14 +1214,14 @@
 				<BuildType>BUILD_SUBURBS</BuildType>
 			</Builds>
 			<PrereqAndBuildings>
-				<BuildingType>BUILDING_CAMEL_TRAINER</BuildingType>
+				<BuildingType>BUILDING_ANIMAL_TRAINER_CAMEL</BuildingType>
 			</PrereqAndBuildings>
 			<PrereqTech>TECH_PLOUGH</PrereqTech>
 			<ObsoleteTech>TECH_LOGISTICS</ObsoleteTech>
-			<iCost>150</iCost>
+			<iCost>140</iCost>
 			<iBaseUpkeep>3</iBaseUpkeep>
 			<iMoves>2</iMoves>
-			<iWorkRate>250</iWorkRate>
+			<iWorkRate>240</iWorkRate>
 			<iAsset>1</iAsset>
 			<UnitMeshGroups>
 				<iGroupSize>2</iGroupSize>
@@ -1909,7 +1915,7 @@
 				<BuildType>BUILD_JUMPLANE</BuildType>
 			</Builds>
 			<PrereqOrBuildings>
-				<BuildingType>BUILDING_ANDROID_FACTORY</BuildingType>
+				<BuildingType>BUILDING_FACTORY_ANDROIDS</BuildingType>
 				<BuildingType>BUILDING_NANOTECH_COMPLEX</BuildingType>
 			</PrereqOrBuildings>
 			<PrereqTech>TECH_PERSONAL_ROBOTS</PrereqTech>
@@ -2024,7 +2030,6 @@
 				<TerrainType>TERRAIN_TRENCH_POLAR</TerrainType>
 			</TerrainImpassableTypes>
 			<FeatureImpassableTypes>
-				<FeatureType>FEATURE_STORM</FeatureType>
 				<FeatureType>FEATURE_ICE</FeatureType>
 			</FeatureImpassableTypes>
 			<iAsset>1</iAsset>
@@ -2138,7 +2143,6 @@
 				<TerrainType>TERRAIN_TRENCH_POLAR</TerrainType>
 			</TerrainImpassableTypes>
 			<FeatureImpassableTypes>
-				<FeatureType>FEATURE_STORM</FeatureType>
 				<FeatureType>FEATURE_ICE</FeatureType>
 			</FeatureImpassableTypes>
 			<TerrainPassableTechs>
@@ -2273,7 +2277,6 @@
 				<TerrainType>TERRAIN_TRENCH_POLAR</TerrainType>
 			</TerrainImpassableTypes>
 			<FeatureImpassableTypes>
-				<FeatureType>FEATURE_STORM</FeatureType>
 				<FeatureType>FEATURE_ICE</FeatureType>
 			</FeatureImpassableTypes>
 			<TerrainPassableTechs>
@@ -2853,7 +2856,7 @@
 			<StateReligion>RELIGION_VOODOO</StateReligion>
 			<PrereqReligion>RELIGION_VOODOO</PrereqReligion>
 			<PrereqAndBuildings>
-				<BuildingType>BUILDING_VOODOO_MONASTERY</BuildingType>
+				<BuildingType>BUILDING_HOUNFOR</BuildingType>
 			</PrereqAndBuildings>
 			<iCost>250</iCost>
 			<iBaseUpkeep>1</iBaseUpkeep>

@@ -163,7 +163,6 @@ public:
 	int getBuildingCount(int /*BuildingTypes*/ eIndex) const;
 	bool isBuildingMaxedOut(int /*BuildingTypes*/ eIndex, int iExtra) const;
 	int getUnitCount(int /*UnitTypes*/ eIndex) const;
-	bool isUnitMaxedOut(int /*UnitTypes*/ eIndex, int iExtra) const;
 	bool isObsoleteBuilding(int /*BuildingTypes*/ eIndex) const;
 
 	int getResearchProgress(int /*TechTypes*/ eIndex) const;
@@ -176,6 +175,8 @@ public:
 	bool isHasTech(int /*TechTypes*/ iIndex) const;
 	void setHasTech(int /*TechTypes*/ eIndex, bool bNewValue, int /*PlayerTypes*/ ePlayer, bool bFirst, bool bAnnounce);
 	bool isNoTradeTech(int /*TechType */ iIndex) const;
+	int getNumAdjacentResearch() const;
+	int getAdjacentResearch(int i) const;
 
 	int getImprovementYieldChange(int /*ImprovementTypes*/ eIndex, int /*YieldTypes*/ eIndex2) const;
 	void changeImprovementYieldChange(int /*ImprovementTypes*/ eIndex1, int /*YieldTypes*/ eIndex2, int iChange);

@@ -62,7 +62,7 @@ public:
 	int calculateReligionPercent(ReligionTypes eReligion) const;
 	int countCorporationLevels(CorporationTypes eCorporation) const;
 
-	int goldenAgeLength() const;
+	int goldenAgeLength100() const;
 	int victoryDelay(VictoryTypes eVictory) const;
 	int getImprovementUpgradeTime(ImprovementTypes eImprovement) const;
 	bool canTrainNukes() const;
@@ -149,8 +149,6 @@ public:
 	bool isDebugMode() const;
 	void toggleDebugMode();
 
-	int getChtLvl() const;
-
 	int getPitbossTurnTime() const;
 	void setPitbossTurnTime(int iHours);
 	bool isHotSeat() const;
@@ -159,6 +157,7 @@ public:
 	bool isSimultaneousTeamTurns() const;
 
 	bool isFinalInitialized() const;
+	void onFinalInitialized(const bool bNewGame);
 
 	PlayerTypes getActivePlayer() const;
 	void setActivePlayer(PlayerTypes eNewValue, bool bForceHotSeat);
@@ -273,8 +272,6 @@ public:
 	void log(const char* file, char* str);
 	void logw(std::wstring str);
 
-	int getCultureThreshold(CultureLevelTypes eLevel) const;
-
 	void setPlotExtraYield(int iX, int iY, YieldTypes eYield, int iExtraYield);
 
 	bool isCivEverActive(CivilizationTypes eCivilization) const;
@@ -298,7 +295,6 @@ public:
 	int getModderGameOption(ModderGameOptionTypes eIndex) const;
 	void setModderGameOption(ModderGameOptionTypes eIndex, int iNewValue);
 
-	bool canEverResearch(TechTypes iTech) const;
 	bool canEverConstruct(BuildingTypes iBuilding) const;
 	bool canEverTrain(UnitTypes iUnit) const;
 	bool canEverSpread(CorporationTypes iCorporation) const;
@@ -306,6 +302,7 @@ public:
 	const char* getC2CVersion() const;
 
 	void assignStartingPlots(bool bScenario, bool bMapScript);
+	void exitWorldBuilder();
 
 protected:
 	CvGame& m_pGame;

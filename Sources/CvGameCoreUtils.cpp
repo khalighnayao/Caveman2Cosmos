@@ -78,6 +78,7 @@ bool isCardinalDirection(DirectionTypes eDirection)
 
 DirectionTypes estimateDirection(int iDX, int iDY)
 {
+	PROFILE_EXTRA_FUNC();
 	const int displacementSize = 8;
 	static float sqrt2 = 1 / sqrt(2.0f);
 	//													N			NE			E			SE				S			SW				W			NW
@@ -219,7 +220,7 @@ bool isBeforeUnitCycle(const CvUnit* pFirstUnit, const CvUnit* pSecondUnit)
 
 
 
-int getTechScore(TechTypes eTech)
+int getScoreValueOfTech(TechTypes eTech)
 {
 	return 1 + GC.getTechInfo(eTech).getEra();
 }
@@ -257,6 +258,7 @@ int getWorldSizeMaxConscript(CivicTypes eCivic)
 
 bool isReligionTech(TechTypes eTech)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int iI = 0; iI < GC.getNumReligionInfos(); iI++)
 	{
 		if (GC.getReligionInfo((ReligionTypes)iI).getTechPrereq() == eTech)
@@ -269,6 +271,7 @@ bool isReligionTech(TechTypes eTech)
 
 bool isCorporationTech(TechTypes eTech)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int iI = 0; iI < GC.getNumCorporationInfos(); iI++)
 	{
 		if (GC.getCorporationInfo((CorporationTypes)iI).getTechPrereq() == eTech)
@@ -427,6 +430,7 @@ bool isLimitedProject(ProjectTypes eProject)
 // Modified by Jason Winokur to keep the intermediate factorials small
 int64_t getBinomialCoefficient(int iN, int iK)
 {
+	PROFILE_EXTRA_FUNC();
 	int64_t iTemp = 1;
 	//take advantage of symmetry in combination, eg. 15C12 = 15C3
 	iK = std::min(iK, iN - iK);
@@ -444,6 +448,7 @@ int64_t getBinomialCoefficient(int iN, int iK)
 // Written by DeepO
 int getCombatOdds(const CvUnit* pAttacker, const CvUnit* pDefender)
 {
+	PROFILE_EXTRA_FUNC();
 	float fOddsEvent;
 	float fOddsAfterEvent;
 	int iAttackerStrength;
@@ -482,7 +487,7 @@ int getCombatOdds(const CvUnit* pAttacker, const CvUnit* pDefender)
 	iDefenderFirepower = pDefender->currFirepower(pDefender->plot(), pAttacker);
 
 #ifdef STRENGTH_IN_NUMBERS
-	if (GC.getGame().isOption(GAMEOPTION_STRENGTH_IN_NUMBERS))
+	if (GC.getGame().isOption(GAMEOPTION_COMBAT_STRENGTH_IN_NUMBERS))
 	{
 		int iAttackerSupportStrength = pAttacker->getAttackerSupportValue();
 		iAttackerStrength += iAttackerSupportStrength;
@@ -775,6 +780,7 @@ int getCombatOdds(const CvUnit* pAttacker, const CvUnit* pDefender)
 //n_A = hits taken by attacker, n_D = hits taken by defender.
 float getCombatOddsSpecific(const CvUnit* pAttacker, const CvUnit* pDefender, int n_A, int n_D)
 {
+	PROFILE_EXTRA_FUNC();
 	int iAttackerStrength;
 	int iAttackerFirepower;
 	int iDefenderStrength;
@@ -815,7 +821,7 @@ float getCombatOddsSpecific(const CvUnit* pAttacker, const CvUnit* pDefender, in
 	iDefenderFirepower = pDefender->currFirepower(pDefender->plot(), pAttacker);
 
 #ifdef STRENGTH_IN_NUMBERS
-	if (GC.getGame().isOption(GAMEOPTION_STRENGTH_IN_NUMBERS))
+	if (GC.getGame().isOption(GAMEOPTION_COMBAT_STRENGTH_IN_NUMBERS))
 	{
 		int iDefenderSupportStrength = pDefender->getDefenderSupportValue(pAttacker);
 		int iAttackerSupportStrength = pAttacker->getAttackerSupportValue();
@@ -1238,117 +1244,42 @@ bool isPlotEventTrigger(EventTriggerTypes eTrigger)
 	return false;
 }
 
-#ifdef DISCOVERY_TECH_CACHE
-namespace {
-	//	Small cache
-	std::vector<stdext::hash_map<UnitTypes, TechTypes> > g_discoveryTechCache;
-	int g_cachedTurn = -1;
-}
-#endif // DISCOVERY_TECH_CACHE
 
-TechTypes getDiscoveryTech(UnitTypes eUnit, PlayerTypes ePlayer)
+TechTypes getDiscoveryTech(const UnitTypes eUnit, const PlayerTypes ePlayer)
 {
 	PROFILE_FUNC();
 	FEnsureMsg(ePlayer != NO_PLAYER, "Player must be valid for this function");
 
-#ifdef DISCOVERY_TECH_CACHE
-	if ( g_cachedTurn != GC.getGame().getGameTurn() )
-	{
-		g_discoveryTechCache.clear();
-		g_cachedTurn = GC.getGame().getGameTurn();
-	}
-#endif // DISCOVERY_TECH_CACHE
-
-	// After the first turn this should not cause any allocation to occur as the max size required will have been reserved
-	g_discoveryTechCache.resize(std::max(g_discoveryTechCache.size(), static_cast<size_t>(ePlayer) + 1));
+	CvPlayerAI& player = GET_PLAYER(ePlayer);
+	const CvTeam& team = GET_TEAM(player.getTeam());
 
 	TechTypes eBestTech = NO_TECH;
-#ifdef DISCOVERY_TECH_CACHE
-	stdext::hash_map<UnitTypes,TechTypes>::const_iterator itr = g_discoveryTechCache[ePlayer].find(eUnit);
-	if ( itr == g_discoveryTechCache[ePlayer].end() )
-#endif // DISCOVERY_TECH_CACHE
+	int iBestValue = 0;
+
+	foreach_(const TechTypes eTechX, team.getAdjacentResearch())
 	{
-		const CvPlayerAI& kPlayer = GET_PLAYER(ePlayer);
-		const CvTeam& kTeam = GET_TEAM(kPlayer.getTeam());
-
-		int iBestValue = 0;
-
-		std::vector<int> paiBonusClassRevealed(GC.getNumBonusClassInfos());
-		std::vector<int> paiBonusClassUnrevealed(GC.getNumBonusClassInfos());
-		std::vector<int> paiBonusClassHave(GC.getNumBonusClassInfos());
-
-		bool bBonusArrayCalculated = false;
-
-		for (int iI = 0; iI < GC.getNumTechInfos(); iI++)
+		if (player.canResearch(eTechX))
 		{
-			if (GET_PLAYER(ePlayer).canResearch((TechTypes)iI))
+			int iValue = 0;
+
+			for (int iJ = 0; iJ < GC.getNumFlavorTypes(); iJ++)
 			{
-				int iValue = 0;
+				iValue += GC.getTechInfo(eTechX).getFlavorValue(iJ) * GC.getUnitInfo(eUnit).getFlavorValue(iJ);
+			}
 
-				for (int iJ = 0; iJ < GC.getNumFlavorTypes(); iJ++)
-				{
-					iValue += (GC.getTechInfo((TechTypes) iI).getFlavorValue(iJ) * GC.getUnitInfo(eUnit).getFlavorValue(iJ));
-				}
+			if (iValue > 0)
+			{
+				iValue *= 10;
+				iValue += player.AI_TechValueCached(eTechX, player.isHumanPlayer());
 
-				//	Note we check for a value > 1 not > 0 here since thetech evaluator alwasy gives a minimum valu of 1 even if it cannot
-				//	see a 'real' value.  I didn't not want to disturb that arrangement in writing this code
 				if (iValue > iBestValue)
 				{
-					if ( !bBonusArrayCalculated )
-					{
-						bBonusArrayCalculated = true;
-
-						std::fill(paiBonusClassRevealed.begin(), paiBonusClassRevealed.end(), 0);
-						std::fill(paiBonusClassUnrevealed.begin(), paiBonusClassUnrevealed.end(), 0);
-						std::fill(paiBonusClassHave.begin(), paiBonusClassHave.end(), 0);
-
-						for (int iJ = 0; iJ < GC.getNumBonusInfos(); iJ++)
-						{
-							const TechTypes eRevealTech = (TechTypes)GC.getBonusInfo((BonusTypes)iJ).getTechReveal();
-							const BonusClassTypes eBonusClass = (BonusClassTypes)GC.getBonusInfo((BonusTypes)iJ).getBonusClassType();
-							if (eRevealTech != NO_TECH)
-							{
-								if (kTeam.isHasTech(eRevealTech))
-								{
-									paiBonusClassRevealed[eBonusClass]++;
-								}
-								else
-								{
-									paiBonusClassUnrevealed[eBonusClass]++;
-								}
-
-								if (kPlayer.getNumAvailableBonuses((BonusTypes)iJ) > 0)
-								{
-									paiBonusClassHave[eBonusClass]++;
-								}
-								else if (kPlayer.countOwnedBonuses((BonusTypes)iJ) > 0)
-								{
-									paiBonusClassHave[eBonusClass]++;
-								}
-							}
-						}
-					}
-
-					if (kPlayer.AI_techValue((TechTypes)iI, 1, true, kPlayer.isHuman(), paiBonusClassRevealed, paiBonusClassUnrevealed, paiBonusClassHave) > 1)
-					{
-						iBestValue = iValue;
-						eBestTech = ((TechTypes)iI);
-					}
+					iBestValue = iValue;
+					eBestTech = eTechX;
 				}
 			}
 		}
-
-#ifdef DISCOVERY_TECH_CACHE
-		g_discoveryTechCache[ePlayer].insert(std::make_pair(eUnit,eBestTech));
-#endif // DISCOVERY_TECH_CACHE
 	}
-#ifdef DISCOVERY_TECH_CACHE
-	else
-	{
-		eBestTech = itr->second;
-	}
-#endif // DISCOVERY_TECH_CACHE
-
 	return eBestTech;
 }
 
@@ -1636,9 +1567,9 @@ bool PUF_canAirDefend(const CvUnit* pUnit, int iData1, int iData2, const CvUnit*
 	return pUnit->canAirDefend();
 }
 
-bool PUF_isFighting(const CvUnit* pUnit, int iData1, int iData2, const CvUnit* pThis)
+bool PUF_isInBattle(const CvUnit* pUnit, int iData1, int iData2, const CvUnit* pThis)
 {
-	return pUnit->isFighting();
+	return pUnit->isInBattle();
 }
 
 bool PUF_isAnimal( const CvUnit* pUnit, int iData1, int iData2, const CvUnit* pThis)
@@ -1902,7 +1833,7 @@ int pathDestValid(int iToX, int iToY, const void* pointer, FAStar* finder)
 
 	//OutputDebugString(CvString::format("PathDestValid (%d,%d)\n", iToX, iToY).c_str());
 	//TB OOS Debug
-	if (!pSelectionGroup->AI_isControlled() || GET_PLAYER(pSelectionGroup->getHeadOwner()).isHuman())
+	if (!pSelectionGroup->AI_isControlled() || GET_PLAYER(pSelectionGroup->getHeadOwner()).isHumanPlayer())
 	{
 		gDLL->getFAStarIFace()->ForceReset(finder);
 #ifdef PATHFINDING_CACHE
@@ -1968,16 +1899,16 @@ int pathValid(FAStarNode* parent, FAStarNode* node, int data, const void* pointe
 	{
 		PROFILE("pathValid domain sea");
 
-#if 0
-		//	Optimisation short-circuit some invalid pathing choices quickly
-		if (!pToPlot->isWater() && !pSelectionGroup->canMoveAllTerrain() && !pToPlot->isCanMoveSeaUnits())
-		{
-			if (!pToPlot->isCity())
-			{
-				return FALSE;
-			}
-		}
-#endif
+//#if 0
+//		//	Optimisation short-circuit some invalid pathing choices quickly
+//		if (!pToPlot->isWater() && !pSelectionGroup->canMoveAllTerrain() && !pToPlot->isCanMoveSeaUnits())
+//		{
+//			if (!pToPlot->isCity())
+//			{
+//				return FALSE;
+//			}
+//		}
+//#endif
 		//	Can't cross diagonally across 'land'
 		if (pFromPlot->isWater() && pToPlot->isWater())
 		{
@@ -2076,16 +2007,16 @@ int pathAdd(FAStarNode* parent, FAStarNode* node, int data, const void* pointer,
 
 		iMoves = pSelectionGroup->movesRemainingAfterMovingTo((iStartMoves == 0 ? -1 : iStartMoves), pFromPlot, pToPlot);
 
-#if 0
-		if ( gDLL->getFAStarIFace()->GetDestX(finder) == pToPlot->getX() && gDLL->getFAStarIFace()->GetDestY(finder) == pToPlot->getY() )
-		{
-			if (!pSelectionGroup->AI_isControlled())
-			{
-				OutputDebugString("Force reset find at possible end of path\n");
-				gDLL->getFAStarIFace()->ForceReset(finder);
-			}
-		}
-#endif
+//#if 0
+//		if ( gDLL->getFAStarIFace()->GetDestX(finder) == pToPlot->getX() && gDLL->getFAStarIFace()->GetDestY(finder) == pToPlot->getY() )
+//		{
+//			if (!pSelectionGroup->AI_isControlled())
+//			{
+//				OutputDebugString("Force reset find at possible end of path\n");
+//				gDLL->getFAStarIFace()->ForceReset(finder);
+//			}
+//		}
+//#endif
 	}
 
 	FASSERT_NOT_NEGATIVE(iMoves);
@@ -2093,16 +2024,16 @@ int pathAdd(FAStarNode* parent, FAStarNode* node, int data, const void* pointer,
 	node->m_iData1 = iMoves;
 	node->m_iData2 = iTurns;
 
-#if 0
-	if ( parent != NULL )
-	{
-		OutputDebugString(CvString::format("PathAdd (%d,%d)->(%d,%d)\n", parent->m_iX, parent->m_iY, node->m_iX, node->m_iY).c_str());
-	}
-	else
-	{
-		OutputDebugString(CvString::format("PathAdd NULL->(%d,%d)\n", node->m_iX, node->m_iY).c_str());
-	}
-#endif
+//#if 0
+//	if ( parent != NULL )
+//	{
+//		OutputDebugString(CvString::format("PathAdd (%d,%d)->(%d,%d)\n", parent->m_iX, parent->m_iY, node->m_iX, node->m_iY).c_str());
+//	}
+//	else
+//	{
+//		OutputDebugString(CvString::format("PathAdd NULL->(%d,%d)\n", node->m_iX, node->m_iY).c_str());
+//	}
+//#endif
 
 	return 1;
 }
@@ -2240,27 +2171,27 @@ int pathCost(FAStarNode* parent, FAStarNode* node, int data, const void* pointer
 
 			if ( bEndsTurn )
 			{
-#if 0
-				PROFILE("pathCost.endTurnDetermined");
-
-				if ( bHaveEndTurnCachedEdgeValue )
-				{
-					PROFILE("pathCost.endTurnDetermined.Cached");
-				}
-#endif
+//#if 0
+//				PROFILE("pathCost.endTurnDetermined");
+//
+//				if ( bHaveEndTurnCachedEdgeValue )
+//				{
+//					PROFILE("pathCost.endTurnDetermined.Cached");
+//				}
+//#endif
 				bDoesntEndTurn = false;
 			}
-#if 0
-			else if ( bDoesntEndTurn )
-			{
-				PROFILE("pathCost.nonEndTurnDetermined");
-
-				if ( bHaveNonEndTurnCachedEdgeValue )
-				{
-					PROFILE("pathCost.NonEndTurnDetermined.Cached");
-				}
-			}
-#endif
+//#if 0
+//			else if ( bDoesntEndTurn )
+//			{
+//				PROFILE("pathCost.nonEndTurnDetermined");
+//
+//				if ( bHaveNonEndTurnCachedEdgeValue )
+//				{
+//					PROFILE("pathCost.NonEndTurnDetermined.Cached");
+//				}
+//			}
+//#endif
 		}
 		else
 		{
@@ -2682,6 +2613,7 @@ int pathCost(FAStarNode* parent, FAStarNode* node, int data, const void* pointer
 //	Heuristic cost
 int	NewPathHeuristicFunc(const CvSelectionGroup* pGroup, int iFromX, int iFromY, int iToX, int iToY, int& iLimitCost)
 {
+	PROFILE_EXTRA_FUNC();
 	//PROFILE_FUNC();
 
 	int iStepDistance = stepDistance(iFromX, iFromY, iToX, iToY);
@@ -2878,27 +2810,27 @@ int	NewPathCostFunc(const CvPathGeneratorBase* generator, const CvSelectionGroup
 
 			if ( bEndsTurn )
 			{
-#if 0
-				PROFILE("pathCost.endTurnDetermined");
-
-				if ( bHaveEndTurnCachedEdgeValue )
-				{
-					PROFILE("pathCost.endTurnDetermined.Cached");
-				}
-#endif
+//#if 0
+//				PROFILE("pathCost.endTurnDetermined");
+//
+//				if ( bHaveEndTurnCachedEdgeValue )
+//				{
+//					PROFILE("pathCost.endTurnDetermined.Cached");
+//				}
+//#endif
 				bDoesntEndTurn = false;
 			}
-#if 0
-			else if ( bDoesntEndTurn )
-			{
-				PROFILE("pathCost.nonEndTurnDetermined");
-
-				if ( bHaveNonEndTurnCachedEdgeValue )
-				{
-					PROFILE("pathCost.NonEndTurnDetermined.Cached");
-				}
-			}
-#endif
+//#if 0
+//			else if ( bDoesntEndTurn )
+//			{
+//				PROFILE("pathCost.nonEndTurnDetermined");
+//
+//				if ( bHaveNonEndTurnCachedEdgeValue )
+//				{
+//					PROFILE("pathCost.NonEndTurnDetermined.Cached");
+//				}
+//			}
+//#endif
 		}
 		else
 		{
@@ -3438,13 +3370,13 @@ bool ContextFreeNewPathValidFunc(const CvSelectionGroup* pSelectionGroup, int iF
 			{
 				{
 					PROFILE("pathValid domain sea");
-			#if 0
-					// Optimisation short-circuit some invalid pathing choices quickly
-					if (!pToPlot->isWater() && !pSelectionGroup->canMoveAllTerrain() && !pToPlot->isCanMoveSeaUnits() && !pToPlot->isCity())
-					{
-						return false;
-					}
-			#endif
+//			#if 0
+//					// Optimisation short-circuit some invalid pathing choices quickly
+//					if (!pToPlot->isWater() && !pSelectionGroup->canMoveAllTerrain() && !pToPlot->isCanMoveSeaUnits() && !pToPlot->isCity())
+//					{
+//						return false;
+//					}
+//			#endif
 					// Can't cross diagonally across 'land'
 					if (pFromPlot->isWater() && pToPlot->isWater()
 					&& !GC.getMap().plot(pFromPlot->getX(), pToPlot->getY())->isWater() && !GC.getMap().plot(pToPlot->getX(), pFromPlot->getY())->isWater()
@@ -3466,7 +3398,7 @@ bool ContextFreeNewPathValidFunc(const CvSelectionGroup* pSelectionGroup, int iF
 			default: break;
 		}
 
-		if (GC.getGame().isOption(GAMEOPTION_ZONE_OF_CONTROL))
+		if (GC.getGame().isOption(GAMEOPTION_UNSUPPORTED_ZONE_OF_CONTROL))
 		{
 			const TeamTypes eTeam = pSelectionGroup->getHeadTeam();
 
@@ -3935,6 +3867,7 @@ int* shuffle(int iNum, CvRandom& rand)
 
 void shuffleArray(int* piShuffle, int iNum, CvRandom& rand)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int iI = 0; iI < iNum; iI++)
 	{
 		piShuffle[iI] = iI;
@@ -3944,6 +3877,7 @@ void shuffleArray(int* piShuffle, int iNum, CvRandom& rand)
 
 void shuffle(int* piShuffle, int iNum, CvRandom& rand)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int iI = 0; iI < iNum; iI++)
 	{
 		const int iJ = iI + rand.get(iNum - iI);
@@ -4162,7 +4096,6 @@ void getMissionTypeString(CvWString& szString, MissionTypes eMissionType)
 	case MISSION_ESPIONAGE_SLEEP: szString = L"MISSION_ESPIONAGE_SLEEP"; break;
 	case MISSION_GREAT_COMMANDER: szString = L"MISSION_GREAT_COMMANDER"; break;
 	case MISSION_SHADOW: szString = L"MISSION_SHADOW"; break;
-	case MISSION_WAIT_FOR_TECH: szString = L"MISSION_WAIT_FOR_TECH"; break;
 	case MISSION_GOTO: szString = L"MISSION_GOTO"; break;
 	case MISSION_BUTCHER: szString = L"MISSION_BUTCHER"; break;
 	case MISSION_DIPLOMAT_ASSIMULATE_IND_PEOPLE: szString = L"MISSION_DIPLOMAT_ASSIMULATE_IND_PEOPLE"; break;
@@ -4340,7 +4273,7 @@ int calcBaseExpNeeded(const int iLevel, const PlayerTypes ePlayer)
 {
 	int iThreshold = 99 + (iLevel*iLevel + 1) * (100 + GET_PLAYER(ePlayer).getLevelExperienceModifier());
 
-	if (GC.getGame().isOption(GAMEOPTION_MORE_XP_TO_LEVEL))
+	if (GC.getGame().isOption(GAMEOPTION_UNIT_MORE_XP_TO_LEVEL))
 	{
 		iThreshold *= GC.getDefineINT("MORE_XP_TO_LEVEL_MODIFIER");
 		iThreshold /= 100;
@@ -4353,6 +4286,7 @@ int calcBaseExpNeeded(const int iLevel, const PlayerTypes ePlayer)
  */
 int calculateLevel(const int iExperience, const PlayerTypes ePlayer)
 {
+	PROFILE_EXTRA_FUNC();
 	FAssertMsg(ePlayer != NO_PLAYER, "ePlayer must be a valid player");
 
 	if (iExperience <= 0)
@@ -4441,6 +4375,7 @@ int getTreatyLength()
 
 void CvChecksum::add(int i)
 {
+	PROFILE_EXTRA_FUNC();
 	union { int value; uint8_t bytes[4]; } data;
 	data.value = i;
 	for(UINT i = 0; i < sizeof(data.bytes); i++)
@@ -4463,9 +4398,17 @@ void AddDLLMessage(
 	InterfaceMessageTypes eType, LPCSTR pszIcon, ColorTypes eFlashColor,
 	int iFlashX, int iFlashY, bool bShowOffScreenArrows, bool bShowOnScreenArrows)
 {
+#ifdef _DEBUG
 	OutputDebugString(CvString::format("DLLMessage: %S\n", szString.c_str()).c_str());
-
-	Cy::call(PYScreensModule, "sendMessage", Cy::Args()
+#else
+	if (bForce)
+	{
+		OutputDebugString(CvString::format("DLLMessage: %S\n", szString.c_str()).c_str());
+	}
+#endif
+	Cy::call(
+		PYScreensModule, "sendMessage",
+		Cy::Args()
 		<< szString
 		<< ePlayer
 		<< iLength

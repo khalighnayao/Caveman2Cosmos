@@ -1,3 +1,6 @@
+
+#include "FProfiler.h"
+
 #include "CvBonusInfo.h"
 #include "CvDefines.h"
 #include "CvImprovementInfo.h"
@@ -60,7 +63,6 @@ CvBonusInfo::~CvBonusInfo()
 	SAFE_DELETE_ARRAY(m_pbTerrain);
 	SAFE_DELETE_ARRAY(m_pbFeature);
 	SAFE_DELETE_ARRAY(m_pbFeatureTerrain);	// free memory - MT
-
 }
 
 int CvBonusInfo::getBonusClassType() const
@@ -260,6 +262,21 @@ bool CvBonusInfo::isFeatureTerrain(int i) const
 	return m_pbFeatureTerrain ? m_pbFeatureTerrain[i] : false;
 }
 
+int CvBonusInfo::getCategory(int i) const
+{
+	return m_aiCategories[i];
+}
+
+int CvBonusInfo::getNumCategories() const
+{
+	return (int)m_aiCategories.size();
+}
+
+bool CvBonusInfo::isCategory(int i) const
+{
+	return algo::any_of_equal(m_aiCategories, i);
+}
+
 #ifdef OUTBREAKS_AND_AFFLICTIONS
 int CvBonusInfo::getNumAfflictionCommunicabilityTypes() const
 {
@@ -317,6 +334,7 @@ void CvBonusInfo::setProvidedByImprovementTypes(const ImprovementTypes eType)
 
 void CvBonusInfo::getCheckSum(uint32_t& iSum) const
 {
+	PROFILE_EXTRA_FUNC();
 	CheckSum(iSum, m_iBonusClassType);
 	CheckSum(iSum, m_iTechReveal);
 	CheckSum(iSum, m_iTechCityTrade);
@@ -362,12 +380,15 @@ void CvBonusInfo::getCheckSum(uint32_t& iSum) const
 		CheckSum(iSum, m_aAfflictionCommunicabilityTypes[i].iModifier);
 	}
 
+	CheckSumC(iSum, m_aiCategories);
+
 	m_PropertyManipulators.getCheckSum(iSum);
 }
 
 bool CvBonusInfo::read(CvXMLLoadUtility* pXML)
 {
 
+	PROFILE_EXTRA_FUNC();
 	CvString szTextVal;
 	if (!CvInfoBase::read(pXML))
 	{
@@ -438,6 +459,7 @@ bool CvBonusInfo::read(CvXMLLoadUtility* pXML)
 	pXML->SetVariableListTagPair(&m_pbFeature, L"FeatureBooleans", GC.getNumFeatureInfos());
 	pXML->SetVariableListTagPair(&m_pbFeatureTerrain, L"FeatureTerrainBooleans", GC.getNumTerrainInfos());
 	pXML->SetOptionalVector(&m_aeMapCategoryTypes, L"MapCategoryTypes");
+	pXML->SetOptionalVector(&m_aiCategories, L"Categories");
 
 	if (pXML->TryMoveToXmlFirstChild(L"AfflictionCommunicabilityTypes"))
 	{
@@ -470,6 +492,7 @@ bool CvBonusInfo::read(CvXMLLoadUtility* pXML)
 }
 void CvBonusInfo::copyNonDefaults(const CvBonusInfo* pClassInfo)
 {
+	PROFILE_EXTRA_FUNC();
 	bool bDefault = false;
 	int iDefault = 0;
 	int iTextDefault = -1;  //all integers which are TEXT_KEYS in the xml are -1 by default
@@ -556,11 +579,14 @@ void CvBonusInfo::copyNonDefaults(const CvBonusInfo* pClassInfo)
 	CvXMLLoadUtility::CopyNonDefaultsFromVector(m_aeMapCategoryTypes, pClassInfo->getMapCategories());
 	if (isPeaks() == bDefault) m_bPeaks = pClassInfo->isPeaks();
 
+	CvXMLLoadUtility::CopyNonDefaultsFromVector(m_aiCategories, pClassInfo->m_aiCategories);
+
 	m_PropertyManipulators.copyNonDefaults(&pClassInfo->m_PropertyManipulators);
 }
 
 const std::vector<std::pair<ImprovementTypes, BuildTypes> >* CvBonusInfo::getTradeProvidingImprovements()
 {
+	PROFILE_EXTRA_FUNC();
 	if (m_tradeProvidingImprovements == NULL)
 	{
 

@@ -167,9 +167,9 @@ int CyGame::calculateReligionPercent(ReligionTypes eReligion) const
 	return m_pGame.calculateReligionPercent(eReligion);
 }
 
-int CyGame::goldenAgeLength() const
+int CyGame::goldenAgeLength100() const
 {
-	return m_pGame.goldenAgeLength();
+	return m_pGame.goldenAgeLength100();
 }
 
 int CyGame::victoryDelay(VictoryTypes iVictory) const
@@ -532,11 +532,6 @@ void CyGame::toggleDebugMode()
 	m_pGame.toggleDebugMode();
 }
 
-int CyGame::getChtLvl() const
-{
-	return gDLL->getChtLvl();
-}
-
 int CyGame::getPitbossTurnTime() const
 {
 	return m_pGame.getPitbossTurnTime();
@@ -570,6 +565,11 @@ bool CyGame::isSimultaneousTeamTurns() const
 bool CyGame::isFinalInitialized() const
 {
 	return m_pGame.isFinalInitialized();
+}
+
+void CyGame::onFinalInitialized(const bool bNewGame)
+{
+	m_pGame.onFinalInitialized(bNewGame);
 }
 
 PlayerTypes CyGame::getActivePlayer() const
@@ -1050,11 +1050,6 @@ void CyGame::log(const char* file, char* str)
 #endif
 }
 
-int CyGame::getCultureThreshold(CultureLevelTypes eLevel) const
-{
-	return m_pGame.getCultureThreshold(eLevel);
-}
-
 void CyGame::setPlotExtraYield(int iX, int iY, YieldTypes eYield, int iExtraYield)
 {
 	m_pGame.setPlotExtraYield(iX, iY, eYield, iExtraYield);
@@ -1097,7 +1092,11 @@ bool CyGame::regenerateMap()
 
 void CyGame::saveGame(std::string fileName) const
 {
-	gDLL->getEngineIFace()->SaveGame((CvString &)fileName, SAVEGAME_NORMAL);
+	if (fileName.empty())
+	{
+		gDLL->getEngineIFace()->AutoSave(true);
+	}
+	else gDLL->getEngineIFace()->SaveGame((CvString &)fileName, SAVEGAME_NORMAL);
 }
 
 std::string CyGame::getDLLPath() const
@@ -1135,11 +1134,6 @@ void CyGame::setModderGameOption(ModderGameOptionTypes eIndex, int iNewValue)
 	m_pGame.setModderGameOption(eIndex, iNewValue);
 }
 
-bool CyGame::canEverResearch(TechTypes iTech) const
-{
-	return m_pGame.canEverResearch(iTech);
-}
-
 bool CyGame::canEverConstruct(BuildingTypes iBuilding) const
 {
 	return m_pGame.canEverConstruct(iBuilding);
@@ -1163,4 +1157,9 @@ const char* CyGame::getC2CVersion() const
 void CyGame::assignStartingPlots(bool bScenario, bool bMapScript)
 {
 	m_pGame.assignStartingPlots(bScenario, bMapScript);
+}
+
+void CyGame::exitWorldBuilder()
+{
+	m_pGame.setWorldBuilder(false);
 }

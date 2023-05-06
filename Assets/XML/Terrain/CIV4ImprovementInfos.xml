@@ -17,6 +17,10 @@
 			Higher values reduce chance of depletion, no hard upper limit, but should be comparable to typical iDiscoverRand values.
 			Bonuses can only be depleted if the improvement actually provides a bonus for a civ.
 		</iDepletionRand>
+		<iCulture>
+			Places this much culture on each tile in iCultureRange each turn (no range = self only)
+			dll will bump up culture if it is insufficient to hold a tile by itself after accounting for decay values
+		</iCulture>
 	</BonusTypeStruct>
 -->
 <Civ4ImprovementInfos xmlns="x-schema:../Schema/C2C_CIV4TerrainSchema.xml">
@@ -7463,6 +7467,7 @@
 			</YieldChanges>
 			<PrereqTech>TECH_GAS_LIGHTING</PrereqTech>
 			<iHealthPercent>-100</iHealthPercent>
+			<bFreshWaterMakesValid>1</bFreshWaterMakesValid>
 			<iAdvancedStartCost>-1</iAdvancedStartCost>
 			<iAirBombDefense>5</iAirBombDefense>
 			<iPillageGold>120</iPillageGold>
@@ -7488,6 +7493,8 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>40</iCulture>
+			<iCultureRange>2</iCultureRange>
 			<ImprovementPillage>IMPROVEMENT_TOWN</ImprovementPillage>
 			<TechYieldChanges>
 				<TechYieldChange>
@@ -7626,6 +7633,7 @@
 			</YieldChanges>
 			<PrereqTech>TECH_GUILDS</PrereqTech>
 			<iHealthPercent>-100</iHealthPercent>
+			<bFreshWaterMakesValid>1</bFreshWaterMakesValid>
 			<iAdvancedStartCost>-1</iAdvancedStartCost>
 			<iUpgradeTime>40</iUpgradeTime>
 			<iAirBombDefense>5</iAirBombDefense>
@@ -7652,6 +7660,8 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>20</iCulture>
+			<iCultureRange>1</iCultureRange>
 			<ImprovementPillage>IMPROVEMENT_VILLAGE</ImprovementPillage>
 			<ImprovementUpgrade>IMPROVEMENT_SUBURBS</ImprovementUpgrade>
 			<TechYieldChanges>
@@ -7798,6 +7808,8 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>10</iCulture>
+			<iCultureRange>1</iCultureRange>
 			<ImprovementPillage>IMPROVEMENT_HAMLET</ImprovementPillage>
 			<ImprovementUpgrade>IMPROVEMENT_TOWN</ImprovementUpgrade>
 			<TechYieldChanges>
@@ -7934,6 +7946,7 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>5</iCulture>
 			<ImprovementPillage>IMPROVEMENT_COTTAGE</ImprovementPillage>
 			<ImprovementUpgrade>IMPROVEMENT_VILLAGE</ImprovementUpgrade>
 			<TechYieldChanges>
@@ -7989,6 +8002,7 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>2</iCulture>
 			<ImprovementUpgrade>IMPROVEMENT_HAMLET</ImprovementUpgrade>
 		</ImprovementInfo>
 		<!-- Manufacturing Complex | End -->
@@ -8726,6 +8740,8 @@
 			<bPeakImprovement>1</bPeakImprovement>
 			<iAdvancedStartCost>50</iAdvancedStartCost>
 			<bOutsideBorders>1</bOutsideBorders>
+			<iCulture>30</iCulture>
+			<iCultureRange>1</iCultureRange>
 			<TechYieldChanges>
 				<TechYieldChange>
 					<PrereqTech>TECH_WIRELESS_ELECTRICITY</PrereqTech>
@@ -9658,8 +9674,9 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>20</iCulture>
 			<iVisibilityChange>4</iVisibilityChange>
-			<iSeeFrom>3</iSeeFrom>
+			<iSeeFrom>2</iSeeFrom>
 			<iUniqueRange>0</iUniqueRange>
 			<bBombardable>1</bBombardable>
 			<!-- <bUpgradeRequiresFortify>1</bUpgradeRequiresFortify> -->
@@ -9747,10 +9764,11 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>10</iCulture>
 			<ImprovementPillage>IMPROVEMENT_STONE_WATCHTOWER</ImprovementPillage>
 			<ImprovementUpgrade>IMPROVEMENT_RADAR_TOWER</ImprovementUpgrade>
 			<iVisibilityChange>3</iVisibilityChange>
-			<iSeeFrom>2</iSeeFrom>
+			<iSeeFrom>1</iSeeFrom>
 			<iUniqueRange>0</iUniqueRange>
 			<bBombardable>1</bBombardable>
 			<bUpgradeRequiresFortify>1</bUpgradeRequiresFortify>
@@ -9838,6 +9856,7 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>4</iCulture>
 			<ImprovementPillage>IMPROVEMENT_WOODEN_WATCHTOWER</ImprovementPillage>
 			<ImprovementUpgrade>IMPROVEMENT_STEEL_WATCHTOWER</ImprovementUpgrade>
 			<iVisibilityChange>2</iVisibilityChange>
@@ -9930,6 +9949,7 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>2</iCulture>
 			<ImprovementUpgrade>IMPROVEMENT_STONE_WATCHTOWER</ImprovementUpgrade>
 			<iVisibilityChange>1</iVisibilityChange>
 			<iUniqueRange>0</iUniqueRange>
@@ -10020,7 +10040,7 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
-			<iCulture>10</iCulture>
+			<iCulture>20</iCulture>
 			<iCultureRange>2</iCultureRange>
 			<iVisibilityChange>2</iVisibilityChange>
 			<iSeeFrom>1</iSeeFrom>
@@ -10213,7 +10233,7 @@
 			<ImprovementPillage>IMPROVEMENT_WOODEN_PALISADE</ImprovementPillage>
 			<!-- Other improvements also can upgrade to Fort: Fortified Cave with Cache -->
 			<ImprovementUpgrade>IMPROVEMENT_COMMAND_BUNKER</ImprovementUpgrade>
-			<iCulture>10</iCulture>
+			<iCulture>5</iCulture>
 			<iCultureRange>1</iCultureRange>
 			<iVisibilityChange>1</iVisibilityChange>
 			<iUniqueRange>2</iUniqueRange>
@@ -10244,11 +10264,12 @@
 			</FeatureMakesValids>
 			<ImprovementPillage>IMPROVEMENT_FORTIFIED_CAVE</ImprovementPillage>
 			<ImprovementUpgrade>IMPROVEMENT_FORT</ImprovementUpgrade>
-			<iCulture>1</iCulture>
+			<iCulture>3</iCulture>
 			<iCultureRange>1</iCultureRange>
 			<iUniqueRange>2</iUniqueRange>
 			<bBombardable>1</bBombardable>
 			<bUpgradeRequiresFortify>1</bUpgradeRequiresFortify>
+			<bIsUniversalTradeBonusProvider>1</bIsUniversalTradeBonusProvider>
 		</ImprovementInfo>
 		<!-- Fortified Cave -> Fortified Cave w/Cache -->
 		<!-- Kill Switchpoint: Sedentary Lifestyle -->
@@ -10271,10 +10292,13 @@
 					<bMakesValid>1</bMakesValid>
 				</FeatureMakesValid>
 			</FeatureMakesValids>
+			<iCulture>2</iCulture>
 			<ImprovementUpgrade>IMPROVEMENT_FORTIFIED_CAVE_WITH_CACHE</ImprovementUpgrade>
 			<iUniqueRange>2</iUniqueRange>
 			<bBombardable>1</bBombardable>
 			<bUpgradeRequiresFortify>1</bUpgradeRequiresFortify>
+			<bIsUniversalTradeBonusProvider>1</bIsUniversalTradeBonusProvider>
+			<!-- Trade provider technically necessary otherwise players would need to build palisades on caves tiles w/resources -->
 		</ImprovementInfo>
 		<!-- Palisade -> Fort -->
 		<!-- Kill Switchpoint: Sedentary Lifestyle -->
@@ -10363,10 +10387,11 @@
 			</TerrainMakesValids>
 			<ImprovementPillage>IMPROVEMENT_ABATIS_THORN_HEDGE</ImprovementPillage>
 			<ImprovementUpgrade>IMPROVEMENT_FORT</ImprovementUpgrade>
-			<iCulture>5</iCulture>
+			<iCulture>2</iCulture>
 			<iUniqueRange>2</iUniqueRange>
 			<bBombardable>1</bBombardable>
 			<bUpgradeRequiresFortify>1</bUpgradeRequiresFortify>
+			<bIsUniversalTradeBonusProvider>1</bIsUniversalTradeBonusProvider>
 		</ImprovementInfo>
 		<!-- Abatis -> Palisade -->
 		<ImprovementInfo>
@@ -10451,6 +10476,7 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>1</iCulture>
 			<ImprovementUpgrade>IMPROVEMENT_WOODEN_PALISADE</ImprovementUpgrade>
 			<iUniqueRange>2</iUniqueRange>
 			<bBombardable>1</bBombardable>
@@ -11187,6 +11213,7 @@
 					<bMakesValid>1</bMakesValid>
 				</FeatureMakesValid>
 			</FeatureMakesValids>
+			<bOutsideBorders>1</bOutsideBorders>
 			<bPlacesFeature>1</bPlacesFeature>
 			<bGraphicalOnly>1</bGraphicalOnly>
 		</ImprovementInfo>
@@ -11208,6 +11235,7 @@
 					<bMakesValid>1</bMakesValid>
 				</FeatureMakesValid>
 			</FeatureMakesValids>
+			<bOutsideBorders>1</bOutsideBorders>
 			<bPlacesFeature>1</bPlacesFeature>
 			<bGraphicalOnly>1</bGraphicalOnly>
 		</ImprovementInfo>
@@ -11229,6 +11257,7 @@
 					<bMakesValid>1</bMakesValid>
 				</FeatureMakesValid>
 			</FeatureMakesValids>
+			<bOutsideBorders>1</bOutsideBorders>
 			<bPlacesFeature>1</bPlacesFeature>
 			<bGraphicalOnly>1</bGraphicalOnly>
 		</ImprovementInfo>
@@ -11247,6 +11276,7 @@
 					<bMakesValid>1</bMakesValid>
 				</FeatureMakesValid>
 			</FeatureMakesValids>
+			<bOutsideBorders>1</bOutsideBorders>
 			<bPlacesFeature>1</bPlacesFeature>
 			<bGraphicalOnly>1</bGraphicalOnly>
 		</ImprovementInfo>
@@ -11264,6 +11294,7 @@
 					<bMakesValid>1</bMakesValid>
 				</FeatureMakesValid>
 			</FeatureMakesValids>
+			<bOutsideBorders>1</bOutsideBorders>
 			<bPlacesFeature>1</bPlacesFeature>
 			<bGraphicalOnly>1</bGraphicalOnly>
 		</ImprovementInfo>
@@ -11281,6 +11312,7 @@
 					<bMakesValid>1</bMakesValid>
 				</FeatureMakesValid>
 			</FeatureMakesValids>
+			<bOutsideBorders>1</bOutsideBorders>
 			<bPlacesFeature>1</bPlacesFeature>
 			<bGraphicalOnly>1</bGraphicalOnly>
 		</ImprovementInfo>
@@ -11879,6 +11911,7 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>5</iCulture>
 			<bBombardable>1</bBombardable>
 		</ImprovementInfo>
 		<!-- Sea Fort -->
@@ -11977,6 +12010,8 @@
 					<bMakesValid>1</bMakesValid>
 				</TerrainMakesValid>
 			</TerrainMakesValids>
+			<iCulture>10</iCulture>
+			<iCultureRange>1</iCultureRange>
 			<iVisibilityChange>2</iVisibilityChange>
 			<iSeeFrom>1</iSeeFrom>
 			<iUniqueRange>2</iUniqueRange>

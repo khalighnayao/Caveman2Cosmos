@@ -3960,30 +3960,29 @@ mo = MapOptions()
 ## Begin Map-Script
 ##############################################################################
 
-def getNumCustomMapOptions():
+def isAdvancedMap():
 	if mo.bfirstRun:
 		print "Preparing World Map Script"
 		mo.loadMapOptionDefaults()
+	return False
+
+def getNumHiddenCustomMapOptions():
+	return 0 # Value seems to only be used for "play now" when using debug dll
+
+def getNumCustomMapOptions():
 	return 8
 
 def getCustomMapOptionDefault(argsList):
-	iOption = argsList[0]
-	return mo.optionList[iOption][1]
-
-def isAdvancedMap():
-	return False
+	return mo.optionList[argsList[0]][1]
 
 def getCustomMapOptionName(argsList):
-	iOption = argsList[0]
-	return unicode(mo.optionList[iOption][0])
+	return mo.optionList[argsList[0]][0]
 
 def getNumCustomMapOptionValues(argsList):
-	iOption  = argsList[0]
-	return mo.optionList[iOption][3]
+	return mo.optionList[argsList[0]][3]
 
 def isRandomCustomMapOption(argsList):
-	iOption = argsList[0]
-	return mo.optionList[iOption][2]
+	return mo.optionList[argsList[0]][2]
 
 def getCustomMapOptionDescAt(argsList):
 	# Register selected options
@@ -4441,7 +4440,7 @@ def addFeatures():
 	MAP = GC.getMap()
 	mapRand = GC.getGame().getMapRand()
 	bGoodyHuts = True
-	if CyGame().isOption(GameOptionTypes.GAMEOPTION_NO_GOODY_HUTS):
+	if CyGame().isOption(GameOptionTypes.GAMEOPTION_MAP_NO_GOODY_HUTS):
 		bGoodyHuts = False
 	impGoodyIsland		= GC.getInfoTypeForString("IMPROVEMENT_GOODY_ISLAND")
 	featureForest		= GC.getInfoTypeForString("FEATURE_FOREST")

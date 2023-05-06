@@ -1,4 +1,7 @@
 // game.cpp
+
+#include "FProfiler.h"
+
 #include "CvGameCoreDLL.h"
 #include "CvGameAI.h"
 #include "CvGlobals.h"
@@ -29,7 +32,8 @@ bool CvInitCore::bPathsSet;
 // Used to signal the BULL saved game format is used
 #define BUG_DLL_SAVE_FORMAT		64
 
-// Public Functions...
+uint32_t CvInitCore::m_uiAssetCheckSum = 0;
+uint32_t CvInitCore::m_uiSavegameAssetCheckSum = 0;
 
 CvInitCore::CvInitCore()
 {
@@ -80,10 +84,6 @@ CvInitCore::CvInitCore()
 // BUG - EXE/DLL Paths - start
 	bPathsSet = false;
 // BUG - EXE/DLL Paths - end
-
-	m_bRecalcRequestProcessed = false;
-	//m_uiAssetCheckSum = -1;
-	m_uiSavegameAssetCheckSum = -1;
 
 	reset(NO_GAMEMODE);
 
@@ -168,6 +168,7 @@ void CvInitCore::reset(GameMode eMode)
 
 void CvInitCore::setDefaults()
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumGameOptionInfos(); ++i)
 	{
 		//	Allow the DLL to run against older assets that define fewer options, leaving
@@ -207,6 +208,7 @@ bool CvInitCore::getHuman(PlayerTypes eID) const
 
 int CvInitCore::getNumHumans() const
 {
+	PROFILE_EXTRA_FUNC();
 	int iNumHumans = 0;
 	for (int i = 0; i < MAX_PC_PLAYERS; ++i)
 	{
@@ -220,6 +222,7 @@ int CvInitCore::getNumHumans() const
 
 int CvInitCore::getNumDefinedPlayers() const
 {
+	PROFILE_EXTRA_FUNC();
 	int iCount = 0;
 	for (int i = 0; i < MAX_PLAYERS; ++i)
 	{
@@ -343,6 +346,7 @@ bool CvInitCore::getSlotVacant(PlayerTypes eID) const
 
 PlayerTypes CvInitCore::getAvailableSlot()
 {
+	PROFILE_EXTRA_FUNC();
 	// Get the next ID available ID
 	// First check for open slots only
 	for (int i = 0; i < MAX_PC_PLAYERS; ++i)
@@ -493,6 +497,7 @@ void CvInitCore::reassignPlayer(PlayerTypes eOldID, PlayerTypes eNewID)
 
 void CvInitCore::endGameSetup()
 {
+	PROFILE_EXTRA_FUNC();
 	// Open inactive slots mean different things to different game modes and types...
 	// Let's figure out what they mean for us
 	for (int i = 0; i < MAX_PC_PLAYERS; i++)
@@ -538,6 +543,7 @@ void CvInitCore::closeInactiveSlots() { }
 
 void CvInitCore::reopenInactiveSlots()
 {
+	PROFILE_EXTRA_FUNC();
 	// "Inactive" open slots will only be in Pitboss and Hotseat
 	if (getPitboss() || getHotseat() || getPbem())
 	{
@@ -555,6 +561,7 @@ void CvInitCore::reopenInactiveSlots()
 
 void CvInitCore::resetGame()
 {
+	PROFILE_EXTRA_FUNC();
 	OutputDebugString("Reseting Game: Start\n");
 
 	// Descriptive strings about game and map
@@ -574,8 +581,6 @@ void CvInitCore::resetGame()
 	m_eGameSpeed = (GameSpeedTypes)GC.getDefineINT("STANDARD_GAMESPEED");	// NO_ option?
 	m_eTurnTimer = (TurnTimerTypes)GC.getDefineINT("STANDARD_TURNTIMER");	// NO_ option?
 	m_eCalendar = (CalendarTypes)GC.getDefineINT("STANDARD_CALENDAR");		// NO_ option?
-
-	m_uiSavegameAssetCheckSum = -1;
 
 	// Map-specific custom parameters
 	clearCustomMapOptions();
@@ -625,6 +630,7 @@ void CvInitCore::resetGame()
 
 void CvInitCore::resetGame(CvInitCore * pSource, bool bClear, bool bSaveGameType)
 {
+	PROFILE_EXTRA_FUNC();
 	OutputDebugString("Reseting Game with Source: Start\n");
 
 	FAssertMsg(pSource, "Passed null pointer to CvInitCore::resetGame");
@@ -697,16 +703,18 @@ void CvInitCore::resetGame(CvInitCore * pSource, bool bClear, bool bSaveGameType
 
 void CvInitCore::resetPlayers()
 {
-	OutputDebugString("Reseting Players: Start/n");
+	PROFILE_EXTRA_FUNC();
+	OutputDebugString("Reseting Players: Start\n");
 	for (int i = 0; i < MAX_PLAYERS; i++)
 	{
 		resetPlayer((PlayerTypes)i);
 	}
-	OutputDebugString("Reseting Players: End/n");
+	OutputDebugString("Reseting Players: End\n");
 }
 
 void CvInitCore::resetPlayers(CvInitCore * pSource, bool bClear, bool bSaveSlotInfo)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < MAX_PLAYERS; i++)
 	{
 		resetPlayer((PlayerTypes)i, pSource, bClear, bSaveSlotInfo);
@@ -797,7 +805,7 @@ void CvInitCore::resetPlayer(PlayerTypes eID, CvInitCore * pSource, bool bClear,
 			setFlagDecal(eID, pSource->getFlagDecal(eID));
 			setWhiteFlag(eID, pSource->getWhiteFlag(eID));
 
-			setHandicap(eID, pSource->getHandicap(eID));
+			setHandicap(eID, (HandicapTypes)range(pSource->getHandicap(eID), 0, GC.getNumHandicapInfos() - 1));
 			setCiv(eID, pSource->getCiv(eID));
 			setTeam(eID, pSource->getTeam(eID));
 			setLeader(eID, pSource->getLeader(eID));
@@ -845,6 +853,7 @@ bool CvInitCore::getWBMapScript() const
 
 void CvInitCore::setWorldSize(const CvWString & szWorldSize)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumWorldInfos(); i++)
 	{
 		if ( wcsicmp(szWorldSize.GetCString(), CvWString(GC.getWorldInfo((WorldSizeTypes)i).getType()).GetCString()) == 0 )
@@ -867,6 +876,7 @@ const CvWString & CvInitCore::getWorldSizeKey(CvWString & szBuffer) const
 
 void CvInitCore::setClimate(const CvWString & szClimate)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumClimateInfos(); i++)
 	{
 		if ( wcsicmp(szClimate.GetCString(), CvWString(GC.getClimateInfo((ClimateTypes)i).getType()).GetCString()) == 0 )
@@ -889,6 +899,7 @@ const CvWString & CvInitCore::getClimateKey(CvWString & szBuffer) const
 
 void CvInitCore::setSeaLevel(const CvWString & szSeaLevel)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumSeaLevelInfos(); i++)
 	{
 		if ( wcsicmp(szSeaLevel.GetCString(), CvWString(GC.getSeaLevelInfo((SeaLevelTypes)i).getType()).GetCString()) == 0 )
@@ -911,6 +922,7 @@ const CvWString & CvInitCore::getSeaLevelKey(CvWString & szBuffer) const
 
 void CvInitCore::setEra(const CvWString & szEra)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumEraInfos(); i++)
 	{
 		if ( wcsicmp(szEra.GetCString(), CvWString(GC.getEraInfo((EraTypes)i).getType()).GetCString()) == 0 )
@@ -933,6 +945,7 @@ const CvWString & CvInitCore::getEraKey(CvWString & szBuffer) const
 
 void CvInitCore::setGameSpeed(const CvWString & szGameSpeed)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumGameSpeedInfos(); i++)
 	{
 		if ( wcsicmp(szGameSpeed.GetCString(), CvWString(GC.getGameSpeedInfo((GameSpeedTypes)i).getType()).GetCString()) == 0 )
@@ -955,6 +968,7 @@ const CvWString & CvInitCore::getGameSpeedKey(CvWString & szBuffer) const
 
 void CvInitCore::setTurnTimer(const CvWString & szTurnTimer)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumTurnTimerInfos(); i++)
 	{
 		if ( wcsicmp(szTurnTimer.GetCString(), CvWString(GC.getTurnTimerInfo((TurnTimerTypes)i).getType()).GetCString()) == 0 )
@@ -977,6 +991,7 @@ const CvWString & CvInitCore::getTurnTimerKey(CvWString & szBuffer) const
 
 void CvInitCore::setCalendar(const CvWString & szCalendar)
 {
+	PROFILE_EXTRA_FUNC();
 	for (int i = 0; i < GC.getNumCalendarInfos(); i++)
 	{
 		if ( wcsicmp(szCalendar.GetCString(), CvWString(GC.getCalendarInfo((CalendarTypes)i).getType()).GetCString()) == 0 )
@@ -1006,6 +1021,7 @@ void CvInitCore::clearCustomMapOptions()
 
 void CvInitCore::refreshCustomMapOptions()
 {
+	PROFILE_EXTRA_FUNC();
 	clearCustomMapOptions();
 
 	if (!getWBMapScript() && gDLL->pythonMapExists(CvString(getMapScriptName()).GetCString()))
@@ -1038,6 +1054,7 @@ void CvInitCore::clearVictories()
 
 void CvInitCore::refreshVictories()
 {
+	PROFILE_EXTRA_FUNC();
 	clearVictories();
 
 	m_iNumVictories = GC.getNumVictoryInfos();
@@ -1053,6 +1070,7 @@ void CvInitCore::refreshVictories()
 
 void CvInitCore::setCustomMapOptions(int iNumCustomMapOptions, const CustomMapOptionTypes * aeCustomMapOptions)
 {
+	PROFILE_EXTRA_FUNC();
 	clearCustomMapOptions();
 	if (iNumCustomMapOptions)
 	{
@@ -1079,7 +1097,8 @@ CustomMapOptionTypes CvInitCore::getCustomMapOption(int iOptionID) const
 void CvInitCore::setCustomMapOption(int iOptionID, CustomMapOptionTypes eCustomMapOption)
 {
 	FASSERT_BOUNDS(0, m_iNumCustomMapOptions, iOptionID);
-	if ( checkBounds(iOptionID, 0, m_iNumCustomMapOptions) )
+
+	if (checkBounds(iOptionID, 0, m_iNumCustomMapOptions))
 	{
 		m_aeCustomMapOptions[iOptionID] = eCustomMapOption;
 	}
@@ -1088,6 +1107,7 @@ void CvInitCore::setCustomMapOption(int iOptionID, CustomMapOptionTypes eCustomM
 
 void CvInitCore::setVictories(int iNumVictories, const bool * abVictories)
 {
+	PROFILE_EXTRA_FUNC();
 	clearVictories();
 	if (iNumVictories)
 	{
@@ -1195,6 +1215,7 @@ void CvInitCore::setActivePlayer(PlayerTypes eActivePlayer)
 
 void CvInitCore::setType(GameType eType)
 {
+	PROFILE_EXTRA_FUNC();
 	if (getType() != eType)
 	{
 		m_eType = eType;
@@ -1228,6 +1249,7 @@ void CvInitCore::setType(const CvWString & szType)
 
 void CvInitCore::setMode(GameMode eMode)
 {
+	PROFILE_EXTRA_FUNC();
 	if (getMode() != eMode)
 	{
 		m_eMode = eMode;
@@ -1645,6 +1667,7 @@ void CvInitCore::resetAdvancedStartPoints()
 
 void CvInitCore::read(FDataStreamBase* pStream)
 {
+	PROFILE_EXTRA_FUNC();
 	uint uiSaveFlag=0;
 	pStream->Read(&uiSaveFlag);		// flags for expansion (see SaveBits)
 
@@ -1684,12 +1707,10 @@ void CvInitCore::read(FDataStreamBase* pStream)
 		throw std::invalid_argument(reason);
 	}
 
-	m_bRecalcRequestProcessed = false;
-
 	//	Asset checksum of the build that did the save
-	m_uiSavegameAssetCheckSum = -1;	//	If save doesn't have the info
-	WRAPPER_READ(wrapper, "CvInitCore", &m_uiSavegameAssetCheckSum);
-	OutputDebugString(CvString::format("Asset CheckSum of save is %d\n", m_uiSavegameAssetCheckSum).c_str());
+	WRAPPER_READ_DECORATED(wrapper, "CvInitCore", &m_uiSavegameAssetCheckSum, "m_uiSavegameAssetCheckSum");
+	//OutputDebugString(CvString::format("Asset CheckSum READ %I32u = m_uiAssetCheckSum\n", m_uiAssetCheckSum).c_str());
+	//OutputDebugString(CvString::format("Asset CheckSum READ %I32u = m_uiSavegameAssetCheckSum\n", m_uiSavegameAssetCheckSum).c_str());
 
 	// GAME DATA
 	WRAPPER_READ(wrapper, "CvInitCore", (int*)&m_eType);
@@ -1707,11 +1728,6 @@ void CvInitCore::read(FDataStreamBase* pStream)
 
 	m_eGameSpeed = NO_GAMESPEED;
 	WRAPPER_READ_CLASS_ENUM(wrapper, "CvInitCore", REMAPPED_CLASS_TYPE_GAMESPEEDS, (int*)&m_eGameSpeed);
-	if (m_eGameSpeed == NO_GAMESPEED)  // Old savegame before gamespeed remapping
-	{
-		WRAPPER_READ(wrapper, "CvInitCore", (int*)&m_eGameSpeed);
-		handleOldGameSpeed();
-	}
 
 	WRAPPER_READ(wrapper, "CvInitCore", (int*)&m_eTurnTimer);
 	WRAPPER_READ(wrapper, "CvInitCore", (int*)&m_eCalendar);
@@ -1734,17 +1750,12 @@ void CvInitCore::read(FDataStreamBase* pStream)
 		WRAPPER_READ_ARRAY(wrapper, "CvInitCore", m_iNumVictories, m_abVictories);
 	}
 
-// BUG - Save Format - start
 	if (bugSaveFlag)
 	{
 		// read and ignore number of game options as it's only for external tools
 		int iNumGameOptions = 0;
-		// @SAVEBREAK DELETE
-		WRAPPER_READ_DECORATED(wrapper, "CvInitCore", &iNumGameOptions, "NUM_GAMEOPTION_TYPES");
-		// SAVEBREAK@
 		WRAPPER_READ_DECORATED(wrapper, "CvInitCore", &iNumGameOptions, "GC.getNumGameOptionInfos()");
 	}
-// BUG - Save Format - end
 
 /************************************************************************************************/
 /* MODULAR_LOADING_CONTROL                 11/30/07                                MRGENIE      */
@@ -1953,6 +1964,7 @@ void CvInitCore::write(FDataStreamBase* pStream)
 
 	// record the asset checksum of the build doing the save
 	WRAPPER_WRITE_DECORATED(wrapper, "CvInitCore", m_uiAssetCheckSum, "m_uiSavegameAssetCheckSum");
+	//OutputDebugString(CvString::format("Asset CheckSum WRITE:\n%I32u = m_uiAssetCheckSum\n%I32u = m_uiSavegameAssetCheckSum", m_uiAssetCheckSum, m_uiSavegameAssetCheckSum).c_str());
 
 	// GAME DATA
 	WRAPPER_WRITE(wrapper, "CvInitCore", m_eType);
@@ -2052,6 +2064,7 @@ CvString CvInitCore::getExeName() const
 extern HANDLE dllModule;
 void CvInitCore::setPathNames()
 {
+	PROFILE_EXTRA_FUNC();
 	if (bPathsSet)
 	{
 		return;
@@ -2101,6 +2114,7 @@ void CvInitCore::setPathNames()
 // Afforess - 01/12/10
 void CvInitCore::reassignPlayerAdvanced(PlayerTypes eOldID, PlayerTypes eNewID)
 {
+	PROFILE_EXTRA_FUNC();
 	if ( checkBounds(eOldID, 0, MAX_PC_PLAYERS) && checkBounds(eNewID, 0, MAX_PC_PLAYERS) )
 	{
 		// *** SAVE TARGET SLOT DETAILS TEMPORARILY
@@ -2171,89 +2185,44 @@ void CvInitCore::reassignPlayerAdvanced(PlayerTypes eOldID, PlayerTypes eNewID)
 }
 // ! Afforess
 
-unsigned int CvInitCore::getAssetCheckSum() const
-{
-	return m_uiAssetCheckSum;
-}
-
-unsigned int CvInitCore::getSavegameAssetCheckSum() const
-{
-	return m_uiSavegameAssetCheckSum;
-}
 
 void CvInitCore::calculateAssetCheckSum()
 {
 	m_uiAssetCheckSum = GC.getAssetCheckSum();
-
-#ifdef _DEBUG
-	//	Perform some validation checks of the loaded info classes (add as needed)
-	CvTechInfo::validate();
-#endif
+	/*
+	OutputDebugString(
+		CvString::format(
+			"Asset CheckSum calculateAssetCheckSum:\n%I32u = m_uiAssetCheckSum\n%I32u = m_uiSavegameAssetCheckSum",
+			m_uiAssetCheckSum, m_uiSavegameAssetCheckSum
+		)
+		.c_str()
+	);
+	*/
 }
 
 void CvInitCore::checkVersions()
 {
-	if (!m_bRecalcRequestProcessed && !getNewGame())
+	/*
+	OutputDebugString(
+		CvString::format(
+			"Asset CheckSum checkVersions:\n%I32u = m_uiAssetCheckSum\n%I32u = m_uiSavegameAssetCheckSum",
+			m_uiAssetCheckSum, m_uiSavegameAssetCheckSum
+		)
+		.c_str()
+	);
+	*/
+	// If assets changed
+	if (m_uiSavegameAssetCheckSum != m_uiAssetCheckSum)
 	{
-		// If assets changed
-		if (m_uiSavegameAssetCheckSum != GC.getInitCore().getAssetCheckSum())
+		const PlayerTypes ePlayer = GC.getGame().getActivePlayer();
+		// DLL or assets changed, recommend modifier reloading
+		if (NO_PLAYER != ePlayer && GET_PLAYER(ePlayer).isAlive() && GET_PLAYER(ePlayer).isHumanPlayer())
 		{
-			const PlayerTypes ePlayer = GC.getGame().getActivePlayer();
-			// DLL or assets changed, recommend modifier reloading
-			if (NO_PLAYER != ePlayer && GET_PLAYER(ePlayer).isAlive() && GET_PLAYER(ePlayer).isHuman())
+			CvPopupInfo* pInfo = new CvPopupInfo(BUTTONPOPUP_MODIFIER_RECALCULATION);
+			if (NULL != pInfo)
 			{
-				CvPopupInfo* pInfo = new CvPopupInfo(BUTTONPOPUP_MODIFIER_RECALCULATION);
-				if (NULL != pInfo)
-				{
-					gDLL->getInterfaceIFace()->addPopup(pInfo, ePlayer, true, true);
-				}
-				m_uiSavegameAssetCheckSum = GC.getInitCore().getAssetCheckSum();
-				m_bRecalcRequestProcessed = true;
+				gDLL->getInterfaceIFace()->addPopup(pInfo, ePlayer, false, true);
 			}
 		}
 	}
-}
-
-void CvInitCore::handleOldGameSpeed()
-{
-	switch ((int) m_eGameSpeed)
-	{
-		case 0: // eternity
-			m_eGameSpeed = (GameSpeedTypes) GC.getInfoTypeForString("GAMESPEED_ETERNITY");
-			if (m_eGameSpeed != NO_GAMESPEED) // eternity still existing?
-				return;
-
-		case 1: // snail
-			m_eGameSpeed = (GameSpeedTypes) GC.getInfoTypeForString("GAMESPEED_SNAIL");
-			if (m_eGameSpeed != NO_GAMESPEED) // snail still existing?
-				return;
-
-		case 2: // marathon
-			m_eGameSpeed = (GameSpeedTypes) GC.getInfoTypeForString("GAMESPEED_MARATHON");
-			if (m_eGameSpeed != NO_GAMESPEED) // marathon still existing?
-				return;
-
-		case 3: // epic
-			m_eGameSpeed = (GameSpeedTypes) GC.getInfoTypeForString("GAMESPEED_EPIC");
-			if (m_eGameSpeed != NO_GAMESPEED) // epic still existing?
-				return;
-
-		case 4: // normal
-			m_eGameSpeed = (GameSpeedTypes) GC.getInfoTypeForString("GAMESPEED_NORMAL");
-			if (m_eGameSpeed != NO_GAMESPEED) // normal still existing?
-				return;
-
-		case 5: // quick
-			m_eGameSpeed = (GameSpeedTypes) GC.getInfoTypeForString("GAMESPEED_QUICK");
-			if (m_eGameSpeed != NO_GAMESPEED) // quick still existing?
-				return;
-
-		case 6: // blitz
-			m_eGameSpeed = (GameSpeedTypes) GC.getInfoTypeForString("GAMESPEED_BLITZ");
-			if (m_eGameSpeed != NO_GAMESPEED) // blitz still existing?
-				return;
-	}
-
-	// backup plan is using the highest number game speed (which is fastest currently)
-	m_eGameSpeed = (GameSpeedTypes) (GC.getNumGameSpeedInfos() - 1);
 }

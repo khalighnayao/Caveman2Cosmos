@@ -92,6 +92,8 @@ void CyInfoPythonInterface1()
 		.def("getFlavorValue", &CvTechInfo::getFlavorValue, "int (int i)")
 		.def("getPrereqOrTechs", &CvTechInfo::getPrereqOrTechs, python::return_value_policy<python::reference_existing_object>())
 		.def("getPrereqAndTechs", &CvTechInfo::getPrereqAndTechs, python::return_value_policy<python::reference_existing_object>())
+		.def("getNumLeadsToTechs", &CvTechInfo::getNumLeadsToTechs, "int ()")
+		.def("getLeadsToTech", &CvTechInfo::getLeadsToTech, "int (int i)")
 
 		.def("isCommerceFlexible", &CvTechInfo::isCommerceFlexible, "bool (int i)")
 		.def("isTerrainTrade", &CvTechInfo::isTerrainTrade, "bool (int i)")
@@ -173,6 +175,7 @@ void CyInfoPythonInterface1()
 		;
 
 	python::class_<CvUnitInfo, python::bases<CvInfoBase, CvScalableInfo>, boost::noncopyable>("CvUnitInfo", python::no_init)
+		.def("getAdvisorType", &CvUnitInfo::getAdvisorType, "int ()")
 
 		.def("getMaxGlobalInstances", &CvUnitInfo::getMaxGlobalInstances, "int ()")
 		.def("getMaxPlayerInstances", &CvUnitInfo::getMaxPlayerInstances, "int ()")
@@ -253,13 +256,13 @@ void CyInfoPythonInterface1()
 		//.def("getTerrainImpassable", &CvUnitInfo::getTerrainImpassable, "bool (int i)")
 		//.def("getFeatureImpassable", &CvUnitInfo::getFeatureImpassable, "bool (int i)")
 		.def("getUnitNames", &CvUnitInfo::getUnitNames, "string (int i)")
+		.def("getArtInfo", &CvUnitInfo::getArtInfo,  python::return_value_policy<python::reference_existing_object>(), "CvArtInfoUnit* (int i, bool bLate)")
 		//TB SubCombat Mod begin  TB Combat Mods Begin
 		//boolean vectors
 		.def("isSubCombatType", &CvUnitInfo::isSubCombatType, "int (int i)")
 		.def("isQualifiedPromotionType", &CvUnitInfo::isQualifiedPromotionType, "bool (int i)")
 		.def("hasUnitCombat", &CvUnitInfo::hasUnitCombat, "bool (UnitCombatTypes eUnitCombat)")
-		.def("getTotalModifiedCombatStrength100", &CvUnitInfo::getTotalModifiedCombatStrength100, "int ()")
-		.def("getTotalModifiedAirCombatStrength100", &CvUnitInfo::getTotalModifiedAirCombatStrength100, "int ()")
+		.def("getTotalModifiedCombatStrength100", &CvUnitInfo::getTotalModifiedCombatStrength100, "int (bool bSizeMatters)")
 		//TB Combat Mods End  TB SubCombat Mod end
 
 		.def("getMapCategories", &CvUnitInfo::getMapCategories, python::return_value_policy<python::reference_existing_object>())
@@ -436,7 +439,6 @@ void CyInfoPythonInterface1()
 		.def("getGlobalSpaceProductionModifier", &CvBuildingInfo::getGlobalSpaceProductionModifier, "int ()")
 		.def("getHealRateChange", &CvBuildingInfo::getHealRateChange, "int ()")
 		.def("getInsidiousness", &CvBuildingInfo::getInsidiousness, "int ()")
-		.def("getInvasionChance", &CvBuildingInfo::getInvasionChance, "int ()")
 		.def("getInvestigation", &CvBuildingInfo::getInvestigation, "int ()")
 		.def("getLocalRepel", &CvBuildingInfo::getLocalRepel, "int ()")
 		.def("getNationalCaptureProbabilityModifier", &CvBuildingInfo::getNationalCaptureProbabilityModifier, "int ()")
@@ -476,6 +478,7 @@ void CyInfoPythonInterface1()
 
 		.def("isAnyTechSpecialistChanges", &CvBuildingInfo::isAnyTechSpecialistChanges, "bool ()")
 
+		.def("getConstructSound", &CvBuildingInfo::getConstructSound, "string ()")
 		.def("getHotKey", &CvBuildingInfo::getHotKey, "string ()")
 		.def("getArtDefineTag", &CvBuildingInfo::getArtDefineTag, "string ()")
 		.def("getMovie", &CvBuildingInfo::getMovie, "string ()")

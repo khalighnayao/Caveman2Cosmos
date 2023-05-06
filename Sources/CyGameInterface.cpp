@@ -56,7 +56,7 @@ void CyGamePythonInterface()
 		.def("calculateReligionPercent", &CyGame::calculateReligionPercent, "int (int eReligion)")
 		.def("countCorporationLevels", &CyGame::countCorporationLevels, "int (int eCorporation)")
 
-		.def("goldenAgeLength", &CyGame::goldenAgeLength, "int ()")
+		.def("goldenAgeLength100", &CyGame::goldenAgeLength100, "int ()")
 		.def("victoryDelay", &CyGame::victoryDelay, "int (int /*VictoryTypes*/ eVictory)")
 		.def("getImprovementUpgradeTime", &CyGame::getImprovementUpgradeTime, "int (int /*ImprovementTypes*/ eImprovement)")
 		.def("canTrainNukes", &CyGame::canTrainNukes, "bool ()")
@@ -138,7 +138,6 @@ void CyGamePythonInterface()
 		.def("changeDiploVote", &CyGame::changeDiploVote, "void (VoteSourceTypes, int)")
 		.def("isDebugMode", &CyGame::isDebugMode, "bool () - is the game in Debug Mode?")
 		.def("toggleDebugMode", &CyGame::toggleDebugMode)
-		.def("getChtLvl", &CyGame::getChtLvl, "int getChtLvl()")
 
 		.def("getPitbossTurnTime", &CyGame::getPitbossTurnTime, "int ()")
 		.def("setPitbossTurnTime", &CyGame::setPitbossTurnTime, "void (int)")
@@ -148,7 +147,9 @@ void CyGamePythonInterface()
 		.def("isSimultaneousTeamTurns", &CyGame::isSimultaneousTeamTurns, "bool ()")
 
 		.def("isFinalInitialized", &CyGame::isFinalInitialized, "bool () - Returns whether or not the game initialization process has ended (game has started)")
-
+		.def("onFinalInitialized", &CyGame::onFinalInitialized,
+			"void (bool bNewGame) - dll is poor at homing in on the load save finished game event, so python will notify it about that and new game event as well."
+		)
 		.def("getActivePlayer", &CyGame::getActivePlayer, "returns index of the active player")
 		.def("setActivePlayer", &CyGame::setActivePlayer, "void (int /*PlayerTypes*/ eNewValue, bool bForceHotSeat)")
 		.def("getPausePlayer", &CyGame::getPausePlayer, "int () - will get who paused us")
@@ -258,8 +259,6 @@ void CyGamePythonInterface()
 		.def("log", &CyGame::log)
 		.def("logw", &CyGame::logw, "void log(wstring str)")
 
-		.def("getCultureThreshold", &CyGame::getCultureThreshold, "int getCultureThreshold(CultureLevelTypes eLevel)")
-
 		.def("setPlotExtraYield", &CyGame::setPlotExtraYield, "void (int iX, int iY, int /*YieldTypes*/ eYield, int iExtraYield)")
 
 		.def("isCivEverActive", &CyGame::isCivEverActive, "bool (int /*CivilizationTypes*/ eCivilization)")
@@ -285,7 +284,6 @@ void CyGamePythonInterface()
 		.def("getModderGameOption", &CyGame::getModderGameOption, "bool ()")
 		.def("setModderGameOption", &CyGame::setModderGameOption, "void (int iNewVal)")
 
-		.def("canEverResearch", &CyGame::canEverResearch, "bool (int iTech)")
 		.def("canEverConstruct", &CyGame::canEverConstruct, "bool (int iBuilding)")
 		.def("canEverTrain", &CyGame::canEverTrain, "bool (int iUnit)")
 		.def("canEverSpread", &CyGame::canEverSpread, "bool (int iCorporation)")
@@ -293,6 +291,8 @@ void CyGamePythonInterface()
 		.def("getC2CVersion", &CyGame::getC2CVersion, "const char* ()")
 
 		.def("assignStartingPlots", &CyGame::assignStartingPlots, "void (bool bScenario, bool bMapScript)")
+
+		.def("exitWorldBuilder", &CyGame::exitWorldBuilder, "void ()")
 	;
 
 

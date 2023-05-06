@@ -16,13 +16,17 @@ class BugAutologOptionsTab(BugOptionsTab.BugOptionsTab):
 
 	def create(self, screen):
 		self.createTab(screen)
-		panel = self.createMainPanel(screen)
-		column = self.addOneColumnLayout(screen, panel)
+		column = self.addOneColumnLayout(screen, self.createMainPanel(screen))
 
-		left, middle, right = self.addMultiColumnLayout(screen, column, 3, "Autolog")
+		self.addCheckbox(screen, column, "Autolog__MiscLogging")
+		screen.attachHSeparator(column, column + "Sep0")
+		left, center, right = self.addThreeColumnLayout(screen, column, "Autolog0")
 		self.addCheckbox(screen, left, "Autolog__Enabled")
-		self.addCheckbox(screen, middle, "Autolog__Silent")
-		self.addIntDropdown(screen, right, right, "Autolog__BBAILevel")
+		self.addCheckbox(screen, left, "Autolog__Silent")
+		self.addIntDropdown(screen, center, center, "Autolog__LogLevelTeamBBAI")
+		self.addIntDropdown(screen, center, center, "Autolog__LogLevelPlayerBBAI")
+		self.addIntDropdown(screen, right, right, "Autolog__LogLevelUnitBBAI")
+		self.addIntDropdown(screen, right, right, "Autolog__LogLevelCityBBAI")
 
 		# File and Format
 		screen.attachHSeparator(column, column + "Sep1")
@@ -58,11 +62,10 @@ class BugAutologOptionsTab(BugOptionsTab.BugOptionsTab):
 		screen.attachHSeparator(left, left + "Sep3b")
 
 		self.addLabel(screen, left, "Autolog_Cities", "Cities:")
-		col1, col2, col3, col4 = self.addMultiColumnLayout(screen, right, 4, "Cities")
+		col1, col2, col3 = self.addMultiColumnLayout(screen, right, 3, "Cities")
 		self.addCheckbox(screen, col1, "Autolog__LogCityFounded")
-		self.addCheckbox(screen, col2, "Autolog__LogCityGrowth")
-		self.addCheckbox(screen, col3, "Autolog__LogCityBorders")
-		self.addCheckbox(screen, col4, "Autolog__LogCityOwner")
+		self.addCheckbox(screen, col2, "Autolog__LogCityBorders")
+		self.addCheckbox(screen, col3, "Autolog__LogCityOwner")
 		self.addSpacer(screen, left, "Cities1")
 		self.addCheckbox(screen, col1, "Autolog__LogCityRazed")
 		self.addCheckbox(screen, col2, "Autolog__LogCityWhipStatus")

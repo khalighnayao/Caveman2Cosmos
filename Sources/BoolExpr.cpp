@@ -6,7 +6,11 @@
 //  PURPOSE: Boolean Expressions for Civ4 classes
 //
 //------------------------------------------------------------------------------------------------
+
+#include "FProfiler.h"
+
 #include "CvGameCoreDLL.h"
+#include "CvBonusInfo.h"
 #include "CvBuildingInfo.h"
 #include "CvGlobals.h"
 #include "CvInfos.h"
@@ -68,6 +72,7 @@ BoolExpr::~BoolExpr()
 
 const BoolExpr* BoolExpr::read(CvXMLLoadUtility *pXML)
 {
+	PROFILE_EXTRA_FUNC();
 	// In general we assume no comments to simplify reading code
 
 	//char szTag[1024];
@@ -479,6 +484,7 @@ bool BoolExprHas::evaluate(const CvGameObject* pObject) const
 
 BoolExprChange BoolExprHas::evaluateChange(const CvGameObject* pObject, const std::vector<GOMOverride>& overrides) const
 {
+	PROFILE_EXTRA_FUNC();
 	const bool result = pObject->hasGOM(m_eGOM, m_iID);
 	foreach_(const GOMOverride& it, overrides)
 	{
@@ -496,6 +502,7 @@ BoolExprChange BoolExprHas::evaluateChange(const CvGameObject* pObject, const st
 
 bool BoolExprHas::getInvolvesGOM(const std::vector<GOMQuery>& queries) const
 {
+	PROFILE_EXTRA_FUNC();
 	foreach_(const GOMQuery& it, queries)
 	{
 		if (it.GOM == m_eGOM && it.id == m_iID)
@@ -989,6 +996,7 @@ BoolExprIntegrateOr::~BoolExprIntegrateOr()
 
 bool BoolExprIntegrateOr::evaluate(const CvGameObject* pObject) const
 {
+	PROFILE_EXTRA_FUNC();
 	bool bAcc = false;
 	pObject->foreachRelated(m_eType, m_eRelation, bind(evalExprIntegrateOr, _1, m_pExpr, &bAcc));
 	return bAcc;
@@ -1022,6 +1030,7 @@ void evalExprChangeIntegrateOr(const CvGameObject* pObject, const BoolExpr* pExp
 
 BoolExprChange BoolExprIntegrateOr::evaluateChange(const CvGameObject* pObject, const std::vector<GOMOverride>& overrides) const
 {
+	PROFILE_EXTRA_FUNC();
 	BoolExprChange bAcc = BOOLEXPR_CHANGE_REMAINS_FALSE;
 	pObject->foreachRelated(m_eType, m_eRelation, bind(evalExprChangeIntegrateOr, _1, m_pExpr, &bAcc, overrides));
 	return bAcc;

@@ -37,7 +37,7 @@ def canTriggerBlessedSea(argsList):
 	data = argsList[0]
 	MAP = GC.getMap()
 
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY):
 		return False
 
 	iMapMinLandmass = 2 * GC.getWorldInfo(MAP.getWorldSize()).getDefaultPlayers()
@@ -97,7 +97,7 @@ def applyBlessedSea2(argsList):
 	for loopCity in GC.getPlayer(data.ePlayer).cities():
 		if loopCity.getPopulation() >= 5:
 			if loopCity.canConstruct(iBuilding, False, False, True):
-				loopCity.setNumRealBuilding(iBuilding, 1)
+				loopCity.changeHasBuilding(iBuilding, True)
 
 
 def canApplyBlessedSea2(argsList):
@@ -151,7 +151,7 @@ def getHelpHolyMountain1(argsList):
 def canTriggerHolyMountain(argsList):
 	data = argsList[0]
 
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY):
 		return False
 
 	CyPlot = GC.getMap().plot(data.iPlotX, data.iPlotY)
@@ -422,7 +422,7 @@ def canApplyLooters3(argsList):
 	iTreshold = (100 + 20 * iEra * iEra) * GC.getGameSpeedInfo(GAME.getGameSpeedType()).getHammerCostPercent() / 100
 
 	for i in xrange(GC.getNumBuildingInfos()):
-		if isLimitedWonder(i) or CyCity.getNumRealBuilding(i) < 1:
+		if isLimitedWonder(i) or not CyCity.hasBuilding(i):
 			continue
 		info = GC.getBuildingInfo(i)
 		if info.isAutoBuild():
@@ -445,7 +445,7 @@ def applyLooters3(argsList):
 
 	aList = []
 	for i in xrange(GC.getNumBuildingInfos()):
-		if isLimitedWonder(i) or CyCity.getNumRealBuilding(i) < 1: continue
+		if isLimitedWonder(i) or not CyCity.hasBuilding(i): continue
 		info = GC.getBuildingInfo(i)
 		if info.isAutoBuild():
 			continue
@@ -459,7 +459,7 @@ def applyLooters3(argsList):
 		iBuilding = aList[GAME.getSorenRandNum(len(aList), "Looters event building destroyed")]
 		szBuffer = TRNSLTR.getText("TXT_KEY_EVENT_CITY_IMPROVEMENT_DESTROYED", (GC.getBuildingInfo(iBuilding).getTextKey(), ))
 		CyInterface().addMessage(data.eOtherPlayer, False, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_BOMBARDED", InterfaceMessageTypes.MESSAGE_TYPE_INFO, GC.getBuildingInfo(iBuilding).getButton(), GC.getCOLOR_RED(), CyCity.getX(), CyCity.getY(), True, True)
-		CyCity.setNumRealBuilding(iBuilding, 0)
+		CyCity.changeHasBuilding(iBuilding, False)
 		aList.remove(iBuilding)
 		iCount += 1
 
@@ -534,7 +534,7 @@ def canApplyHurricane1(argsList):
 	CyCity = CyPlayer.getCity(data.iCityId)
 
 	for i in xrange(GC.getNumBuildingInfos()):
-		if isLimitedWonder(i) or CyCity.getNumRealBuilding(i) < 1 or CyCity.isFreeBuilding(i):
+		if isLimitedWonder(i) or not CyCity.hasBuilding(i) or CyCity.isFreeBuilding(i):
 			continue
 		info = GC.getBuildingInfo(i)
 		if info.isNukeImmune() or info.isAutoBuild() or info.getProductionCost() < 1:
@@ -555,7 +555,7 @@ def applyHurricane1(argsList):
 
 	aList = []
 	for i in xrange(GC.getNumBuildingInfos()):
-		if isLimitedWonder(i) or CyCity.getNumRealBuilding(i) < 1 or CyCity.isFreeBuilding(i):
+		if isLimitedWonder(i) or not CyCity.hasBuilding(i) or CyCity.isFreeBuilding(i):
 			continue
 		info = GC.getBuildingInfo(i)
 		if info.isNukeImmune() or info.isAutoBuild() or info.getProductionCost() < 1:
@@ -566,7 +566,7 @@ def applyHurricane1(argsList):
 		iBuilding = aList[GAME.getSorenRandNum(len(aList), "Hurricane")]
 		szBuffer = TRNSLTR.getText("TXT_KEY_EVENT_CITY_IMPROVEMENT_DESTROYED", (GC.getBuildingInfo(iBuilding).getTextKey(), ))
 		CyInterface().addMessage(data.ePlayer, False, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_BOMBARDED", InterfaceMessageTypes.MESSAGE_TYPE_INFO, GC.getBuildingInfo(iBuilding).getButton(), GC.getCOLOR_RED(), CyCity.getX(), CyCity.getY(), True, True)
-		CyCity.setNumRealBuilding(iBuilding, 0)
+		CyCity.changeHasBuilding(iBuilding, False)
 
 
 ######## CYCLONE ###########
@@ -619,7 +619,7 @@ def applyTsunami2(argsList):
 
 	listBuildings = []
 	for i in xrange(GC.getNumBuildingInfos()):
-		if isLimitedWonder(i) or CyCity.getNumRealBuilding(i) < 1:
+		if isLimitedWonder(i) or not CyCity.hasBuilding(i):
 			continue
 		info = GC.getBuildingInfo(i)
 		if info.getProductionCost() > 0 and not info.isAutoBuild():
@@ -630,7 +630,7 @@ def applyTsunami2(argsList):
 			iBuilding = listBuildings[GAME.getSorenRandNum(len(listBuildings), "Tsunami event building destroyed")]
 			szBuffer = TRNSLTR.getText("TXT_KEY_EVENT_CITY_IMPROVEMENT_DESTROYED", (GC.getBuildingInfo(iBuilding).getTextKey(), ))
 			CyInterface().addMessage(data.ePlayer, False, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_BOMBARDED", InterfaceMessageTypes.MESSAGE_TYPE_INFO, GC.getBuildingInfo(iBuilding).getButton(), GC.getCOLOR_RED(), CyCity.getX(), CyCity.getY(), True, True)
-			CyCity.setNumRealBuilding(iBuilding, 0)
+			CyCity.changeHasBuilding(iBuilding, False)
 			listBuildings.remove(iBuilding)
 
 
@@ -660,64 +660,6 @@ def canTriggerMonsoonCity(argsList):
         return True
 
   return False
-
-######## VOLCANO ###########
-
-def getHelpVolcano1(argsList):
-	return TRNSLTR.getText("TXT_KEY_EVENT_VOLCANO_1_HELP", ())
-
-def canApplyVolcano1(argsList):
-	data = argsList[1]
-
-	for iDX in xrange(-1, 2):
-		for iDY in xrange(-1, 2):
-			plotX = plotXY(data.iPlotX, data.iPlotY, iDX, iDY)
-			if not plotX.isNone() and plotX.getImprovementType() != -1:
-				return True
-	return False
-
-def applyVolcano1(argsList):
-	data = argsList[1]
-	plots = []
-	iPlots = 0
-	for iDX in xrange(-1, 2):
-		for iDY in xrange(-1, 2):
-			plotX = plotXY(data.iPlotX, data.iPlotY, iDX, iDY)
-			if not plotX.isNone():
-				iImprovement = plotX.getImprovementType()
-				if iImprovement > -1:
-					plots.append((plotX, iImprovement))
-					iPlots += 1
-
-	if not plots: raise "Event - Error in canApplyVolcano1"
-
-	if iPlots < 3:
-		iRange = iPlots
-	else: iRange = 3
-
-	listRuins = [
-		GC.getInfoTypeForString("IMPROVEMENT_COTTAGE"),
-		GC.getInfoTypeForString("IMPROVEMENT_HAMLET"),
-		GC.getInfoTypeForString("IMPROVEMENT_VILLAGE"),
-		GC.getInfoTypeForString("IMPROVEMENT_TOWN"),
-		GC.getInfoTypeForString("IMPROVEMENT_SUBURBS"),
-		GC.getInfoTypeForString("IMPROVEMENT_GOODY_HUT")
-	]
-	iRuins = GC.getInfoTypeForString("IMPROVEMENT_CITY_RUINS")
-
-	for i in xrange(iRange):
-		if i and GAME.getSorenRandNum(100, "Volcano event num improvements destroyed") < 50:
-			break
-		plot, iImprovement = plots.pop(GAME.getSorenRandNum(iPlots, "Volcano event improvement destroyed"))
-		iPlots -= 1
-		szBuffer = TRNSLTR.getText("TXT_KEY_EVENT_CITY_IMPROVEMENT_DESTROYED", (GC.getImprovementInfo(iImprovement).getTextKey(), ))
-		CyInterface().addMessage(data.ePlayer, False, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_BOMBARDED", InterfaceMessageTypes.MESSAGE_TYPE_INFO, GC.getImprovementInfo(iImprovement).getButton(), GC.getCOLOR_RED(), plot.getX(), plot.getY(), True, True)
-		if iImprovement in listRuins:
-			plot.setImprovementType(iRuins)
-		else:
-			plot.setImprovementType(-1)
-
-
 
 ######## DUSTBOWL ###########
 
@@ -1484,7 +1426,7 @@ def canTriggerTheHuns(argsList):
   player = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Mounted Archery.
@@ -1567,7 +1509,7 @@ def canTriggerTheVandals(argsList):
   player = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Metal Casting.
@@ -1651,7 +1593,7 @@ def canTriggerTheGoths(argsList):
   player = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Mathematics.
@@ -1734,7 +1676,7 @@ def canTriggerThePhilistines(argsList):
   player = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Monotheism.
@@ -1818,7 +1760,7 @@ def canTriggerTheVedicAryans(argsList):
   player = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Polytheism.
@@ -1936,7 +1878,7 @@ def canTriggerTea(argsList):
 ######## HORSE WHISPERING ###########
 
 def canTriggerHorseWhispering(argsList):
-	return not GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE)
+	return not GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY)
 
 def getHelpHorseWhispering1(argsList):
 	return TRNSLTR.getText("TXT_KEY_EVENT_HORSE_WHISPERING_HELP", (GC.getWorldInfo(GC.getMap().getWorldSize()).getDefaultPlayers(), ))
@@ -1976,7 +1918,7 @@ def canTriggerHarbormaster(argsList):
   trigger = GC.getEventTriggerInfo(data.eTrigger)
   player = GC.getPlayer(data.ePlayer)
 
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY):
     return False
 
   map = GC.getMap()
@@ -2009,7 +1951,7 @@ def canTriggerHarbormasterDone(argsList):
 ######## CLASSIC LITERATURE ###########
 
 def canTriggerClassicLiterature(argsList):
-	return not GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE)
+	return not GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY)
 
 def getHelpClassicLiterature1(argsList):
 	return TRNSLTR.getText("TXT_KEY_EVENT_CLASSIC_LITERATURE_HELP_1", (GC.getWorldInfo(GC.getMap().getWorldSize()).getDefaultPlayers(), ))
@@ -2027,57 +1969,60 @@ def canApplyClassicLiteratureDone2(argsList):
 	player = GC.getPlayer(argsList[1].ePlayer)
 	iEraAncient = GC.getInfoTypeForString("C2C_ERA_ANCIENT")
 
-	for iTech in xrange(GC.getNumTechInfos()):
-		if GC.getTechInfo(iTech).getEra() == iEraAncient and player.canResearch(iTech):
+	team = GC.getTeam(player.getTeam())
+	for i in xrange(team.getNumAdjacentResearch()):
+		iTechX = team.getAdjacentResearch(i)
+		if GC.getTechInfo(iTechX).getEra() == iEraAncient and player.canResearch(iTechX, True, True):
 			return True
 	return False
 
 def applyClassicLiteratureDone2(argsList):
-  data = argsList[1]
-  player = GC.getPlayer(data.ePlayer)
+	data = argsList[1]
+	player = GC.getPlayer(data.ePlayer)
 
-  iEraAncient = GC.getInfoTypeForString("C2C_ERA_ANCIENT")
+	iEraAncient = GC.getInfoTypeForString("C2C_ERA_ANCIENT")
 
-  listTechs = []
-  for iTech in xrange(GC.getNumTechInfos()):
-    if GC.getTechInfo(iTech).getEra() == iEraAncient and player.canResearch(iTech):
-      listTechs.append(iTech)
+	listTechs = []
+	team = GC.getTeam(player.getTeam())
+	for i in xrange(team.getNumAdjacentResearch()):
+		iTechX = team.getAdjacentResearch(i)
+		if GC.getTechInfo(iTechX).getEra() == iEraAncient and player.canResearch(iTechX, True, True):
+			listTechs.append(iTechX)
 
-  if len(listTechs) > 0:
-    iTech = listTechs[GAME.getSorenRandNum(len(listTechs), "Classic Literature Event Tech selection")]
-    GC.getTeam(player.getTeam()).setHasTech(iTech, True, data.ePlayer, True, True)
+	if listTechs:
+		team.setHasTech(listTechs[GAME.getSorenRandNum(len(listTechs), "Classic Literature Event Tech selection")], True, data.ePlayer, True, True)
 
 def getHelpClassicLiteratureDone3(argsList):
-	iGreatLibrary = GC.getInfoTypeForString("BUILDING_GREAT_LIBRARY")
+	iGreatLibrary = GC.getInfoTypeForString("BUILDING_THE_GREAT_LIBRARY")
 
 	szCityName = ""
 	for city in GC.getPlayer(argsList[1].ePlayer).cities():
-		if city.getNumRealBuilding(iGreatLibrary):
+		if city.hasBuilding(iGreatLibrary):
 			szCityName = city.getNameKey()
 			break
 
 	return TRNSLTR.getText("TXT_KEY_EVENT_FREE_SPECIALIST", (1, GC.getSpecialistInfo(GC.getInfoTypeForString("SPECIALIST_SCIENTIST")).getTextKey(), szCityName))
 
 def canApplyClassicLiteratureDone3(argsList):
-	iGreatLibrary = GC.getInfoTypeForString("BUILDING_GREAT_LIBRARY")
+	iGreatLibrary = GC.getInfoTypeForString("BUILDING_THE_GREAT_LIBRARY")
 
 	for city in GC.getPlayer(argsList[1].ePlayer).cities():
-		if city.getNumRealBuilding(iGreatLibrary):
+		if city.hasBuilding(iGreatLibrary):
 			return True
 	return False
 
 def applyClassicLiteratureDone3(argsList):
-	iGreatLibrary = GC.getInfoTypeForString("BUILDING_GREAT_LIBRARY")
+	iGreatLibrary = GC.getInfoTypeForString("BUILDING_THE_GREAT_LIBRARY")
 
 	for city in GC.getPlayer(argsList[1].ePlayer).cities():
-		if city.getNumRealBuilding(iGreatLibrary):
+		if city.hasBuilding(iGreatLibrary):
 			city.changeFreeSpecialistCount(GC.getInfoTypeForString("SPECIALIST_SCIENTIST"), 1)
 			return
 
 ######## MASTER BLACKSMITH ###########
 
 def canTriggerMasterBlacksmith(argsList):
-	return not GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE)
+	return not GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY)
 
 def getHelpMasterBlacksmith1(argsList):
 	return (
@@ -2154,9 +2099,9 @@ def applyMasterBlacksmithDone1(argsList):
 	CyInterface().addMessage(
 		data.ePlayer, False, GC.getEVENT_MESSAGE_TIME(),
 		TRNSLTR.getText(
-			"TXT_KEY_MISC_DISCOVERED_NEW_RESOURCE",
+			"TXT_KEY_MISC_DISCOVERED_NEW_RESOURCE_IMPROVEMENT",
 			(
-				GC.getBonusInfo(iBonus).getTextKey(), GC.getPlayer(data.ePlayer).getCity(data.iCityId).getNameKey()
+				GC.getPlayer(data.ePlayer).getCity(data.iCityId).getNameKey(), GC.getBonusInfo(iBonus).getTextKey()
 			)
 		),
 		"AS2D_DISCOVERBONUS", InterfaceMessageTypes.MESSAGE_TYPE_MINOR_EVENT, GC.getBonusInfo(iBonus).getButton(),
@@ -2167,7 +2112,7 @@ def applyMasterBlacksmithDone1(argsList):
 ######## THE BEST DEFENSE ###########
 
 def canTriggerBestDefense(argsList):
-	return not GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE)
+	return not GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY)
 
 def getHelpBestDefense1(argsList):
 	return TRNSLTR.getText("TXT_KEY_EVENT_BEST_DEFENSE_HELP_1", (GC.getWorldInfo(GC.getMap().getWorldSize()).getDefaultPlayers(), ))
@@ -2199,17 +2144,17 @@ def applyBestDefenseDone2(argsList):
 
 
 def canApplyBestDefenseDone3(argsList):
-	iGreatWall = GC.getInfoTypeForString("BUILDING_GREAT_WALL")
+	iGreatWall = GC.getInfoTypeForString("BUILDING_GREAT_WALL_OF_CHINA")
 
 	for city in GC.getPlayer(argsList[1].ePlayer).cities():
-		if city.getNumRealBuilding(iGreatWall):
+		if city.hasBuilding(iGreatWall):
 			return True
 	return False
 
 ######## NATIONAL SPORTS LEAGUE ###########
 
 def canTriggerSportsLeague(argsList):
-	return not GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE)
+	return not GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY)
 
 def getHelpSportsLeague1(argsList):
 	return (
@@ -2238,7 +2183,7 @@ def canApplySportsLeagueDone3(argsList):
 	iZeus = GC.getInfoTypeForString("BUILDING_CIRCUS_MAXIMUS")
 
 	for city in GC.getPlayer(argsList[1].ePlayer).cities():
-		if city.getNumRealBuilding(iZeus):
+		if city.hasBuilding(iZeus):
 			return True
 	return False
 
@@ -2247,7 +2192,7 @@ def canApplySportsLeagueDone3(argsList):
 def canTriggerCrusade(argsList):
 	data = argsList[0]
 
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY):
 		return False
 
 	holyCity = GAME.getHolyCity(data.eReligion)
@@ -2333,7 +2278,7 @@ def canApplyCrusadeDone2(argsList):
 		return False
 	city = GAME.getHolyCity(data.eReligion)
 
-	if city is None or city.getNumRealBuilding(data.eBuilding):
+	if city is None or city.hasBuilding(data.eBuilding):
 		return False
 	return True
 
@@ -2341,7 +2286,7 @@ def applyCrusadeDone2(argsList):
   data = argsList[1]
 
   holyCity = GAME.getHolyCity(data.eReligion)
-  holyCity.setNumRealBuilding(data.eBuilding, 1)
+  holyCity.changeHasBuilding(data.eBuilding, True)
 
   if (not GAME.isNetworkMultiPlayer() and data.ePlayer == GAME.getActivePlayer()):
     popupInfo = CyPopupInfo()
@@ -2388,7 +2333,7 @@ def applyCrusadeDone3(argsList):
 ######## ESTEEMEED_PLAYWRIGHT ###########
 
 def canTriggerEsteemedPlaywright(argsList):
-	return not GC.getPlayer(argsList[0].ePlayer).hasBuilding(GC.getInfoTypeForString("BUILDING_SLAVERY"))
+	return not GC.getPlayer(argsList[0].ePlayer).hasBuilding(GC.getInfoTypeForString("BUILDING_WORLDVIEW_SLAVERY_ACTIVE"))
 
 
 ######## SECRET_KNOWLEDGE ###########
@@ -2654,7 +2599,7 @@ def canTriggerWarships(argsList):
 
 def getHelpWarships1(argsList):
 	iNumUnits = GC.getWorldInfo(GC.getMap().getWorldSize()).getDefaultPlayers()
-	iBuilding = GC.getInfoTypeForString("BUILDING_GREAT_LIGHTHOUSE")
+	iBuilding = GC.getInfoTypeForString("BUILDING_THE_GREAT_LIGHTHOUSE")
 	return TRNSLTR.getText("TXT_KEY_EVENT_WARSHIPS_HELP_1", (iNumUnits, GC.getBuildingInfo(iBuilding).getTextKey()))
 
 def canTriggerWarshipsDone(argsList):
@@ -2673,7 +2618,7 @@ def canApplyWarshipsDone2(argsList):
   data = argsList[1]
   player = GC.getPlayer(data.ePlayer)
 
-  iBuilding = GC.getInfoTypeForString("BUILDING_GREAT_LIGHTHOUSE")
+  iBuilding = GC.getInfoTypeForString("BUILDING_THE_GREAT_LIGHTHOUSE")
   if player.getBuildingCountWithUpgrades(iBuilding) == 0:
     return False
 
@@ -2720,7 +2665,7 @@ def canTriggerNobleKnights(argsList):
 
 def getHelpNobleKnights1(argsList):
 	iNumUnits = GC.getWorldInfo(GC.getMap().getWorldSize()).getDefaultPlayers() + 1
-	iBuilding = GC.getInfoTypeForString("BUILDING_ORACLE")
+	iBuilding = GC.getInfoTypeForString("BUILDING_THE_ORACLE")
 	return TRNSLTR.getText("TXT_KEY_EVENT_NOBLE_KNIGHTS_HELP_1", (iNumUnits, GC.getBuildingInfo(iBuilding).getTextKey()))
 
 def canTriggerNobleKnightsDone(argsList):
@@ -2737,10 +2682,10 @@ def canTriggerNobleKnightsDone(argsList):
   kActualTriggeredDataObject = player.getEventTriggered(data.iId)
   kActualTriggeredDataObject.eReligion = kOrigTriggeredData.eReligion
 
-  iBuilding = GC.getInfoTypeForString("BUILDING_ORACLE")
+  iBuilding = GC.getInfoTypeForString("BUILDING_THE_ORACLE")
 
   for loopCity in player.cities():
-    if loopCity.getNumRealBuilding(iBuilding):
+    if loopCity.hasBuilding(iBuilding):
       kActualTriggeredDataObject.iPlotX = loopCity.getX()
       kActualTriggeredDataObject.iPlotY = loopCity.getY()
       kActualTriggeredDataObject.iCityId = loopCity.getID()
@@ -2778,7 +2723,7 @@ def getHelpOverwhelm1(argsList):
   iNumCarriers = 3
   iFighter = GC.getInfoTypeForString("SPECIALUNIT_FIGHTER")
   iNumFighters = 9
-  iBuilding = GC.getInfoTypeForString("BUILDING_MANHATTAN")
+  iBuilding = GC.getInfoTypeForString("BUILDING_MANHATTAN_PROJECT")
 
 # szHelp = TRNSLTR.getText("TXT_KEY_EVENT_OVERWHELM_HELP_1", (iNumDestroyers, GC.getUnitInfo(iDestroyer).getTextKey(), iNumBattleships, GC.getUnitInfo(iBattleship).getTextKey(), iNumCarriers, GC.getUnitInfo(iCarrier).getTextKey(), iNumFighters, GC.getSpecialUnitInfo(iFighter).getTextKey(), GC.getProjectInfo(iProject).getTextKey()))
   szHelp = TRNSLTR.getText("TXT_KEY_EVENT_OVERWHELM_HELP_1", (iNumDestroyers, GC.getUnitInfo(iDestroyer).getTextKey(), iNumBattleships, GC.getUnitInfo(iBattleship).getTextKey(), iNumCarriers, GC.getUnitInfo(iCarrier).getTextKey(), iNumFighters, GC.getSpecialUnitInfo(iFighter).getTextKey(), GC.getBuildingInfo(iBuilding).getTextKey()))
@@ -2819,7 +2764,7 @@ def getHelpOverwhelmDone3(argsList):
 def canApplyOverwhelmDone3(argsList):
   data = argsList[1]
   player = GC.getPlayer(data.ePlayer)
-  iBuilding = GC.getInfoTypeForString("BUILDING_MANHATTAN")
+  iBuilding = GC.getInfoTypeForString("BUILDING_MANHATTAN_PROJECT")
 
 # if GC.getTeam(player.getTeam()).getProjectCount(iProject) == 0:
   if player.getBuildingCountWithUpgrades(iBuilding) == 0:
@@ -2912,7 +2857,7 @@ def canTriggerHostileTakeover(argsList):
 	data = argsList[0]
 	player = GC.getPlayer(data.ePlayer)
 
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_ONE_CITY_CHALLENGE):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_CHALLENGE_ONE_CITY):
 		return False
 
 	city = GAME.getHeadquarters(data.eCorporation)
@@ -3358,7 +3303,7 @@ def canTriggerCureforCancer(argsList):
 
 	if pPlayer.isCivic(GC.getInfoTypeForString("CIVIC_DIVINE_CULT")):
 		return False
-	if pPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_MEDICAL_DATABASE")) == 0:
+	if pPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_NATIONAL_MEDICAL_DATABASE")) == 0:
 		return False
 
 	return True
@@ -3490,7 +3435,7 @@ def canTriggerSyntheticFuels(argsList):
 
 	if (
 		not pPlayer.hasBonus(GC.getInfoTypeForString("BONUS_COAL"))
-	or pPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_CORPORATION_3_HQ")) > 0
+	or pPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_HQ_STANDARD_ETHANOL")) > 0
 	):
 		return False
 
@@ -3536,7 +3481,7 @@ def doSyntheticFuels4(argsList):
 
 def canTriggerAlternativeEnergy(argsList):
 	CyPlayer = GC.getPlayer(argsList[0].ePlayer)
-	if CyPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_GREAT_DAM")):
+	if CyPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_THREE_GORGES_DAM")):
 		return False
 	if not CyPlayer.getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_COAL_PLANT")):
 		return False
@@ -3547,14 +3492,14 @@ def getHelpAlternativeEnergy1(argsList):
 	return TRNSLTR.getText("TXT_KEY_EVENT_ALTERNATIVE_ENERGY_HELP_1", (GC.getWorldInfo(GC.getMap().getWorldSize()).getDefaultPlayers(), ))
 
 def expireAlternativeEnergy1(argsList):
-	return GC.getPlayer(argsList[1].ePlayer).getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_GREAT_DAM"))
+	return GC.getPlayer(argsList[1].ePlayer).getBuildingCountWithUpgrades(GC.getInfoTypeForString("BUILDING_THREE_GORGES_DAM"))
 
 
 def canTriggerAlternativeEnergyDone(argsList):
 	data = argsList[0]
 	trigger = GC.getEventTriggerInfo(data.eTrigger)
 	pPlayer = GC.getPlayer(data.ePlayer)
-	i3Gorges = GC.getInfoTypeForString("BUILDING_GREAT_DAM")
+	i3Gorges = GC.getInfoTypeForString("BUILDING_THREE_GORGES_DAM")
 
 	iNuke = GC.getInfoTypeForString("BUILDING_NUCLEAR_PLANT")
 	iHydro = GC.getInfoTypeForString("BUILDING_HYDRO_PLANT")
@@ -3593,7 +3538,7 @@ def canTriggerMoreFiatMoney(argsList):
 ##### INDUSTRIAL_ACTION #####
 
 def canTriggerIndustrialAction(argsList):
-	return not GC.getPlayer(argsList[0].ePlayer).hasBuilding(GC.getInfoTypeForString("BUILDING_SLAVERY"))
+	return not GC.getPlayer(argsList[0].ePlayer).hasBuilding(GC.getInfoTypeForString("BUILDING_WORLDVIEW_SLAVERY_ACTIVE"))
 
 def canDoTriggerCityIndustrialAction(argsList):
 	iCity = argsList[2]
@@ -3671,7 +3616,7 @@ def canTriggerTheBuccaneers(argsList):
   pPlayer = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Gunpowder.
@@ -3752,7 +3697,7 @@ def applyTheBuccaneers1(argsList):
 
 def canTriggerBlackbeard(argsList):
 	# If Barbarians are disabled in this game, this event will not occur.
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
 		return False
 
 	iPlayer = argsList[0].ePlayer
@@ -3839,7 +3784,7 @@ def applyBlackbeard1(argsList):
 
 def canTriggerPiratesoftheNeutralZones(argsList):
 	# If Barbarians are disabled in this game, this event will not occur.
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
 		return False
 
 	# At least one civ on the board must know Stealth
@@ -3913,7 +3858,7 @@ def canTriggerMalaccanPirates(argsList):
   map = GC.getMap()
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 ###     data.ePlayer must have less than a variable number of combat ships based on map size
@@ -4042,7 +3987,7 @@ def canTriggerHenryMorgan(argsList):
   map = GC.getMap()
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 ###     data.ePlayer must have less than a variable number of combat ships based on map size
@@ -4183,7 +4128,7 @@ def canTriggerStedeBonnet(argsList):
   map = GC.getMap()
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 ###     data.ePlayer must have less than a variable number of combat ships based on map size
@@ -4336,7 +4281,7 @@ def canTriggerTheCorsairs(argsList):
   map = GC.getMap()
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 ###     data.ePlayer must have less than a variable number of combat ships based on map size
@@ -4466,7 +4411,7 @@ def canTriggerIllyrianPirates(argsList):
   map = GC.getMap()
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 ###     data.ePlayer must have less than a variable number of combat ships based on map size
@@ -4610,7 +4555,7 @@ def canTriggerMahdiArmy(argsList):
   pPlayer = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Flintlock.
@@ -4693,7 +4638,7 @@ def canTriggerTheTaliban(argsList):
   pPlayer = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Satellites.
@@ -4838,7 +4783,7 @@ def canTriggerMercenariesAncient(argsList):
 	data = argsList[0]
 	CyPlayer = GC.getPlayer(data.ePlayer)
 
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
 		return False
 
 	# Can we build the counter unit?
@@ -4927,7 +4872,7 @@ def canTriggerMercenariesClassical(argsList):
 	data = argsList[0]
 	CyPlayer = GC.getPlayer(data.ePlayer)
 
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
 		return False
 
 	# Can we build the counter unit?
@@ -5015,7 +4960,7 @@ def canTriggerMercenariesMedieval(argsList):
 	data = argsList[0]
 	CyPlayer = GC.getPlayer(data.ePlayer)
 
-	if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+	if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
 		return False
 
 	# Can we build the counter unit?
@@ -5305,7 +5250,7 @@ def canTriggerSilverRain(argsList):
   pPlayer = GC.getPlayer(data.ePlayer)
 
 #   If Barbarians are disabled in this game, this event will not occur.
-  if GAME.isOption(GameOptionTypes.GAMEOPTION_NO_BARBARIANS):
+  if GAME.isOption(GameOptionTypes.GAMEOPTION_BARBARIAN_NONE):
     return False
 
 #   At least one civ on the board must know Weather control
@@ -5582,7 +5527,7 @@ def TriggerHarryPotter2(argsList):
 	iStateReligion = CyPlayer.getStateReligion()
 	for CyCity in CyPlayer.cities():
 		if CyCity.canConstruct(iLibrary, False, False, True):
-			CyCity.setNumRealBuilding(iLibrary, 1)
+			CyCity.changeHasBuilding(iLibrary, True)
 
 		if CyCity.isHasReligion(iStateReligion):
 			CyCity.changeHurryAngerTimer(CyCity.flatHurryAngerLength())
@@ -5879,7 +5824,7 @@ def TriggerSuperVirus4(argsList):
   eventCity.changeOccupationTimer(iChangePopulation)
   eventCity.changeEventAnger(iChangePopulation)
 
-  eventCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_HOSPITAL"), 0)
+  eventCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_HOSPITAL"), False)
 
   eventCity.changePopulation(-iChangePopulation)
   szBuffer = TRNSLTR.getText("TXT_KEY_EVENT_SUPER_VIRUS_HIT_CITY", (iChangePopulation, eventCity.getNameKey()))
@@ -6001,18 +5946,18 @@ def triggerNewWorldCities(argsList):
 				iNumNeededDefenders -= 1
 
 		if iEvent == GC.getInfoTypeForString("EVENT_NEW_WORLD_2"):
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_WALLS"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_GRANARY"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_FORGE"), 1)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_WALLS"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_GRANARY"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_FORGE"), True)
 		else:
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_WALLS"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_BARRACKS"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_GRANARY"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_FORGE"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_MARKET"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_HARBOR"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_LIGHTHOUSE"), 1)
-			CyCity.setNumRealBuilding(GC.getInfoTypeForString("BUILDING_FISHERMAN_HUT"), 1)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_WALLS"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_BARRACKS"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_GRANARY"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_FORGE"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_MARKET"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_HARBOR"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_LIGHTHOUSE"), True)
+			CyCity.changeHasBuilding(GC.getInfoTypeForString("BUILDING_FISHERMANS_HUT"), True)
 		iNeededCities -= 1
 
 
@@ -6348,7 +6293,7 @@ def doVolcanoDormantEruption(argsList):
   doVolcanoPlot(pPlot)
   doVolcanoNeighbouringPlots(pPlot)
   doVolcanoAdjustFertility((pPlot, 1, team))
-  doVolcanoReport((pPlot, BugUtil.getPlainText("TXT_KEY_EVENT_TRIGGER_VOLCANO_EXTINCT")))
+  doVolcanoReport((pPlot, BugUtil.getPlainText("TXT_KEY_EVENT_TRIGGER_VOLCANO_DORMANT_ERUPTION")))
 
 def doVolcanoExtinction(argsList):
   data = argsList[0]
@@ -6388,7 +6333,7 @@ def doVolcanoSleep(argsList):
   doVolcanoReport((pPlot, BugUtil.getPlainText("TXT_KEY_EVENT_TRIGGER_VOLCANO_DORMANT")))
 
 def getHelpVolcanoEruption1(argsList):
-	return TRNSLTR.getText("TXT_KEY_EVENT_VOLCANO_ERUPTION_1_HELP", ())
+	return TRNSLTR.getText("TXT_KEY_EVENT_VOLCANO_ERUPTION_HELP", ())
 
 def getHelpVolcanoSleep(argsList):
 	return TRNSLTR.getText("TXT_KEY_EVENT_VOLCANO_SLEEP_HELP", ())
@@ -6412,7 +6357,7 @@ def doMinorFire(argsList):
 	iBurnBuilding = -1
 	iHighFlamm = 0
 	for i in xrange(GC.getNumBuildingInfos()):
-		if isLimitedWonder(i) or CyCity.getNumRealBuilding(i) < 1 or CyCity.isFreeBuilding(i):
+		if isLimitedWonder(i) or not CyCity.hasBuilding(i) or CyCity.isFreeBuilding(i):
 			continue
 		info = GC.getBuildingInfo(i)
 		if info.getProductionCost() < 1 or info.isNukeImmune() or info.isAutoBuild():
@@ -6428,7 +6373,7 @@ def doMinorFire(argsList):
 	if iBurnBuilding != -1:
 		szBuffer = TRNSLTR.getText("TXT_KEY_EVENT_CITY_IMPROVEMENT_DESTROYED", (GC.getBuildingInfo(iBurnBuilding).getTextKey(), ))
 		CyInterface().addMessage(data.ePlayer, False, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_BOMBARDED", InterfaceMessageTypes.MESSAGE_TYPE_INFO, GC.getBuildingInfo(iBurnBuilding).getButton(), GC.getCOLOR_RED(), CyCity.getX(), CyCity.getY(), True, True)
-		CyCity.setNumRealBuilding(iBurnBuilding, 0)
+		CyCity.changeHasBuilding(iBurnBuilding, False)
 
 
 def doMajorFire(argsList):
@@ -6449,7 +6394,7 @@ def doMajorFire(argsList):
 		if currFlamm <= iFlammEnd:
 			break
 		for j in xrange(GC.getNumBuildingInfos()):
-			if isLimitedWonder(j) or CyCity.getNumRealBuilding(j) < 1 or CyCity.isFreeBuilding(j):
+			if isLimitedWonder(j) or not CyCity.hasBuilding(j) or CyCity.isFreeBuilding(j):
 				continue
 			info = GC.getBuildingInfo(j)
 			if info.getProductionCost() < 1 or info.isNukeImmune() or info.isAutoBuild():
@@ -6469,7 +6414,7 @@ def doMajorFire(argsList):
 				"AS2D_BOMBARDED", InterfaceMessageTypes.MESSAGE_TYPE_INFO, GC.getBuildingInfo(iBurnBuilding).getButton(),
 				GC.getCOLOR_RED(), CyCity.getX(), CyCity.getY(), True, True
 			)
-			CyCity.setNumRealBuilding(iBurnBuilding, 0)
+			CyCity.changeHasBuilding(iBurnBuilding, False)
 
 def doCatastrophicFire(argsList):
 	data = argsList[1]
@@ -6501,7 +6446,7 @@ def doCatastrophicFire(argsList):
 		iHighFlamm = 0
 
 		for j in xrange(GC.getNumBuildingInfos()):
-			if isLimitedWonder(j) or CyCity.getNumRealBuilding(j) < 1 or CyCity.isFreeBuilding(j):
+			if isLimitedWonder(j) or not CyCity.hasBuilding(j) or CyCity.isFreeBuilding(j):
 				continue
 			info = GC.getBuildingInfo(j)
 			if info.getProductionCost() < 1 or info.isNukeImmune() or info.isAutoBuild():
@@ -6515,7 +6460,7 @@ def doCatastrophicFire(argsList):
 		if iBurnBuilding != -1:
 			szBuffer = TRNSLTR.getText("TXT_KEY_EVENT_CITY_IMPROVEMENT_DESTROYED", (GC.getBuildingInfo(iBurnBuilding).getTextKey(),))
 			CyInterface().addMessage(data.ePlayer, False, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_BOMBARDED", InterfaceMessageTypes.MESSAGE_TYPE_INFO, GC.getBuildingInfo(iBurnBuilding).getButton(), GC.getCOLOR_RED(), CyCity.getX(), CyCity.getY(), True, True)
-			CyCity.setNumRealBuilding(iBurnBuilding, 0)
+			CyCity.changeHasBuilding(iBurnBuilding, False)
 
 
 def getHelpMinorFire(argsList):
@@ -6614,9 +6559,9 @@ def doGlobalWarming(argsList):
 
 		if plot.isCity():
 			city = plot.getPlotCity()
-			iGW += city.getNumActiveBuilding(GC.getInfoTypeForString("BUILDING_POLLUTION_GLOBALWARMING1")) * 100
-			iGW += city.getNumActiveBuilding(GC.getInfoTypeForString("BUILDING_POLLUTION_GLOBALWARMING2")) * 10000
-			iGW += city.getNumActiveBuilding(GC.getInfoTypeForString("BUILDING_POLLUTION_GLOBALWARMING3")) * 1000000
+			iGW += city.getNumActiveBuilding(GC.getInfoTypeForString("BUILDING_POLLUTION_MINOR_GLOBAL_WARMING")) * 100
+			iGW += city.getNumActiveBuilding(GC.getInfoTypeForString("BUILDING_POLLUTION_MODERATE_GLOBAL_WARMING")) * 10000
+			iGW += city.getNumActiveBuilding(GC.getInfoTypeForString("BUILDING_POLLUTION_MAJOR_GLOBAL_WARMING")) * 1000000
 
 	maxRand = GAME.getEstimateEndTurn() * iNumPlots
 	iIce = 2*iNumPlots / countIce
@@ -6747,43 +6692,37 @@ def getHelpGlobalWarming(argsList):
 	return TRNSLTR.getText("TXT_KEY_EVENT_GLOBAL_WARMING_1_HELP",())
 
 ######## TORNADO ###########
-def canDoTornado(argsList):
-	EventTriggeredData = argsList[0]
+# def canDoTornado(argsList):
+# 	EventTriggeredData = argsList[0]
 
-	CyPlot = GC.getMap().plot(EventTriggeredData.iPlotX, EventTriggeredData.iPlotY)
-	if CyPlot.isCity():
-		return 0
+# 	CyPlot = GC.getMap().plot(EventTriggeredData.iPlotX, EventTriggeredData.iPlotY)
+# 	if CyPlot.isCity():
+# 		return 0
 
-	if not CyPlot.canHaveFeature(GC.getInfoTypeForString('FEATURE_TORNADO')):
-		return 0
+# 	iLatitude = CyPlot.getLatitude()
+# 	if iLatitude < 50 and 30 < iLatitude:
+# 		return 1
 
-	iLatitude = CyPlot.getLatitude()
-	if iLatitude < 50 and 30 < iLatitude:
-		return 1
+# 	iRandom = GAME.getSorenRandNum(101, "Random Plot") # 0 <-> 100
+# 	if iLatitude < 60 and 20 < iLatitude:
+# 		if iRandom < 20:
+# 			return 1
+# 	elif iRandom < 5:
+# 		return 1
+# 	return 0
 
-	iRandom = GAME.getSorenRandNum(101, "Random Plot") # 0 <-> 100
-	if iLatitude < 60 and 20 < iLatitude:
-		if iRandom < 20:
-			return 1
-	elif iRandom < 5:
-		return 1
-	return 0
+# def doTornado(argsList):
+# 	EventTriggeredData = argsList[1]
+# 	x, y = EventTriggeredData.iPlotX, EventTriggeredData.iPlotY
+# 	CyPlot = GC.getMap().plot(x, y)
+# 	if 50 > GAME.getSorenRandNum(101, "Random Plot"):
+# 		CyPlot.setImprovementType(-1)
 
-def doTornado(argsList):
-	EventTriggeredData = argsList[1]
-	x, y = EventTriggeredData.iPlotX, EventTriggeredData.iPlotY
-	CyPlot = GC.getMap().plot(x, y)
-	if 50 > GAME.getSorenRandNum(101, "Random Plot"):
-		CyPlot.setImprovementType(-1)
+# 	if 25 > GAME.getSorenRandNum(101, "Random Plot"):
+# 		CyPlot.setRouteType(-1)
 
-	if 25 > GAME.getSorenRandNum(101, "Random Plot"):
-		CyPlot.setRouteType(-1)
-
-	if CyPlot.getFeatureType() == -1:
-		CyPlot.setFeatureType(GC.getInfoTypeForString('FEATURE_TORNADO'), 0)
-
-	for pUnit in CyPlot.units():
-		pUnit.setImmobileTimer(1)
+# 	for pUnit in CyPlot.units():
+# 		pUnit.setImmobileTimer(1)
 
 ######## Native Good 1 -- lost resources ###########
 def canApplyNativegood1(argsList):
@@ -6969,12 +6908,12 @@ def doEventLawyer(argsList):
 
 		# Removes buildings
 		for iBuildingLoop in xrange(GC.getNumBuildingInfos( )):
-			if pCity.getNumRealBuilding(iBuildingLoop):
+			if pCity.hasBuilding(iBuildingLoop):
 				pBuilding = GC.getBuildingInfo( iBuildingLoop )
 				iRequiredCorporation = pBuilding.getFoundsCorporation( )
 				for iCorpLoop in xrange(GC.getNumCorporationInfos()):
 					if iRequiredCorporation == iCorpLoop:
-						pCity.setNumRealBuilding ( iBuildingLoop,0 )
+						pCity.changeHasBuilding(iBuildingLoop, False)
 
 		# Loop through all corporations, remove them from the city
 		for iCorpLoop in xrange(GC.getNumCorporationInfos()):
@@ -7081,9 +7020,8 @@ def applyCivilWar(argsList):
 	pNewTeam.setHasTech(OBtech, False, iNewID, False, False)
 
 	# Add techs to new player
-	iMaxTech = GC.getNumTechInfos()
 	for counter in xrange(iMaxTech):
-		if (pTriggerTeam.isHasTech(counter) == True) and (pNewTeam.isHasTech(counter) == False):
+		if pTriggerTeam.isHasTech(counter) and not pNewTeam.isHasTech(counter):
 			pNewTeam.setHasTech(counter, True, iNewID, False, False)
 
 	# Hand over cities
@@ -7108,7 +7046,7 @@ def applyCivilWar(argsList):
 
 ################ BEST HUNTERS ################
 def canDoBestHunters1(argsList):
-	return GAME.isOption(GameOptionTypes.GAMEOPTION_WITHOUT_WARNING)
+	return GAME.isOption(GameOptionTypes.GAMEOPTION_COMBAT_WITHOUT_WARNING)
 
 def canDoBestHunters2(argsList):
-	return GAME.isOption(GameOptionTypes.GAMEOPTION_HIDE_AND_SEEK) and GAME.isOption(GameOptionTypes.GAMEOPTION_SIZE_MATTERS)
+	return GAME.isOption(GameOptionTypes.GAMEOPTION_COMBAT_HIDE_SEEK) and GAME.isOption(GameOptionTypes.GAMEOPTION_COMBAT_SIZE_MATTERS)

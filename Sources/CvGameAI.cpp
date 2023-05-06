@@ -1,5 +1,8 @@
 // gameAI.cpp
 
+
+#include "FProfiler.h"
+
 #include "CvGameAI.h"
 #include "CvGlobals.h"
 #include "CvGlobals.h"
@@ -47,6 +50,7 @@ void CvGameAI::AI_reset()
 
 void CvGameAI::AI_makeAssignWorkDirty()
 {
+	PROFILE_EXTRA_FUNC();
 	int iI;
 
 	for (iI = 0; iI < MAX_PLAYERS; iI++)
@@ -88,19 +92,19 @@ int CvGameAI::AI_combatValue(const UnitTypes eUnit) const
 	{
 		iValue *= GC.getUnitInfo(eUnit).getCombat();
 		//TB Combat Mods Begin
-		iValue += (((100 + GC.getUnitInfo(eUnit).getArmor())/100)/5);
-		iValue += (((100 + GC.getUnitInfo(eUnit).getPuncture())/100)/5);
-		iValue += (((100 + GC.getUnitInfo(eUnit).getPrecisionModifier())/100)/5);
-		iValue += (((100 + GC.getUnitInfo(eUnit).getDodgeModifier())/100)/5);
-		iValue += (((100 + GC.getUnitInfo(eUnit).getDamageModifier())/100)/5);
+		// Inactive
+		//iValue += (((100 + GC.getUnitInfo(eUnit).getArmor())/100)/5);
+		//iValue += (((100 + GC.getUnitInfo(eUnit).getPuncture())/100)/5);
+		// Inactive END
+
+		// TOOD: rethink these calculations
+		//iValue += (((100 * GC.getUnitInfo(eUnit).getPrecisionModifier())/100)/5);
+		//iValue += (((100 * GC.getUnitInfo(eUnit).getDodgeModifier())/100)/5);
+		//iValue += (((100 * GC.getUnitInfo(eUnit).getDamageModifier())/100)/5);
 		//TB Combat Mods End
 
-		iValue *= ((((GC.getUnitInfo(eUnit).getFirstStrikes() * 2) + GC.getUnitInfo(eUnit).getChanceFirstStrikes()) * (GC.getCOMBAT_DAMAGE() / 5)) + 100);
+		iValue *= ((GC.getUnitInfo(eUnit).getFirstStrikes() * 2 + GC.getUnitInfo(eUnit).getChanceFirstStrikes()) * (GC.getCOMBAT_DAMAGE() / 5)) + 100;
 		iValue /= 100;
-	}
-	if (GC.getGame().isOption(GAMEOPTION_SIZE_MATTERS))
-	{
-		iValue = CvUnit::applySMRank(iValue, GC.getUnitInfo(eUnit).getSMRankTotal() - 15, GC.getSIZE_MATTERS_MOST_MULTIPLIER());
 	}
 
 	iValue /= getBestLandUnitCombat();
